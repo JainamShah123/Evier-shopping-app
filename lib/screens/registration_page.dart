@@ -1,3 +1,4 @@
+import 'package:evier_login/resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
 import '../resources/custom_gradient.dart';
 
@@ -31,12 +32,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Container(
         height: 50,
         width: double.infinity,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
-          gradient: CustomGradient(),
-        ),
+        decoration: const CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
@@ -62,12 +58,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Container(
         height: 45,
         width: 150,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(30),
-          ),
-          gradient: CustomGradient(),
-        ),
+        decoration: CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
