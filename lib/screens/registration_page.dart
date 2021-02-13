@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'resources/strings.dart';
+import '../resources/custom_gradient.dart';
 
 enum Character { male, female }
 
@@ -36,12 +35,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           borderRadius: BorderRadius.all(
             Radius.circular(30),
           ),
-          gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF0D47A1),
-              Color(0xFF1976D2),
-            ],
-          ),
+          gradient: CustomGradient(),
         ),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
@@ -72,12 +66,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           borderRadius: BorderRadius.all(
             Radius.circular(30),
           ),
-          gradient: LinearGradient(
-            colors: <Color>[
-              Color(0xFF0D47A1),
-              Color(0xFF1976D2),
-            ],
-          ),
+          gradient: CustomGradient(),
         ),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
@@ -129,12 +118,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               width: double.infinity,
               height: 630,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: <Color>[
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
-                  ],
-                ),
+                gradient: CustomGradient(),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(40),
                   bottomRight: Radius.circular(40),
@@ -180,7 +164,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 keyboardType: TextInputType.emailAddress,
                                 decoration: InputDecoration(
                                   hintText: "Full Name",
-                                  prefixIcon: Icon(Icons.account_circle_outlined),
+                                  prefixIcon:
+                                      Icon(Icons.account_circle_outlined),
                                 ),
                                 validator: (value) {
                                   if (value.isEmpty) {
