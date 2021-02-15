@@ -1,5 +1,6 @@
 import 'package:evier_login/resources/custom_box_decoration.dart';
 import 'package:evier_login/resources/custom_gradient.dart';
+import 'package:evier_login/screens/HomeScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/strings.dart';
@@ -51,6 +52,7 @@ class _LoginState extends State<Login> {
         if (_key.currentState.validate()) {
           _key.currentState.save();
           print(email + password);
+          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
         }
       },
       textColor: Colors.white,
