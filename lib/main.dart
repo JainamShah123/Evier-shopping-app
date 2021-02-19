@@ -1,4 +1,4 @@
-import 'package:evier_login/screens/HomeScreen.dart';
+import 'package:evier_login/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'screens/registration_page.dart';
 import 'screens/login.dart';
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       home: Login(),
       routes: {
         RegistrationPage.routeName: (context) => RegistrationPage(),
-        HomeScreen.routeName: (context) => HomeScreen(),
+        Wrapper.routeName: (context) => Wrapper(),
       },
     );
   }

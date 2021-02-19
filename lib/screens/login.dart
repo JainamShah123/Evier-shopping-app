@@ -1,6 +1,6 @@
 import 'package:evier_login/resources/custom_box_decoration.dart';
 import 'package:evier_login/resources/custom_gradient.dart';
-import 'package:evier_login/screens/HomeScreen.dart';
+import 'package:evier_login/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/strings.dart';
@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
         if (_key.currentState.validate()) {
           _key.currentState.save();
           print(email + password);
-          Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+          Navigator.pushReplacementNamed(context, Wrapper.routeName);
         }
       },
       textColor: Colors.white,
@@ -94,7 +94,9 @@ class _LoginState extends State<Login> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SignInWIthGoogleButton(),
-                  SizedBox(height: 20),
+                  SizedBox(
+                    height: 20,
+                  ),
                   FlatButton(
                     child: Text(
                       createAccount,
@@ -118,7 +120,7 @@ class _LoginState extends State<Login> {
                   bottomRight: Radius.circular(40),
                 ),
               ),
-              padding: EdgeInsets.all(0.2),
+              padding: EdgeInsets.all(1),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

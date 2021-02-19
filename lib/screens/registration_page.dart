@@ -107,7 +107,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             Container(
               width: double.infinity,
-              height: 630,
+              height: 620,
               decoration: BoxDecoration(
                 gradient: CustomGradient(),
                 borderRadius: BorderRadius.only(
