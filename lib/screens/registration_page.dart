@@ -1,4 +1,4 @@
-import 'package:evier_login/resources/custom_box_decoration.dart';
+import 'package:evier/resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
 import '../resources/custom_gradient.dart';
 

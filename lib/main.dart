@@ -1,4 +1,4 @@
-import 'package:evier_login/screens/wrapper.dart';
+import 'package:evier/screens/wrapper.dart';
 import 'package:flutter/material.dart';
 import 'screens/registration_page.dart';
 import 'screens/login.dart';
