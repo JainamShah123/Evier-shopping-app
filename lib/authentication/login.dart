@@ -1,3 +1,4 @@
+import 'package:evier/authentication/auth.dart';
 import 'package:evier/resources/custom_box_decoration.dart';
 import 'package:evier/resources/custom_gradient.dart';
 import '../myapp.dart';
@@ -52,7 +53,7 @@ class _LoginState extends State<Login> {
         if (_key.currentState.validate()) {
           _key.currentState.save();
           print(email + password);
-          Navigator.pushReplacementNamed(context, Wrapper.routeName);
+          Auth().login(email, password);
         }
       },
       textColor: Colors.white,

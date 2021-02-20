@@ -1,3 +1,4 @@
+import 'package:evier/authentication/auth.dart';
 import 'package:evier/resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
 import '../resources/custom_gradient.dart';
@@ -19,7 +20,14 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void register() {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      print(name + email + password + gender + mobileNumber);
+      gender = character.toString();
+      Auth().signup(
+        email: email,
+        password: password,
+        gender: gender,
+        name: name,
+        phoneNumber: mobileNumber,
+      );
     }
   }
 
