@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "198875778892",
+    "project_id": "evier-shopping-system",
+    "storage_bucket": "evier-shopping-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198875778892:android:ade819fdebc9174ec609e9",
+        "android_client_info": {
+          "package_name": "com.example.evier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198875778892-ej06iddoin9ag444trofucrfok1v7rc2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkxw_WtA2SfxJRo4YIsMcgsbDM6aKxoL8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198875778892-ej06iddoin9ag444trofucrfok1v7rc2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

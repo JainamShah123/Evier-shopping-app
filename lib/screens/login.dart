@@ -1,6 +1,6 @@
 import 'package:evier/resources/custom_box_decoration.dart';
 import 'package:evier/resources/custom_gradient.dart';
-import 'package:evier/screens/wrapper.dart';
+import '../myapp.dart';
 import 'package:flutter/material.dart';
 
 import '../resources/strings.dart';

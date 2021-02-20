@@ -1,38 +1,26 @@
-import 'package:evier/screens/wrapper.dart';
+import 'package:evier/loading.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'screens/registration_page.dart';
-import 'screens/login.dart';
-
-import 'resources/strings.dart';
+import './error.dart';
+import './myapp.dart';
 
 void main() {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: appTitle,
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-        ),
-        buttonTheme: ButtonThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Login(),
-      routes: {
-        RegistrationPage.routeName: (context) => RegistrationPage(),
-        Wrapper.routeName: (context) => Wrapper(),
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        if (snapshot.hasError) return Error();
+        if (snapshot.connectionState == ConnectionState.waiting)
+          return Loading();
+
+        return MyApp();
       },
     );
   }

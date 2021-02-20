@@ -1,4 +1,4 @@
-package com.example.evier_login
+package com.example.evier
 
 import io.flutter.embedding.android.FlutterActivity
 

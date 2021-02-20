@@ -1,10 +1,38 @@
 import 'package:flutter/material.dart';
+import 'resources/strings.dart';
+import 'screens/screens.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'category_screen.dart';
-import 'accountScreen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'favouritescreen.dart';
 import 'dart:math';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: appTitle,
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+        ),
+        buttonTheme: ButtonThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30),
+          ),
+        ),
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Login(),
+      routes: {
+        RegistrationPage.routeName: (context) => RegistrationPage(),
+        Wrapper.routeName: (context) => Wrapper(),
+      },
+    );
+  }
+}
 
 class Wrapper extends StatefulWidget {
   static String routeName = "HomeScreen";
