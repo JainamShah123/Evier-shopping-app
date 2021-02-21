@@ -30,12 +30,12 @@ class BottomNavigationBarWidget extends StatelessWidget {
                 text: 'Home',
               ),
               GButton(
-                icon: FontAwesomeIcons.heart,
-                text: 'Likes',
+                icon: FontAwesomeIcons.list,
+                text: 'Categories',
               ),
               GButton(
-                icon: FontAwesomeIcons.search,
-                text: 'Search',
+                icon: FontAwesomeIcons.heart,
+                text: 'Favourite',
               ),
               GButton(
                 icon: FontAwesomeIcons.userCircle,

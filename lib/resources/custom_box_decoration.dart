@@ -6,5 +6,6 @@ class CustomBoxDecoration extends BoxDecoration {
       : super(
           borderRadius: const BorderRadius.all(const Radius.circular(30)),
           gradient: const CustomGradient(),
+          color: Colors.white,
         );
 }

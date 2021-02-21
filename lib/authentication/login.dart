@@ -1,6 +1,6 @@
-import 'package:evier/authentication/auth.dart';
-import 'package:evier/resources/custom_box_decoration.dart';
-import 'package:evier/resources/custom_gradient.dart';
+import '../authentication/auth.dart';
+import '../resources/custom_box_decoration.dart';
+import '../resources/custom_gradient.dart';
 import '../myapp.dart';
 import 'package:flutter/material.dart';
 

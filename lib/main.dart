@@ -13,8 +13,12 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider.value(
-      value: FirebaseAuth.instance.authStateChanges(),
+    return MultiProvider(
+      providers: [
+        StreamProvider<User>.value(
+          value: FirebaseAuth.instance.authStateChanges(),
+        ),
+      ],
       child: MyApp(),
     );
   }

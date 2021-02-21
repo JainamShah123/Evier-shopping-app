@@ -1,7 +1,11 @@
+import '../screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 class Auth {
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseFirestore _storage = FirebaseFirestore.instance;
 
   Future signup({
     String email,
@@ -9,6 +13,7 @@ class Auth {
     String gender,
     String phoneNumber,
     String name,
+    BuildContext context,
   }) async {
     UserCredential userCredential;
     try {
@@ -23,8 +28,15 @@ class Auth {
     } catch (e) {
       print(e);
     } finally {
-      //TODO: implement database
-
+      _storage.collection('user').doc(userCredential.user.uid).set({
+        'type': gender,
+        'phonenumber': phoneNumber,
+        'name': name,
+      });
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
     }
   }
 

@@ -1,9 +1,9 @@
-import 'package:evier/authentication/auth.dart';
-import 'package:evier/resources/custom_box_decoration.dart';
+import '../authentication/auth.dart';
+import '../resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
 import '../resources/custom_gradient.dart';
 
-enum Character { male, female }
+enum Character { user, seller }
 
 class RegistrationPage extends StatefulWidget {
   static String routeName = 'register';
@@ -14,19 +14,20 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _key = GlobalKey<FormState>();
-  Character character = Character.male;
+  Character character = Character.user;
   String email, password, gender, name, mobileNumber;
 
-  void register() {
+  void register(BuildContext context) {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-      gender = character.toString();
+
       Auth().signup(
         email: email,
         password: password,
         gender: gender,
         name: name,
         phoneNumber: mobileNumber,
+        context: context,
       );
     }
   }
@@ -60,7 +61,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   // ignore: non_constant_identifier_names
   Widget RegisterButton() {
     return RaisedButton(
-      onPressed: register,
+      onPressed: () => register(context),
       textColor: Colors.white,
       padding: const EdgeInsets.all(0.0),
       child: Container(
@@ -115,7 +116,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
             Container(
               width: double.infinity,
-              height: 620,
+              height: 650,
               decoration: BoxDecoration(
                 gradient: CustomGradient(),
                 borderRadius: BorderRadius.only(
@@ -215,27 +216,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               Row(
                                 children: [
                                   Radio(
-                                    value: Character.male,
+                                    value: Character.user,
                                     groupValue: character,
                                     onChanged: (Character value) {
                                       setState(() {
                                         character = value;
-                                        gender = "Male";
+                                        gender = "User";
                                       });
                                     },
                                   ),
-                                  Text("Male"),
+                                  Text("User"),
                                   Radio(
-                                    value: Character.female,
+                                    value: Character.seller,
                                     groupValue: character,
                                     onChanged: (Character value) {
                                       setState(() {
                                         character = value;
-                                        gender = "Female";
+                                        gender = "Seller";
                                       });
                                     },
                                   ),
-                                  Text("Female"),
+                                  Text("Seller"),
                                 ],
                               ),
                               SizedBox(height: 15),

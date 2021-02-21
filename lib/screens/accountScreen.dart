@@ -5,14 +5,12 @@ import '../authentication/auth.dart';
 class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: RaisedButton(
-          child: Text("Logout"),
-          onPressed: () {
-            Auth().logout();
-          },
-        ),
+    return Center(
+      child: RaisedButton(
+        child: Text("Logout"),
+        onPressed: () {
+          Auth().logout();
+        },
       ),
     );
   }
