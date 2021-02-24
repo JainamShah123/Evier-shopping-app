@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evier/screens/loading.dart';
 import '../screens/bottom_navigation_bar_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import './screens.dart';
 import './home_page.dart';
-import 'error.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -91,25 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
           return Container();
         },
       ),
-      // return snapshot.data.docs.map((DocumentSnapshot snap) {
-      //   return snap.data()["Seller"] == "Seller"
-      //       ? FloatingActionButton(
-      //           onPressed: () {},
-      //           child: Icon(Icons.add),
-      //         )
-      //       : null;
-      // });
-      // return snapshot.data.docs();
-      // return FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.add),
-      // );
-
-      //       child: FloatingActionButton(
-      //   onPressed: () {},
-      //   child: Icon(Icons.add),
-      // ),
-
       bottomNavigationBar: BottomNavigationBarWidget(
         selectedIndex: _selectedIndex,
         itemTapped: selectPage,
