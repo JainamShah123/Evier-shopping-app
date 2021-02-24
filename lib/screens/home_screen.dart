@@ -48,11 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    CollectionReference query = FirebaseFirestore.instance.collection("users");
     final user = Provider.of<User>(context);
-    // final userData =Provider.of<QuerySnapshot>(context);
-    Query query = FirebaseFirestore.instance.collection('user');
-
-    // final userData = ;
 
     return Scaffold(
       drawer: Drawer(),
@@ -76,15 +73,23 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: _pages[_selectedIndex]['page'],
       floatingActionButton: FutureBuilder(
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return snapshot.data.docs(user.uid)['gender'] == 'Seller'
-              ? FloatingActionButton(
-                  onPressed: () {},
-                  child: Icon(Icons.add),
-                )
-              : null;
+        future:
+            FirebaseFirestore.instance.collection('user').doc(user.uid).get(),
+        builder: (ctx, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.connectionState == ConnectionState.done) {
+            DocumentSnapshot documentSnapshot = snapshot.data;
+            return documentSnapshot.data()['type'] == 'Seller'
+                ? FloatingActionButton(
+                    onPressed: null,
+                    child: Icon(Icons.add),
+                  )
+                : Container();
+          }
+          return Container();
         },
-        future: query.get(),
       ),
       // return snapshot.data.docs.map((DocumentSnapshot snap) {
       //   return snap.data()["Seller"] == "Seller"
