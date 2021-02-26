@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'custom_gradient.dart';
 
 class CustomBoxDecoration extends BoxDecoration {

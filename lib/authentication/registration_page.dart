@@ -1,3 +1,5 @@
+import 'package:evier/resources/strings.dart';
+
 import '../authentication/auth.dart';
 import '../resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
@@ -16,19 +18,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _key = GlobalKey<FormState>();
   Character character = Character.user;
   String email, password, gender, name, mobileNumber;
+  bool isloading = false;
 
   void register(BuildContext context) {
     if (_key.currentState.validate()) {
       _key.currentState.save();
-
-      Auth().signup(
+      setState(() {
+        isloading = true;
+      });
+      Auth()
+          .signup(
         email: email,
         password: password,
         gender: gender,
         name: name,
         phoneNumber: mobileNumber,
         context: context,
-      );
+      )
+          .whenComplete(() {
+        setState(() {
+          isloading = false;
+        });
+      });
     }
   }
 
@@ -48,7 +59,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Sign Up with google",
+              Strings.signInWithGoogle,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
@@ -76,7 +87,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             Icon(Icons.login),
             SizedBox(width: 20),
             Text(
-              "Register",
+              Strings.register,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
@@ -103,7 +114,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   SignUpWIthGoogleButton(),
                   FlatButton(
                     child: Text(
-                      "Go to login page",
+                      Strings.goToLoginPage,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 20),
                     ),
@@ -131,7 +142,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   children: [
                     SizedBox(height: 20),
                     Text(
-                      "Evier",
+                      Strings.title,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 50,
@@ -153,7 +164,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             children: [
                               SizedBox(height: 15),
                               Text(
-                                "Register",
+                                Strings.register,
                                 style: TextStyle(
                                   fontSize: 35,
                                   fontWeight: FontWeight.bold,
@@ -257,7 +268,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 },
                               ),
                               SizedBox(height: 15),
-                              RegisterButton(),
+                              isloading
+                                  ? CircularProgressIndicator()
+                                  : RegisterButton(),
                             ],
                           ),
                         ),
