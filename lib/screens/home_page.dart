@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,7 +10,11 @@ class HomePage extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
+          crossAxisCount: (kIsWeb &&
+                  MediaQuery.of(context).size.height <
+                      MediaQuery.of(context).size.width)
+              ? 5
+              : 2,
           childAspectRatio: 1.6 / 2,
         ),
         itemCount: 10,

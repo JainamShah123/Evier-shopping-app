@@ -16,4 +16,5 @@ class Strings {
   static const passwordError = "Please enter the password";
   static const register = "Register";
   static const goToLoginPage = "Go to login page";
+  static const search = "Search";
 }

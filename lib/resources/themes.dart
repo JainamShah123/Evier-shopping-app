@@ -4,7 +4,7 @@ ThemeData theme = ThemeData(
   scaffoldBackgroundColor: Colors.white,
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(50),
+      borderRadius: BorderRadius.circular(40),
     ),
   ),
   buttonTheme: ButtonThemeData(
