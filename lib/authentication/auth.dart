@@ -4,9 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../screens/home_screen.dart';
 
-class Auth {
+class Auth with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _storage = FirebaseFirestore.instance;
+
+  User user = FirebaseAuth.instance.currentUser;
 
   Future signup({
     String email,
@@ -62,5 +64,7 @@ class Auth {
 
   Future logout() async {
     await _auth.signOut();
+    user = null;
+    notifyListeners();
   }
 }

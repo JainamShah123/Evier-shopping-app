@@ -1,13 +1,18 @@
+/// Flutter Core packages
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+/// FlutterFire plugins
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/screens/add_product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+/// Custom widgets os screens or classes
 import './screens.dart';
 import '../resources/strings.dart';
+import '../resources/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,8 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-  final _key = GlobalKey<FormState>();
+  int _selectedIndex = 0; // Index to map BottomNavigation
+  final _key = GlobalKey<FormState>(); // Key to manage form
+
+  // Route Map for bottom navigation bar
   final List<Map<String, Object>> _pages = [
     {
       'page': HomePage(),
@@ -35,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': Strings.accountTitle,
     },
   ];
+
   void selectPage(int index) {
     setState(() {
       _selectedIndex = index;
@@ -51,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     padding: EdgeInsets.all(5),
                     alignment: Alignment.center,
                     height: Scaffold.of(context).appBarMaxHeight,
-                    width: 1000,
+                    width: 700,
                     child: Form(
                       key: _key,
                       child: TextFormField(
@@ -82,6 +90,32 @@ class _HomeScreenState extends State<HomeScreen> {
                     right: 20,
                   ),
                   child: Icon(Icons.search)),
+          (kIsWeb &&
+                  MediaQuery.of(context).size.height <
+                      MediaQuery.of(context).size.width)
+              ? SizedBox(
+                  width: 10,
+                )
+              : Container(),
+          (kIsWeb &&
+                  MediaQuery.of(context).size.height <
+                      MediaQuery.of(context).size.width)
+              ? InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.accountRoute);
+                  },
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    size: 40,
+                  ))
+              : Container(),
+          (kIsWeb &&
+                  MediaQuery.of(context).size.height <
+                      MediaQuery.of(context).size.width)
+              ? SizedBox(
+                  width: 10,
+                )
+              : Container(),
         ],
         leading: Center(
           child: Builder(
@@ -128,7 +162,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (snapshot.connectionState == ConnectionState.done) {
                   DocumentSnapshot documentSnapshot = snapshot.data;
                   return documentSnapshot.data()['type'] == 'Seller'
-                      ? FlatButton.icon(
+                      ? TextButton.icon(
                           onPressed: () {
                             Navigator.push(
                               context,

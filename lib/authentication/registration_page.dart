@@ -9,8 +9,6 @@ import '../resources/custom_gradient.dart';
 enum Character { user, seller }
 
 class RegistrationPage extends StatefulWidget {
-  static String routeName = 'register';
-
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
@@ -220,8 +218,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.login),
-            SizedBox(width: 20),
+            // Icon(Icons.login),
+            // SizedBox(width: 20),
             Text(
               Strings.register,
               textAlign: TextAlign.center,
@@ -246,7 +244,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
-                      gradient: CustomGradient(),
+                      color: Colors.blue[800], // gradient: CustomGradient(),
                     ),
                     child: Center(
                       child: Text(

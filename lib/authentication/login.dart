@@ -1,3 +1,4 @@
+import 'package:evier/resources/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -5,8 +6,6 @@ import '../authentication/auth.dart';
 import '../resources/custom_box_decoration.dart';
 import '../resources/custom_gradient.dart';
 import '../resources/strings.dart';
-
-import './registration_page.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -109,7 +108,7 @@ class _LoginState extends State<Login> {
         ),
       ),
       onPressed: () {
-        Navigator.pushNamed(context, RegistrationPage.routeName);
+        Navigator.pushNamed(context, Routes.registerRoute);
       },
     );
   }
@@ -143,8 +142,8 @@ class _LoginState extends State<Login> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.login),
-            SizedBox(width: 20),
+            // Icon(Icons.login),
+            // SizedBox(width: 20),
             Text(
               Strings.login,
               textAlign: TextAlign.center,
@@ -169,7 +168,7 @@ class _LoginState extends State<Login> {
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
-                      gradient: CustomGradient(),
+                      color: Colors.blue[800], // gradient: CustomGradient(),
                     ),
                     child: Center(
                       child: Text(

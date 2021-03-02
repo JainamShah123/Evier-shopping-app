@@ -21,7 +21,10 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  path_provider:
+  path:
   firebase_storage: ^7.0.0
+  image_picker: ^0.6.7+22
   cloud_firestore: ^0.16.0+1
   firebase_core: "0.7.0"
   firebase_auth: ^0.20.1
@@ -29,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^8.11.0
+  # file_picker: ^1.1.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -58,6 +62,10 @@ flutter:
     - assests/1.jpg
     - assests/2.jpg
     - assests/4.png
+    - assests/5.png
+    - assests/6.png
+    - assests/7.png
+    - assests/8.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

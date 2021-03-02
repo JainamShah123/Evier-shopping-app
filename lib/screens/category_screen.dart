@@ -1,5 +1,10 @@
+import 'package:evier/screens/category_all_screens/category_Floortap.dart';
+import 'package:evier/screens/category_all_screens/category_health_facuet.dart';
+import 'package:evier/screens/category_all_screens/category_watertap.dart';
+
 import '../resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
+import 'category_all_screens/category_shower_Screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
@@ -14,47 +19,71 @@ class CategoryScreen extends StatelessWidget {
           mainAxisSpacing: 10,
         ),
         children: [
-          Container(
-            decoration: CustomBoxDecoration(),
-            child: Center(
-              child: Text(
-                "Shower",
-                style: TextStyle(
-                  color: Colors.white,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => ShowerPage()));
+            },
+            child: Container(
+              decoration: CustomBoxDecoration(),
+              child: Center(
+                child: Text(
+                  "Shower",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-          Container(
-            decoration: CustomBoxDecoration(),
-            child: Center(
-              child: Text(
-                "Health Facuet",
-                style: TextStyle(
-                  color: Colors.white,
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => HealthFacuet()));
+            },
+            child: Container(
+              decoration: CustomBoxDecoration(),
+              child: Center(
+                child: Text(
+                  "Health Facuet",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
           ),
-          Container(
-            decoration: CustomBoxDecoration(),
-            child: Center(
-                child: Text(
-              "Water Tap",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => WaterTap()));
+            },
+            child: Container(
+              decoration: CustomBoxDecoration(),
+              child: Center(
+                  child: Text(
+                "Water Tap",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              )),
+            ),
           ),
-          Container(
-            decoration: CustomBoxDecoration(),
-            child: Center(
-                child: Text(
-              "Floor Trap",
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            )),
+          InkWell(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (ctx) => Floortap()));
+            },
+            child: Container(
+              decoration: CustomBoxDecoration(),
+              child: Center(
+                  child: Text(
+                "Floor Trap",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              )),
+            ),
           ),
         ],
       ),

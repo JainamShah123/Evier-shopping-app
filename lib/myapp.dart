@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import './resources/strings.dart';
 import './screens/screens.dart';
 import './resources/themes.dart';
+import 'resources/routes.dart';
 
 class MyApp extends StatelessWidget {
   @override
@@ -12,10 +13,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Strings.appTitle,
-      theme: theme,
+      theme: theme, // Theme is in seperate file {Ctrl + click}
+      // Verifying user form application cache
       home: (_user == null) ? Login() : HomeScreen(),
       routes: {
-        RegistrationPage.routeName: (context) => RegistrationPage(),
+        Routes.registerRoute: (context) => RegistrationPage(),
+        Routes.accountRoute: (context) => AccountScreen(),
       },
     );
   }

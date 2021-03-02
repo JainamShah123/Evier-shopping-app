@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'custom_gradient.dart';
@@ -6,7 +5,7 @@ import 'custom_gradient.dart';
 class CustomBoxDecoration extends BoxDecoration {
   const CustomBoxDecoration()
       : super(
-          borderRadius: const BorderRadius.all(const Radius.circular(30)),
+          borderRadius: const BorderRadius.all(const Radius.circular(5)),
           gradient: const CustomGradient(),
           color: Colors.white,
         );

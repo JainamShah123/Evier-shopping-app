@@ -17,4 +17,13 @@ class Strings {
   static const register = "Register";
   static const goToLoginPage = "Go to login page";
   static const search = "Search";
+  static const productNameHint = "Product Name";
+  static const productNameError = "Please enter the product name";
+  static const priceHint = "Price";
+  static const priceError = "Please enter the product price";
+  static const categoryError = "Please select the category";
+  static const companyTitle = "Company";
+  static const companyError = "Please select the company";
+  static const productDescription = "Description";
+  static const productDescriptionError = "Please enter the product description";
 }
