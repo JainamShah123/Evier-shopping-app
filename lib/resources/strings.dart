@@ -1,4 +1,5 @@
 class Strings {
+  // this is the strings file
   static const appTitle = "Evier - Sanitary shopping application";
   static const title = "Evier";
   static const categoryTitle = "Category";
