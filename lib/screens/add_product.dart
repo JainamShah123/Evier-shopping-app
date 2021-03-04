@@ -20,9 +20,9 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  var user;
+  var user = FirebaseAuth.instance.currentUser.displayName;
   CollectionReference productDatabase =
-      FirebaseFirestore.instance.collection("prdoucts");
+      FirebaseFirestore.instance.collection("products");
   FirebaseStorage storage = FirebaseStorage.instance;
   String productName,
       productPrice,
@@ -46,8 +46,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
         .ref()
         .child("/product_images")
         .child(DateTime.now().toString() + '.jpg');
-    TaskSnapshot uploadTask = await storageReference.putFile(files);
-    imageUrl = uploadTask.ref.getDownloadURL().toString();
+    var storageTaskSnapshot = await storageReference.putFile(files);
+    imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
+    // imageUrl = storageTaskSnapshot.toString();
+
+    // imageUrl = imageUrl1.toString();
   }
 
   void startImagePicker() async {
@@ -120,9 +123,9 @@ class _AddProductScreenState extends State<AddProductScreen> {
         'name': productName,
         'price': productPrice,
         'description': productDescription,
-        'imageUrl': imageUrl,
+        'imageUrl': imageUrl.toString(),
         'category': productCategory,
-        'seller': user,
+        'seller': user.toString(),
       }).whenComplete(() => Navigator.pop(context));
     }
   }
@@ -167,7 +170,21 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
-              productNameInputField(),
+              TextFormField(
+                // keyboardType: TextInputType.name,
+                decoration: InputDecoration(
+                  hintText: Strings.productNameHint,
+                ),
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return Strings.productNameError;
+                  }
+                  return null;
+                },
+                onSaved: (value) {
+                  productName = value;
+                },
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -252,24 +269,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  TextFormField productNameInputField() {
-    return TextFormField(
-      // keyboardType: TextInputType.name,
-      decoration: InputDecoration(
-        hintText: Strings.productNameHint,
-      ),
-      validator: (value) {
-        if (value.isEmpty) {
-          return Strings.productNameError;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        productName = value;
-      },
     );
   }
 

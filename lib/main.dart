@@ -23,6 +23,7 @@ class App extends StatelessWidget {
       providers: [
         // Injecting the User instance in all the application.
         StreamProvider<User>.value(
+          initialData: null,
           value: FirebaseAuth.instance.authStateChanges(),
         ),
       ],

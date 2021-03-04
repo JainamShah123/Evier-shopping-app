@@ -23,15 +23,15 @@ environment:
 dependencies:
   path_provider:
   path:
-  firebase_storage: ^7.0.0
-  image_picker: ^0.6.7+22
-  cloud_firestore: ^0.16.0+1
-  firebase_core: "0.7.0"
-  firebase_auth: ^0.20.1
-  provider: ^4.3.3
+  firebase_storage: ^8.0.0
+  image_picker: ^0.7.2
+  cloud_firestore: ^1.0.0
+  firebase_core: ^1.0.0
+  firebase_auth: ^1.0.0  
+  provider: ^5.0.0
   flutter:
     sdk: flutter
-  font_awesome_flutter: ^8.11.0
+  font_awesome_flutter: ^9.0.0-nullsafety
   # file_picker: ^1.1.1
 
 
