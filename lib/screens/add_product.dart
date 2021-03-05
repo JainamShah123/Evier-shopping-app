@@ -55,7 +55,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void startImagePicker() async {
     imagePicker = await picker.getImage(
       source: ImageSource.camera,
-      imageQuality: 8,
+      // imageQuality: 8,
       maxHeight: 200,
       maxWidth: 200,
     );
