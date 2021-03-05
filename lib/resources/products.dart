@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Products extends StatelessWidget {
-  final String url;
-  final String title;
-  final String price;
+  final String? url;
+  final String? title;
+  final String? price;
 
-  const Products({Key key, this.url, this.title, this.price}) : super(key: key);
+  const Products({Key? key, this.url, this.title, this.price}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -39,13 +39,13 @@ class Products extends StatelessWidget {
           },
           child: Stack(
             children: [
-              Image.network(url),
+              Image.network(url!),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ListTile(
                   tileColor: Colors.white,
                   title: Text(
-                    title,
+                    title!,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   subtitle: Text(

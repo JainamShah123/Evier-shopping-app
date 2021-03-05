@@ -13,7 +13,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String email, password;
+  String? email, password;
 
   bool isLoading = false;
 
@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
         prefixIcon: Icon(Icons.mail_outline_rounded),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return Strings.emailError;
         }
 
@@ -49,7 +49,7 @@ class _LoginState extends State<Login> {
         prefixIcon: Icon(Icons.lock_outline_rounded),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return Strings.passwordError;
         }
         return null;
@@ -117,14 +117,14 @@ class _LoginState extends State<Login> {
   Widget LoginButton(BuildContext context) {
     return RaisedButton(
       onPressed: () {
-        if (_key.currentState.validate()) {
-          _key.currentState.save();
+        if (_key.currentState!.validate()) {
+          _key.currentState!.save();
           setState(() {
             isLoading = true;
           });
 
-          print(email + password);
-          Auth().login(email, password).whenComplete(() {
+          print(email! + password!);
+          Auth().login(email!, password!).whenComplete(() {
             setState(() {
               isLoading = false;
             });

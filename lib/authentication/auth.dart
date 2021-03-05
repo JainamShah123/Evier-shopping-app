@@ -8,17 +8,17 @@ class Auth with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _storage = FirebaseFirestore.instance;
 
-  User user = FirebaseAuth.instance.currentUser;
+  User? user = FirebaseAuth.instance.currentUser;
 
   Future signup({
-    String email,
-    String password,
-    String gender,
-    String phoneNumber,
-    String name,
-    BuildContext context,
+    required String email,
+    required String password,
+    String? gender,
+    String? phoneNumber,
+    String? name,
+    required BuildContext context,
   }) async {
-    UserCredential userCredential;
+    late UserCredential userCredential;
     try {
       userCredential = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -31,7 +31,7 @@ class Auth with ChangeNotifier {
     } catch (e) {
       print(e);
     } finally {
-      _storage.collection('user').doc(userCredential.user.uid).set({
+      _storage.collection('user').doc(userCredential.user!.uid).set({
         'type': gender,
         'phonenumber': phoneNumber,
         'name': name,

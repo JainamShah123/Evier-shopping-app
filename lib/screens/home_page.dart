@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
               );
 
             if (snapshot.hasData) {
-              List<QueryDocumentSnapshot> productSnapshot = snapshot.data.docs;
+              List<QueryDocumentSnapshot> productSnapshot = snapshot.data!.docs;
               return GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: (kIsWeb &&
@@ -47,6 +47,7 @@ class HomePage extends StatelessWidget {
                 ),
               );
             }
+            return Container();
           }),
     );
   }

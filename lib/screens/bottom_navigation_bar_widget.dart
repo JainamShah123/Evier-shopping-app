@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: must_be_immutable
 class BottomNavigationBarWidget extends StatelessWidget {
   int selectedIndex;
-  Function(int index) itemTapped;
+  Function(int index)? itemTapped;
   BottomNavigationBarWidget({this.selectedIndex = 0, this.itemTapped});
   @override
   Widget build(BuildContext context) {

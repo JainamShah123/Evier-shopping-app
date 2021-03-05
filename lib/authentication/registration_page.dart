@@ -15,8 +15,8 @@ class RegistrationPage extends StatefulWidget {
 
 class _RegistrationPageState extends State<RegistrationPage> {
   final _key = GlobalKey<FormState>();
-  Character character = Character.user;
-  String email, password, gender, name, mobileNumber;
+  Character? character = Character.user;
+  String? email, password, gender, name, mobileNumber;
   bool isloading = false;
 
   Widget phoneNumber() {
@@ -27,7 +27,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         prefixIcon: Icon(Icons.phone),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return "Please Enter the Phone Number";
         }
         return null;
@@ -44,7 +44,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         Radio(
           value: Character.user,
           groupValue: character,
-          onChanged: (Character value) {
+          onChanged: (Character? value) {
             setState(() {
               character = value;
               gender = "User";
@@ -55,7 +55,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         Radio(
           value: Character.seller,
           groupValue: character,
-          onChanged: (Character value) {
+          onChanged: (Character? value) {
             setState(() {
               character = value;
               gender = "Seller";
@@ -74,7 +74,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         prefixIcon: Icon(Icons.account_circle_outlined),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return "Please Enter the Name";
         }
         return null;
@@ -93,7 +93,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         prefixIcon: Icon(Icons.mail_outline_rounded),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return Strings.emailError;
         }
 
@@ -114,7 +114,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         prefixIcon: Icon(Icons.lock_outline_rounded),
       ),
       validator: (value) {
-        if (value.isEmpty) {
+        if (value!.isEmpty) {
           return Strings.passwordError;
         }
         return null;
@@ -179,15 +179,15 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   void register(BuildContext context) {
-    if (_key.currentState.validate()) {
-      _key.currentState.save();
+    if (_key.currentState!.validate()) {
+      _key.currentState!.save();
       setState(() {
         isloading = true;
       });
       Auth()
           .signup(
-        email: email,
-        password: password,
+        email: email!,
+        password: password!,
         gender: gender,
         name: name,
         phoneNumber: mobileNumber,

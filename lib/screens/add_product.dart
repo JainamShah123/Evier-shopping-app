@@ -20,26 +20,26 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  var user = FirebaseAuth.instance.currentUser.displayName;
+  var user = FirebaseAuth.instance.currentUser!.displayName;
   CollectionReference productDatabase =
       FirebaseFirestore.instance.collection("products");
   FirebaseStorage storage = FirebaseStorage.instance;
-  String productName,
+  String? productName,
       productPrice,
       productCategory,
       productCompany,
       productDescription;
   final key = GlobalKey<FormState>();
-  String location;
-  String imageUrl;
-  PickedFile imagePicker;
+  String? location;
+  String? imageUrl;
+  PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
   // web.InputElement uploadInput;
-  File file;
-  Uri downloadUri;
-  String urlOfImage;
-  String optionText;
+  File? file;
+  Uri? downloadUri;
+  String? urlOfImage;
+  String? optionText;
 
   Future<void> uploadFile(File files) async {
     Reference storageReference = storage
@@ -60,10 +60,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
       maxHeight: 200,
       maxWidth: 200,
     );
-    file = File(imagePicker.path);
+    file = File(imagePicker!.path);
 
     if (file != null) {
-      await uploadFile(file);
+      await uploadFile(file!);
       setState(() {
         imagePickedFromFile = true;
       });
@@ -117,8 +117,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
   // }
 
   void onSave() {
-    if (key.currentState.validate()) {
-      key.currentState.save();
+    if (key.currentState!.validate()) {
+      key.currentState!.save();
       productDatabase.add({
         'name': productName,
         'price': productPrice,
@@ -153,7 +153,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 height: 200,
                 width: 200,
                 child: imagePickedFromFile
-                    ? Image.file(file)
+                    ? Image.file(file!)
                     : Center(
                         child: Icon(
                           Icons.camera,
@@ -176,7 +176,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   hintText: Strings.productNameHint,
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return Strings.productNameError;
                   }
                   return null;
@@ -196,7 +196,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   hintText: Strings.priceHint,
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return Strings.priceError;
                   }
                   return null;
@@ -215,7 +215,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return Strings.categoryError;
                   }
                   return null;
@@ -234,7 +234,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return Strings.companyError;
                   }
                   return null;
@@ -252,7 +252,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   hintText: Strings.productDescription,
                 ),
                 validator: (value) {
-                  if (value.isEmpty) {
+                  if (value!.isEmpty) {
                     return Strings.productDescriptionError;
                   }
                   return null;

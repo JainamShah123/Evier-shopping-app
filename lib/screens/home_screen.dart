@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ? null
             : true,
         title: Text(
-          pages[_selectedIndex]['title'],
+          pages[_selectedIndex]['title'] as String,
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
       );
@@ -151,17 +151,14 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Text("Drawer"),
             ),
             FutureBuilder(
-              future: FirebaseFirestore.instance
-                  .collection('user')
-                  .doc(user.uid)
-                  .get(),
-              builder: (ctx, snapshot) {
+              future: query.doc(user.uid).get(),
+              builder: (ctx, AsyncSnapshot<DocumentSnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 }
                 if (snapshot.connectionState == ConnectionState.done) {
-                  DocumentSnapshot documentSnapshot = snapshot.data;
-                  return documentSnapshot.data()['type'] == 'Seller'
+                  Map<String, dynamic>? data = snapshot.data!.data();
+                  return data!['type'] == 'Seller'
                       ? TextButton.icon(
                           onPressed: () {
                             Navigator.push(
@@ -183,8 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       backgroundColor: Colors.grey[200],
-      appBar: appBarPanel(_pages),
-      body: _pages[_selectedIndex]['page'],
+      appBar: appBarPanel(_pages) as PreferredSizeWidget?,
+      body: _pages[_selectedIndex]['page'] as Widget?,
       bottomNavigationBar: (kIsWeb &&
               MediaQuery.of(context).size.height <
                   MediaQuery.of(context).size.width)

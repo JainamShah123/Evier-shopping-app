@@ -19,15 +19,14 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
+    return
         // Injecting the User instance in all the application.
-        StreamProvider<User>.value(
-          initialData: null,
-          value: FirebaseAuth.instance.authStateChanges(),
-        ),
-      ],
-      child: MyApp(), // Main wrapper class for auth and init the MaterialApp()
+        StreamProvider<User?>.value(
+      value: FirebaseAuth.instance.authStateChanges(),
+      initialData: null,
+      child: MyApp(),
     );
+
+    // Main wrapper class for auth and init the MaterialApp()
   }
 }
