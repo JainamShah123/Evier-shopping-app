@@ -20,15 +20,13 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  var user = FirebaseAuth.instance.currentUser!.displayName;
+  User user = FirebaseAuth.instance.currentUser!;
   CollectionReference productDatabase =
       FirebaseFirestore.instance.collection("products");
+
   FirebaseStorage storage = FirebaseStorage.instance;
-  String? productName,
-      productPrice,
-      productCategory,
-      productCompany,
-      productDescription;
+  String? productPrice, productCategory, productCompany, productDescription;
+  String? nameOfProduct;
   final key = GlobalKey<FormState>();
   String? location;
   String? imageUrl;
@@ -39,6 +37,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   File? file;
   Uri? downloadUri;
   String? urlOfImage;
+  String? sellerName;
   String? optionText;
 
   Future<void> uploadFile(File files) async {
@@ -70,62 +69,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
     }
   }
 
-  // Future<String> downloadUrl() async {
-  //   return await storage
-  //       .ref()
-  //       .child('product_images')
-  //       .child(urlOfImage)
-  //       .getDownloadURL();
-  // }
-
-  // void _startFilePicker({Function(web.Blob files) onSelected}) async {
-  //   web.InputElement uploadInput = web.FileUploadInputElement()
-  //     ..accept = 'image/jpg';
-  //   uploadInput.click();
-  //   uploadInput.onChange.listen((event) {
-  //     final webFile = uploadInput.files.first;
-  //     final reader = web.FileReader();
-  //     reader.readAsDataUrl(webFile);
-  //     reader.onLoadEnd.listen((event) async {
-  //       onSelected(webFile);
-
-  //       print(imageUrl);
-  //       print("done");
-  //     });
-  //   });
-  // }
-
-  // void uploadImageFromWeb() async {
-  //   _startFilePicker(onSelected: (files) async {
-  //     final urlOfImage1 = DateTime.now().toString() + '.jpg';
-  //     print(urlOfImage1);
-  //     urlOfImage = urlOfImage1;
-  //     print(urlOfImage);
-  //     final uploadTask = storage
-  //         .ref()
-  //         .child("/product_images")
-  //         .child(urlOfImage)
-  //         .putBlob(files);
-
-  //     var image = await (await uploadTask).ref.getDownloadURL();
-  //     imageUrl = image.toString();
-  //     print(imageUrl);
-  //     setState(() {
-  //       imagePickedFromWeb = true;
-  //     });
-  //   });
-  // }
-
-  void onSave() {
+  void onSave() async {
     if (key.currentState!.validate()) {
       key.currentState!.save();
+      await FirebaseFirestore.instance
+          .collection("user")
+          .doc(user.uid)
+          .get()
+          .then((value) => sellerName = value.data()!['type'].toString());
+
       productDatabase.add({
-        'name': productName,
-        'price': productPrice,
-        'description': productDescription,
+        'price': productPrice!,
+        'name': nameOfProduct!,
+        'description': productDescription!,
         'imageUrl': imageUrl.toString(),
-        'category': productCategory,
-        'seller': user.toString(),
+        'category': productCategory!,
+        'seller': sellerName,
       }).whenComplete(() => Navigator.pop(context));
     }
   }
@@ -170,19 +129,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
               TextFormField(
-                // keyboardType: TextInputType.name,
+                key: UniqueKey(),
+                // keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  hintText: Strings.productNameHint,
+                  hintText: "product Name",
+                  // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.productNameError;
+                    return "Strings.productNameError";
                   }
                   return null;
                 },
                 onSaved: (value) {
-                  productName = value;
+                  nameOfProduct = value!;
                 },
               ),
               SizedBox(
@@ -264,35 +228,32 @@ class _AddProductScreenState extends State<AddProductScreen> {
               SizedBox(
                 height: 20,
               ),
-              addProductButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget addProductButton() {
-    return Center(
-      child: Container(
-        height: 45,
-        width: 160,
-        child: ElevatedButton(
-          onPressed: onSave,
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.login),
-              SizedBox(width: 20),
-              Text(
-                Strings.register,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
+              Center(
+                child: Container(
+                  height: 45,
+                  width: 160,
+                  child: ElevatedButton(
+                    onPressed: () => onSave(),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blue),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.login),
+                        SizedBox(width: 20),
+                        Text(
+                          Strings.register,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],

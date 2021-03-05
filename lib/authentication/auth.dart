@@ -21,17 +21,20 @@ class Auth with ChangeNotifier {
     late UserCredential userCredential;
     try {
       userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+          email: email.toString(), password: password.toString());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print("The password is too weak");
       } else if (e.code == 'email-already-in-use') {
         print("The email is already in use");
       }
-    } catch (e) {
-      print(e);
     } finally {
-      _storage.collection('user').doc(userCredential.user!.uid).set({
+      UserInfo updateInfo = UserInfo({
+        'displayName': name,
+        'phoneNumber': phoneNumber,
+      });
+
+      _storage.collection("user").doc(userCredential.user!.uid).set({
         'type': gender,
         'phonenumber': phoneNumber,
         'name': name,

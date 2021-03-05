@@ -1,3 +1,5 @@
+import 'package:evier/screens/evier_drawer.dart';
+
 /// Flutter Core packages
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/screens/add_product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:evier/authentication/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// Custom widgets os screens or classes
@@ -141,44 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference query = FirebaseFirestore.instance.collection("users");
-    final user = Provider.of<User>(context);
+    // CollectionReference query = FirebaseFirestore.instance.collection("users");
+    // User? user = Auth().user;
+    // print(user!.displayName.toString());
     return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Text("Drawer"),
-            ),
-            FutureBuilder(
-              future: query.doc(user.uid).get(),
-              builder: (ctx, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                if (snapshot.connectionState == ConnectionState.done) {
-                  Map<String, dynamic>? data = snapshot.data!.data();
-                  return data!['type'] == 'Seller'
-                      ? TextButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => AddProductScreen(),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.add),
-                          label: Text(Strings.addProduct),
-                        )
-                      : Container();
-                }
-                return Container();
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: EvierDrawer(),
       backgroundColor: Colors.grey[200],
       appBar: appBarPanel(_pages) as PreferredSizeWidget?,
       body: _pages[_selectedIndex]['page'] as Widget?,
