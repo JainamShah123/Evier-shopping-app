@@ -1,13 +1,24 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class ProductScreen extends StatelessWidget {
+  final String? url;
+  final String? title;
+  final String? price;
+  final String? description;
+
+  const ProductScreen({
+    Key? key,
+    this.url,
+    this.title,
+    this.price,
+    this.description,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Wash Basin"),
+        title: Text(title!),
         centerTitle: true,
       ),
       body: Container(
@@ -19,7 +30,7 @@ class ProductScreen extends StatelessWidget {
               margin: EdgeInsets.only(top: 45),
               child: Padding(
                 padding: const EdgeInsets.all(45),
-                child: Image.asset("assests/4.png"),
+                child: Image.network(url!),
               ),
             ),
             Padding(
@@ -39,21 +50,21 @@ class ProductScreen extends StatelessWidget {
                           ),
                         ),
                         Divider(),
+                        // Text(
+                        //   // "Company Name: ${company!}",
+                        //   style: TextStyle(
+                        //     fontSize: 22,
+                        //   ),
+                        // ),
                         Text(
-                          "Company Name: Jaquar",
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                        Text(
-                          "Product Name: Wash Basin",
+                          "Product Name: ${title!}",
                           style: TextStyle(
                             fontSize: 22,
                           ),
                         ),
                         Divider(),
                         Text(
-                          "MRP: 499",
+                          "MRP: ${price!}",
                           style: TextStyle(
                               fontSize: 22,
                               fontWeight: FontWeight.bold,

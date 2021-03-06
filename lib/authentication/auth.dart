@@ -29,11 +29,6 @@ class Auth with ChangeNotifier {
         print("The email is already in use");
       }
     } finally {
-      UserInfo updateInfo = UserInfo({
-        'displayName': name,
-        'phoneNumber': phoneNumber,
-      });
-
       _storage.collection("user").doc(userCredential.user!.uid).set({
         'type': gender,
         'phonenumber': phoneNumber,

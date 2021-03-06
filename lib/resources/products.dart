@@ -7,8 +7,15 @@ class Products extends StatelessWidget {
   final String? url;
   final String? title;
   final String? price;
+  final String? description;
 
-  const Products({Key? key, this.url, this.title, this.price}) : super(key: key);
+  const Products({
+    Key? key,
+    this.url,
+    this.title,
+    this.price,
+    this.description,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,7 +40,12 @@ class Products extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (ctx) => ProductScreen(),
+                builder: (ctx) => ProductScreen(
+                  title: title,
+                  description: description,
+                  price: price,
+                  url: url,
+                ),
               ),
             );
           },

@@ -44,6 +44,7 @@ class HomePage extends StatelessWidget {
                   title: productSnapshot[index]["name"],
                   url: productSnapshot[index]["imageUrl"],
                   price: productSnapshot[index]["price"],
+                  description: productSnapshot[index]["description"],
                 ),
               );
             }
