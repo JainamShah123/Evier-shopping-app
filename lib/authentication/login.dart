@@ -68,10 +68,8 @@ class _LoginState extends State<Login> {
                   MediaQuery.of(context).size.width)
           ? 400
           : null,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {},
-        textColor: Colors.white,
-        padding: const EdgeInsets.all(0.0),
         child: Container(
           height: 50,
           width: double.infinity,
@@ -97,8 +95,8 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget CreateAccountButton() {
-    return FlatButton(
+  Widget createAccountButton() {
+    return TextButton(
       child: Text(
         Strings.createAccount,
         textAlign: TextAlign.center,
@@ -115,7 +113,7 @@ class _LoginState extends State<Login> {
 
   // ignore: non_constant_identifier_names
   Widget LoginButton(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: () {
         if (_key.currentState!.validate()) {
           _key.currentState!.save();
@@ -131,8 +129,6 @@ class _LoginState extends State<Login> {
           });
         }
       },
-      textColor: Colors.white,
-      padding: const EdgeInsets.all(0.0),
       child: Container(
         height: 45,
         width: 150,
@@ -233,7 +229,7 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 10,
                         ),
-                        CreateAccountButton(),
+                        createAccountButton(),
                       ],
                     ),
                   ),
@@ -255,7 +251,7 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 20,
                         ),
-                        CreateAccountButton(),
+                        createAccountButton(),
                       ],
                     ),
                   ),

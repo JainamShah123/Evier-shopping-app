@@ -12,7 +12,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:evier/resources/strings.dart';
-import 'package:provider/provider.dart';
 
 class AddProductScreen extends StatefulWidget {
   @override
@@ -121,7 +120,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               Container(
                 width: 200,
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: startImagePicker,
                   child: Text(
                     "Pick File",

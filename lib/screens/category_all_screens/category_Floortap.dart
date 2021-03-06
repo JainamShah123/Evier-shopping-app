@@ -69,7 +69,7 @@ class Floortap extends StatelessWidget {
                             ),
                           ),
                         ),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,

@@ -3,13 +3,9 @@ import 'package:evier/screens/evier_drawer.dart';
 /// Flutter Core packages
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 /// FlutterFire plugins
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evier/screens/add_product.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:evier/authentication/auth.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// Custom widgets os screens or classes

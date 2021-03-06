@@ -63,7 +63,7 @@ class FloorTapProduct extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {},
                       child: Text(
                         "Buy Now",
@@ -72,7 +72,7 @@ class FloorTapProduct extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {},
                       child: Text("Add To Cart"),
                     ),

@@ -1,5 +1,4 @@
 // import 'package:evier/screens/home_page.dart';
-import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../cart_screen.dart';
@@ -70,7 +69,7 @@ class ShowerPage extends StatelessWidget {
                             style: TextStyle(fontSize: 20, color: Colors.red),
                           ),
                         ),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,

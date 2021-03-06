@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:evier/screens/category_all_screens/watertap_product.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +65,7 @@ class WaterTap extends StatelessWidget {
                             style: TextStyle(fontSize: 20, color: Colors.red),
                           ),
                         ),
-                        RaisedButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.push(
                                 context,

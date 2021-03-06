@@ -133,10 +133,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   MediaQuery.of(context).size.width)
           ? 400
           : null,
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {},
-        textColor: Colors.white,
-        padding: const EdgeInsets.all(0.0),
         child: Container(
           height: 50,
           width: double.infinity,
@@ -163,7 +161,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget goToLoginPageButton(BuildContext context) {
-    return FlatButton(
+    return TextButton(
       child: Text(
         Strings.goToLoginPage,
         textAlign: TextAlign.center,
@@ -205,10 +203,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   // ignore: non_constant_identifier_names
   Widget registerButton(BuildContext context) {
-    return RaisedButton(
+    return ElevatedButton(
       onPressed: () => register(context),
-      textColor: Colors.white,
-      padding: const EdgeInsets.all(0.0),
       child: Container(
         height: 45,
         width: 150,
