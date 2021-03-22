@@ -10,7 +10,6 @@ class HomePage extends StatelessWidget {
       padding: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("products").snapshots(),
-          // ignore: missing_return
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting)
               return Center(
@@ -31,7 +30,6 @@ class HomePage extends StatelessWidget {
                               MediaQuery.of(context).size.width)
                       ? 5
                       : 2,
-                  // crossAxisSpacing: 5,
                   childAspectRatio: 1.6 / 2,
                 ),
                 itemCount: productSnapshot.length,

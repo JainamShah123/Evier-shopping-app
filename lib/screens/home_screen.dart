@@ -19,10 +19,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0; // Index to map BottomNavigation
-  final _key = GlobalKey<FormState>(); // Key to manage form
+  int _selectedIndex = 0;
+  final _key = GlobalKey<FormState>();
 
-  // Route Map for bottom navigation bar
   final List<Map<String, Object>> _pages = [
     {
       'page': HomePage(),
@@ -140,9 +139,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // CollectionReference query = FirebaseFirestore.instance.collection("users");
-    // User? user = Auth().user;
-    // print(user!.displayName.toString());
     return Scaffold(
       drawer: EvierDrawer(),
       backgroundColor: Colors.grey[200],

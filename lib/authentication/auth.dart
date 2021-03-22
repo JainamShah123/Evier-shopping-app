@@ -5,8 +5,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../screens/home_screen.dart';
 
 class Auth with ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
   FirebaseFirestore _storage = FirebaseFirestore.instance;
+
+  FirebaseAuth _auth = FirebaseAuth.instance;
 
   User? user = FirebaseAuth.instance.currentUser;
 
@@ -41,22 +42,12 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future login(
-    String email,
-    String password,
-  ) async {
-    try {
-      await _auth.signInWithEmailAndPassword(email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future login(
+  //   String email,
+  //   String password,
+  // ) async {
+
+  // }
 
   Future logout() async {
     await _auth.signOut();

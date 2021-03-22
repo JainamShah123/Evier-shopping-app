@@ -11,8 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: Strings.appTitle,
-      theme: theme, // Theme is in seperate file {Ctrl + click}
-      // Verifying user form application cache
+      theme: theme,
       home: Wrapper(),
       routes: {
         Routes.registerRoute: (context) => RegistrationPage(),

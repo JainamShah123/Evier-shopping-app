@@ -1,8 +1,8 @@
 import 'package:evier/resources/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-import '../authentication/auth.dart';
 import '../resources/custom_box_decoration.dart';
 import '../resources/custom_gradient.dart';
 import '../resources/strings.dart';
@@ -19,7 +19,6 @@ class _LoginState extends State<Login> {
 
   final _key = GlobalKey<FormState>();
 
-  // ignore: non_constant_identifier_names
   Widget emailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
@@ -60,8 +59,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Widget SignInWIthGoogleButton() {
+  Widget signInWIthGoogleButton() {
     return Container(
       width: (kIsWeb &&
               MediaQuery.of(context).size.height <
@@ -114,19 +112,31 @@ class _LoginState extends State<Login> {
   // ignore: non_constant_identifier_names
   Widget LoginButton(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         if (_key.currentState!.validate()) {
           _key.currentState!.save();
           setState(() {
             isLoading = true;
           });
 
-          print(email! + password!);
-          Auth().login(email!, password!).whenComplete(() {
-            setState(() {
-              isLoading = false;
-            });
-          });
+          try {
+            FirebaseAuth _auth = FirebaseAuth.instance;
+            await _auth.signInWithEmailAndPassword(
+                email: email!, password: password!);
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+            } else if (e.code == 'wrong-password') {
+              print('Wrong password provided for that user.');
+            }
+          } catch (e) {
+            print(e);
+          }
+          // }whenComplete(() {
+          //         setState(() {
+          //           isLoading = false;
+          //         });
+          //       });
         }
       },
       child: Container(
@@ -225,7 +235,7 @@ class _LoginState extends State<Login> {
                         ),
                         Align(
                             alignment: Alignment.bottomCenter,
-                            child: SignInWIthGoogleButton()),
+                            child: signInWIthGoogleButton()),
                         SizedBox(
                           height: 10,
                         ),
@@ -247,7 +257,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SignInWIthGoogleButton(),
+                        signInWIthGoogleButton(),
                         SizedBox(
                           height: 20,
                         ),

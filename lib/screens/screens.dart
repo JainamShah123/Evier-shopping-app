@@ -1,5 +1,3 @@
-/// Import only screens.dart, all the files defined here will be imported
-
 export '../authentication/login.dart';
 export './accountScreen.dart';
 export './category_screen.dart';
