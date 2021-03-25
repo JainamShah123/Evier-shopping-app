@@ -34,34 +34,30 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final picker = ImagePicker();
   // web.InputElement uploadInput;
   File? file;
-  Uri? downloadUri;
-  String? urlOfImage;
   String? sellerName;
   String? optionText;
+  late Reference storageReference;
+  late TaskSnapshot storageTaskSnapshot;
 
   Future<void> uploadFile(File files) async {
-    Reference storageReference = storage
+    storageReference = storage
         .ref()
         .child("/product_images")
         .child(DateTime.now().toString() + '.jpg');
-    var storageTaskSnapshot = await storageReference.putFile(files);
+    storageTaskSnapshot = await storageReference.putFile(files);
     imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
-    // imageUrl = storageTaskSnapshot.toString();
-
-    // imageUrl = imageUrl1.toString();
   }
 
   void startImagePicker() async {
     imagePicker = await picker.getImage(
       source: ImageSource.camera,
-      // // imageQuality: 8,
-      // maxHeight: 200,
-      // maxWidth: 200,
     );
+
     file = File(imagePicker!.path);
 
     if (file != null) {
       await uploadFile(file!);
+
       setState(() {
         imagePickedFromFile = true;
       });
@@ -110,8 +106,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Container(
                 height: 200,
                 width: 200,
+                // child: Image.network(
+                //     "https://firebasestorage.googleapis.com/v0/b/evier-shopping-system.appspot.com/o/product_images%2F1200px-Image_created_with_a_mobile_phone.jpg?alt=media&token=ad618930-3284-4890-9b12-f9bb1bc8a596"),
                 child: imagePickedFromFile
-                    ? Image.file(file!)
+                    ? Image.network(imageUrl!)
                     : Center(
                         child: Icon(
                           Icons.camera,

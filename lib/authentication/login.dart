@@ -59,40 +59,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget signInWIthGoogleButton() {
-    return Container(
-      width: (kIsWeb &&
-              MediaQuery.of(context).size.height <
-                  MediaQuery.of(context).size.width)
-          ? 400
-          : null,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Container(
-          height: 50,
-          width: double.infinity,
-          decoration: CustomBoxDecoration(),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: 20),
-              Text(
-                Strings.signInWithGoogle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget createAccountButton() {
     return TextButton(
       child: Text(
@@ -233,9 +199,6 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        Align(
-                            alignment: Alignment.bottomCenter,
-                            child: signInWIthGoogleButton()),
                         SizedBox(
                           height: 10,
                         ),
@@ -257,7 +220,6 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        signInWIthGoogleButton(),
                         SizedBox(
                           height: 20,
                         ),

@@ -20,7 +20,11 @@ class HomePage extends StatelessWidget {
               return Center(
                 child: Text("Error"),
               );
-
+            if (!snapshot.hasData) {
+              return Center(
+                child: Text("currently there are no products available"),
+              );
+            }
             if (snapshot.hasData) {
               List<QueryDocumentSnapshot> productSnapshot = snapshot.data!.docs;
               return GridView.builder(

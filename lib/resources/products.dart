@@ -2,6 +2,8 @@ import 'package:evier/screens/cart_screen.dart';
 import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:http/http.dart' as http;
 
 class Products extends StatelessWidget {
   final String? url;
@@ -51,6 +53,9 @@ class Products extends StatelessWidget {
           },
           child: Stack(
             children: [
+              // Image.network(
+              //     'https://github.com/flutter/plugins/raw/master/packages/video_player/video_player/doc/demo_ipod.gif?raw=true'),
+
               Image.network(url!),
               Align(
                 alignment: Alignment.bottomCenter,

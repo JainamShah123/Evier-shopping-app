@@ -125,41 +125,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Widget signInWIthGoogleButton() {
-    return Container(
-      width: (kIsWeb &&
-              MediaQuery.of(context).size.height <
-                  MediaQuery.of(context).size.width)
-          ? 400
-          : null,
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Container(
-          height: 50,
-          width: double.infinity,
-          decoration: CustomBoxDecoration(),
-          alignment: Alignment.center,
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(width: 20),
-              Text(
-                Strings.signInWithGoogle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   Widget goToLoginPageButton(BuildContext context) {
     return TextButton(
       child: Text(
@@ -311,9 +276,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             ),
                           ),
                         ),
-                        Align(
-                            alignment: Alignment.bottomCenter,
-                            child: signInWIthGoogleButton()),
                         SizedBox(
                           height: 10,
                         ),
@@ -335,7 +297,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        signInWIthGoogleButton(),
                         goToLoginPageButton(context),
                       ],
                     ),
