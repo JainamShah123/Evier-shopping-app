@@ -1,4 +1,4 @@
-# Evier -Shopping System
+# Evier
 
 A new Flutter project.
 
