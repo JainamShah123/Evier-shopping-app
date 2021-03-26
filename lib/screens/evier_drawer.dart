@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evier/resources/strings.dart';
-import 'package:evier/screens/add_product.dart';
+import 'package:evier/resources/routes.dart';
+import 'package:evier/screens/seller_product_screen.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class EvierDrawer extends StatelessWidget {
@@ -28,19 +30,26 @@ class EvierDrawer extends StatelessWidget {
               if (snapshot.connectionState == ConnectionState.done) {
                 var data = snapshot.data!.data();
                 return data!['type'] == 'Seller'
-                    ? TextButton.icon(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => AddProductScreen(),
-                            ),
-                          );
-                        },
-                        icon: Icon(Icons.add),
-                        label: Text(Strings.addProduct),
+                    ? ListTile(
+                        onTap: () => Navigator.pushNamed(
+                            context, Routes.sellerProductRoute),
+                        leading: FaIcon(FontAwesomeIcons.objectGroup),
+                        title: Text("Your Products"),
                       )
                     : Container();
+                // ? TextButton.icon(
+                //     onPressed: () {
+                //      Navigator.push(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => AddProductScreen(),
+                //         ),
+                //       );
+                //     },
+                //     icon: Icon(Icons.add),
+                //     label: Text(Strings.addProduct),
+                //   )
+                // : Container();
               }
               return Container();
             },

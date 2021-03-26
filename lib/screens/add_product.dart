@@ -33,9 +33,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
-  // web.InputElement uploadInput;
   File? file;
-  // String? sellerName;
   String? optionText;
   late Reference storageReference;
   late TaskSnapshot storageTaskSnapshot;
@@ -125,10 +123,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               TextFormField(
                 key: UniqueKey(),
-                // keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: "product Name",
-                  // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -164,10 +160,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 height: 20,
               ),
               TextFormField(
-                // keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: Strings.categoryTitle,
-                  // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -183,10 +177,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 height: 20,
               ),
               TextFormField(
-                // keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   hintText: Strings.companyTitle,
-                  // prefixIcon: Icon(Icons.mail_outline_rounded),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -229,20 +221,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       backgroundColor:
                           MaterialStateProperty.all<Color>(Colors.blue),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.login),
-                        SizedBox(width: 20),
-                        Text(
-                          Strings.register,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                    child: Text(
+                      Strings.addProduct,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

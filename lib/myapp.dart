@@ -1,3 +1,4 @@
+import 'package:evier/screens/seller_product_screen.dart';
 import 'package:evier/wrapper.dart';
 import 'package:flutter/material.dart';
 import './resources/strings.dart';
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
       routes: {
         Routes.registerRoute: (context) => RegistrationPage(),
         Routes.accountRoute: (context) => AccountScreen(),
+        Routes.sellerProductRoute: (context) => SellerProductScreen(),
+        Routes.addProductRoute: (context) => AddProductScreen(),
       },
     );
   }
