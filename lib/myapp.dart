@@ -1,4 +1,5 @@
 import 'package:evier/screens/seller_product_screen.dart';
+import 'package:evier/screens/user_detail_edit.dart';
 import 'package:evier/wrapper.dart';
 import 'package:flutter/material.dart';
 import './resources/strings.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
         Routes.accountRoute: (context) => AccountScreen(),
         Routes.sellerProductRoute: (context) => SellerProductScreen(),
         Routes.addProductRoute: (context) => AddProductScreen(),
+        Routes.userDetailEdit: (context) => UserDetailEdit(),
       },
     );
   }

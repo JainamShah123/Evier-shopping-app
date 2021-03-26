@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/authentication/auth.dart';
+import 'package:evier/resources/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -59,19 +60,18 @@ class AccountScreen extends StatelessWidget {
                   data['address'] ?? "Please enter the address",
                 ),
               ),
-              ListTile(
-                leading: FaIcon(FontAwesomeIcons.users),
-                title: Text(
-                  data['gender'] ?? "Please enter the gender",
-                ),
-              ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   children: [
                     ElevatedButton(
                       child: Text("Edit"),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.userDetailEdit,
+                        );
+                      },
                     ),
                     TextButton(
                       onPressed: () {
