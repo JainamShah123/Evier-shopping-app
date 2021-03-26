@@ -1,13 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/resources/routes.dart';
-import 'package:evier/screens/seller_product_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class EvierDrawer extends StatelessWidget {
+class EvierDrawer extends StatefulWidget {
+  @override
+  _EvierDrawerState createState() => _EvierDrawerState();
+}
+
+class _EvierDrawerState extends State<EvierDrawer> {
   @override
   Widget build(BuildContext context) {
     CollectionReference query = FirebaseFirestore.instance.collection("user");
@@ -19,8 +23,45 @@ class EvierDrawer extends StatelessWidget {
       child: Column(
         children: [
           DrawerHeader(
-            child: Text("Drawer"),
-          ),
+              decoration: BoxDecoration(
+                color: Colors.blue,
+              ),
+              child: Column(
+                children: [
+                  Center(
+                    child: FaIcon(
+                      FontAwesomeIcons.solidUserCircle,
+                      color: Colors.white,
+                      size: 70,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Center(
+                      child: FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .collection('user')
+                            .doc(user.uid)
+                            .get(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+                          if (snapshot.hasError) return Text("Error");
+                          if (snapshot.hasData)
+                            return Text(
+                              snapshot.data!.data()!['name'] ?? "name not set",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            );
+                          return Container();
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              )),
           FutureBuilder(
             future: query.doc(user.uid).get(),
             builder: (ctx, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -37,19 +78,6 @@ class EvierDrawer extends StatelessWidget {
                         title: Text("Your Products"),
                       )
                     : Container();
-                // ? TextButton.icon(
-                //     onPressed: () {
-                //      Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => AddProductScreen(),
-                //         ),
-                //       );
-                //     },
-                //     icon: Icon(Icons.add),
-                //     label: Text(Strings.addProduct),
-                //   )
-                // : Container();
               }
               return Container();
             },

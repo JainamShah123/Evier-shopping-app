@@ -297,7 +297,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        goToLoginPageButton(context),
+                        Center(child: goToLoginPageButton(context)),
                       ],
                     ),
                   ),

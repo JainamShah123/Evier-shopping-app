@@ -223,7 +223,7 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 20,
                         ),
-                        createAccountButton(),
+                        Center(child: createAccountButton()),
                       ],
                     ),
                   ),
