@@ -1,4 +1,4 @@
-# Evier
+# Evier-Shopping
 
 A new Flutter project.
 
