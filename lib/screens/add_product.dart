@@ -29,12 +29,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final key = GlobalKey<FormState>();
   String? location;
   String? imageUrl;
+  String? sellerId = FirebaseAuth.instance.currentUser!.uid;
   PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
   // web.InputElement uploadInput;
   File? file;
-  String? sellerName;
+  // String? sellerName;
   String? optionText;
   late Reference storageReference;
   late TaskSnapshot storageTaskSnapshot;
@@ -67,11 +68,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void onSave() async {
     if (key.currentState!.validate()) {
       key.currentState!.save();
-      await FirebaseFirestore.instance
-          .collection("user")
-          .doc(user.uid)
-          .get()
-          .then((value) => sellerName = value.data()!['type'].toString());
 
       productDatabase.add({
         'price': productPrice!,
@@ -79,7 +75,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         'description': productDescription!,
         'imageUrl': imageUrl.toString(),
         'category': productCategory!,
-        'seller': sellerName,
+        'seller': sellerId,
       }).whenComplete(() => Navigator.pop(context));
     }
   }
@@ -106,8 +102,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Container(
                 height: 200,
                 width: 200,
-                // child: Image.network(
-                //     "https://firebasestorage.googleapis.com/v0/b/evier-shopping-system.appspot.com/o/product_images%2F1200px-Image_created_with_a_mobile_phone.jpg?alt=media&token=ad618930-3284-4890-9b12-f9bb1bc8a596"),
                 child: imagePickedFromFile
                     ? Image.network(imageUrl!)
                     : Center(
