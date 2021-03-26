@@ -1,14 +1,10 @@
 import 'package:evier/screens/evier_drawer.dart';
 
-/// Flutter Core packages
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-/// FlutterFire plugins
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-/// Custom widgets os screens or classes
 import './screens.dart';
 import '../resources/strings.dart';
 import '../resources/routes.dart';

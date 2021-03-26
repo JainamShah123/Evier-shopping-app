@@ -164,9 +164,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
     }
   }
 
-  // ignore: non_constant_identifier_names
-
-  // ignore: non_constant_identifier_names
   Widget registerButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () => register(context),
@@ -179,8 +176,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Icon(Icons.login),
-            // SizedBox(width: 20),
             Text(
               Strings.register,
               textAlign: TextAlign.center,
@@ -205,7 +200,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
-                      color: Colors.blue[800], // gradient: CustomGradient(),
+                      color: Colors.blue[800],
                     ),
                     child: Center(
                       child: Text(

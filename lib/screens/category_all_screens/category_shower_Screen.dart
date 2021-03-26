@@ -1,4 +1,3 @@
-// import 'package:evier/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 import '../cart_screen.dart';
@@ -15,18 +14,6 @@ class ShowerPage extends StatelessWidget {
       body: ListView.builder(
         itemCount: 5,
         itemBuilder: (context, i) => Card(
-          // shape: RoundedRectangleBorder(
-          //   side: BorderSide(
-          //     color: Color.fromARGB(
-          //       255,
-          //       Random().nextInt(255),
-          //       Random().nextInt(255),
-          //       Random().nextInt(255),
-          //     ),
-          //     width: 3,
-          //   ),
-          //   borderRadius: BorderRadius.circular(25),
-          // ),
           child: InkWell(
             onTap: () {
               Navigator.push(

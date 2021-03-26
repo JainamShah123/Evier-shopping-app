@@ -20,19 +20,6 @@ class Products extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0.0,
-      // shape: StadiumBorder(
-      //     // side: BorderSide(
-      //     //     //   color: Color.fromARGB(
-      //     //     //     255,
-      //     //     //     Random().nextInt(255),
-      //     //     //     Random().nextInt(255),
-      //     //     //     Random().nextInt(255),
-      //     //     //   ),
-      //     //     // width: 1.7,
-      //     //     ),
-      //     // borderRadius: BorderRadius.circular(25),
-      //     ),
-
       child: Container(
         padding: const EdgeInsets.all(8),
         child: InkWell(
@@ -51,9 +38,6 @@ class Products extends StatelessWidget {
           },
           child: Stack(
             children: [
-              // Image.network(
-              //     'https://github.com/flutter/plugins/raw/master/packages/video_player/video_player/doc/demo_ipod.gif?raw=true'),
-
               Image.network(url!),
               Align(
                 alignment: Alignment.bottomCenter,

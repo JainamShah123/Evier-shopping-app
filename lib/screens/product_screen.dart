@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
 
 class ProductScreen extends StatelessWidget {
   final String? url;
@@ -51,12 +50,6 @@ class ProductScreen extends StatelessWidget {
                           ),
                         ),
                         Divider(),
-                        // Text(
-                        //   // "Company Name: ${company!}",
-                        //   style: TextStyle(
-                        //     fontSize: 22,
-                        //   ),
-                        // ),
                         Text(
                           "Product Name: ${title!}",
                           style: TextStyle(

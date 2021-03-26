@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-// ignore: must_be_immutable
 class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

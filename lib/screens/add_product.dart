@@ -1,5 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
-// import 'dart:html' as web;
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';

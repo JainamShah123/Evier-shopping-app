@@ -75,8 +75,7 @@ class _LoginState extends State<Login> {
     );
   }
 
-  // ignore: non_constant_identifier_names
-  Widget LoginButton(BuildContext context) {
+  Widget loginButton(BuildContext context) {
     return ElevatedButton(
       onPressed: () async {
         if (_key.currentState!.validate()) {
@@ -98,11 +97,6 @@ class _LoginState extends State<Login> {
           } catch (e) {
             print(e);
           }
-          // }whenComplete(() {
-          //         setState(() {
-          //           isLoading = false;
-          //         });
-          //       });
         }
       },
       child: Container(
@@ -114,8 +108,6 @@ class _LoginState extends State<Login> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Icon(Icons.login),
-            // SizedBox(width: 20),
             Text(
               Strings.login,
               textAlign: TextAlign.center,
@@ -140,7 +132,7 @@ class _LoginState extends State<Login> {
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width / 2,
                     decoration: BoxDecoration(
-                      color: Colors.blue[800], // gradient: CustomGradient(),
+                      color: Colors.blue[800],
                     ),
                     child: Center(
                       child: Text(
@@ -190,7 +182,7 @@ class _LoginState extends State<Login> {
                                   ),
                                   isLoading
                                       ? CircularProgressIndicator()
-                                      : LoginButton(context),
+                                      : loginButton(context),
                                   SizedBox(
                                     height: 15,
                                   ),
@@ -281,7 +273,7 @@ class _LoginState extends State<Login> {
                                     SizedBox(height: 25),
                                     isLoading
                                         ? CircularProgressIndicator()
-                                        : LoginButton(context),
+                                        : loginButton(context),
                                   ],
                                 ),
                               ),
