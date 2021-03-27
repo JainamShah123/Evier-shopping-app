@@ -65,7 +65,7 @@ class SellerProductScreen extends StatelessWidget {
                           price: productSnapshot[index]["price"],
                           description: productSnapshot[index]["description"],
                         );
-                      return Container();
+                      return SizedBox.shrink();
                     });
               }
               return Container();
