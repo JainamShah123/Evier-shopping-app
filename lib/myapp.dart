@@ -1,10 +1,15 @@
-import 'package:evier/screens/seller_product_screen.dart';
-import 'package:evier/screens/user_detail_edit.dart';
-import 'package:evier/wrapper.dart';
 import 'package:flutter/material.dart';
-import './resources/strings.dart';
-import './screens/screens.dart';
-import './resources/themes.dart';
+
+import 'wrapper.dart';
+import 'resources/strings.dart';
+import 'screens/screens.dart'
+    show
+        AccountScreen,
+        RegistrationPage,
+        AddProductScreen,
+        SellerProductScreen,
+        UserDetailEdit;
+import 'resources/themes.dart';
 import 'resources/routes.dart';
 
 class MyApp extends StatelessWidget {

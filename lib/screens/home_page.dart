@@ -7,7 +7,11 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var productsData = Provider.of<List<ProductsData>>(context);
+    var productsData = Provider.of<List<ProductsData>?>(context);
+    if (productsData!.isEmpty)
+      return Center(
+        child: Text("Currently there are no products in our application"),
+      );
     return Container(
       padding: EdgeInsets.only(left: 8, right: 8, top: 8),
       child: GridView.builder(
