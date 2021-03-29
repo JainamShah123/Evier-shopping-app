@@ -1,8 +1,10 @@
+import 'package:evier/database/productsData.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import './myapp.dart';
+import 'database/database_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +25,17 @@ void main() async {
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<User?>.value(
-      value: FirebaseAuth.instance.authStateChanges(),
-      initialData: null,
+    return MultiProvider(
+      providers: [
+        StreamProvider<User?>.value(
+          value: FirebaseAuth.instance.authStateChanges(),
+          initialData: null,
+        ),
+        StreamProvider<List<ProductsData>>.value(
+          value: DatabaseServices().products(),
+          initialData: [],
+        ),
+      ],
       child: MyApp(),
     );
   }
