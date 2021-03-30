@@ -141,25 +141,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  void register(BuildContext context) {
+  void register(BuildContext context) async {
     if (_key.currentState!.validate()) {
       _key.currentState!.save();
       setState(() {
         isloading = true;
       });
-      Auth()
-          .signup(
+      await Auth().signup(
         email: email!,
         password: password!,
         gender: gender,
         name: name,
         phoneNumber: mobileNumber,
         context: context,
-      )
-          .whenComplete(() {
-        setState(() {
-          isloading = false;
-        });
+      );
+
+      setState(() {
+        isloading = false;
       });
     }
   }

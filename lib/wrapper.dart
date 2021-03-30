@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'screens/screens.dart' show Login, HomeScreen;
+import './screens/screens.dart' show Login, HomeScreen;
 
 class Wrapper extends StatelessWidget {
   @override

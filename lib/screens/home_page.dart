@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var productsData = Provider.of<List<ProductsData>?>(context);
-    if (productsData!.isEmpty)
+    var productsData = Provider.of<List<ProductsData?>?>(context);
+    if (productsData == null)
       return Center(
         child: Text("Currently there are no products in our application"),
       );
@@ -25,10 +25,10 @@ class HomePage extends StatelessWidget {
         ),
         itemCount: productsData.length,
         itemBuilder: (ctx, index) => Products(
-          title: productsData[index].productName,
-          url: productsData[index].imageUrl,
-          price: productsData[index].price.toString(),
-          description: productsData[index].description,
+          title: productsData[index]?.productName,
+          url: productsData[index]?.imageUrl,
+          price: productsData[index]?.price.toString(),
+          description: productsData[index]?.description,
         ),
       ),
     );

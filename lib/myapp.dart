@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'wrapper.dart';
-import 'resources/strings.dart';
-import 'screens/screens.dart'
+import './wrapper.dart';
+import './resources/strings.dart';
+import './screens/screens.dart'
     show
         AccountScreen,
         RegistrationPage,

@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evier/database/user_data.dart';
 import 'package:evier/resources/routes.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,8 +14,8 @@ class EvierDrawer extends StatefulWidget {
 class _EvierDrawerState extends State<EvierDrawer> {
   @override
   Widget build(BuildContext context) {
-    CollectionReference query = FirebaseFirestore.instance.collection("user");
     User? user = Provider.of<User?>(context);
+    UserData? userData = Provider.of<UserData?>(context);
 
     print(user!.uid.toString());
 
@@ -23,65 +23,41 @@ class _EvierDrawerState extends State<EvierDrawer> {
       child: Column(
         children: [
           DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Column(
-                children: [
-                  Center(
-                    child: FaIcon(
-                      FontAwesomeIcons.solidUserCircle,
-                      color: Colors.white,
-                      size: 70,
-                    ),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
+            child: Column(
+              children: [
+                Center(
+                  child: FaIcon(
+                    FontAwesomeIcons.solidUserCircle,
+                    color: Colors.white,
+                    size: 70,
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    child: Center(
-                      child: FutureBuilder(
-                        future: FirebaseFirestore.instance
-                            .collection('user')
-                            .doc(user.uid)
-                            .get(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<DocumentSnapshot> snapshot) {
-                          if (snapshot.hasError) return Text("Error");
-                          if (snapshot.hasData)
-                            return Text(
-                              snapshot.data!.data()!['name'] ?? "name not set",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            );
-                          return Container();
-                        },
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: Center(
+                    child: Text(
+                      userData!.name ?? "name not set",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
                       ),
                     ),
                   ),
-                ],
-              )),
-          FutureBuilder(
-            future: query.doc(user.uid).get(),
-            builder: (ctx, AsyncSnapshot<DocumentSnapshot> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.connectionState == ConnectionState.done) {
-                var data = snapshot.data!.data();
-                return data!['type'] == 'Seller'
-                    ? ListTile(
-                        onTap: () => Navigator.pushNamed(
-                            context, Routes.sellerProductRoute),
-                        leading: FaIcon(FontAwesomeIcons.objectGroup),
-                        title: Text("Your Products"),
-                      )
-                    : Container();
-              }
-              return Container();
-            },
+                ),
+              ],
+            ),
           ),
+          if (userData.type == 'Seller')
+            ListTile(
+              onTap: () =>
+                  Navigator.pushNamed(context, Routes.sellerProductRoute),
+              leading: FaIcon(FontAwesomeIcons.objectGroup),
+              title: Text("Your Products"),
+            ),
         ],
       ),
     );

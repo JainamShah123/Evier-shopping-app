@@ -1,9 +1,11 @@
+import 'package:evier/database/database_services.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../database/user_data.dart';
 
 class UserDetailEdit extends StatefulWidget {
   @override
@@ -16,135 +18,121 @@ class _UserDetailEditState extends State<UserDetailEdit> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
-    final userData =
-        FirebaseFirestore.instance.collection('user').doc(user!.uid);
+    var userData = Provider.of<UserData?>(context);
+
     final _key = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Edit your details"),
       ),
-      body: FutureBuilder(
-        future: userData.get(),
-        builder:
-            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          if (snapshot.hasError) {
-            return Center(
-              child: Text("Error"),
-            );
-          }
-
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasData) {
-            return Container(
-              padding: EdgeInsets.all(16),
-              child: Form(
-                  key: _key,
-                  child: ListView(
-                    children: [
-                      TextFormField(
-                        onSaved: (value) {
-                          name = value!;
-                        },
-                        initialValue: snapshot.data!.data()?['name'] ?? '',
-                        decoration: InputDecoration(
-                          hintText: "Name",
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) return "Please enter the Name";
-                        },
+      body: Container(
+        padding: EdgeInsets.all(16),
+        child: Form(
+            key: _key,
+            child: ListView(
+              children: [
+                TextFormField(
+                  onSaved: (value) {
+                    name = value!;
+                  },
+                  initialValue: userData!.name ?? '',
+                  decoration: InputDecoration(
+                    hintText: "Name",
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) return "Please enter the Name";
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      email = value!;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Email",
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    initialValue: user!.email,
+                    validator: (value) {
+                      if (value!.isEmpty) return "Please enter the Email";
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      phoneNumber = value!;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Phone Number",
+                    ),
+                    initialValue: userData.phoneNumber ?? '',
+                    keyboardType: TextInputType.phone,
+                    validator: (value) {
+                      if (value!.isEmpty) return "Please enter the phoneNumber";
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: TextFormField(
+                    onSaved: (value) {
+                      address = value!;
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Address",
+                    ),
+                    maxLines: 5,
+                    initialValue: userData.address ?? '',
+                    validator: (value) {
+                      if (value!.isEmpty) return "Please enter the Address";
+                    },
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 16),
+                  child: ElevatedButton(
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: 70,
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(fontSize: 20),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: TextFormField(
-                          onSaved: (value) {
-                            email = value!;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "Email",
-                          ),
-                          keyboardType: TextInputType.emailAddress,
-                          initialValue: user.email,
-                          validator: (value) {
-                            if (value!.isEmpty) return "Please enter the Email";
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: TextFormField(
-                          onSaved: (value) {
-                            phoneNumber = value!;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "Phone Number",
-                          ),
-                          initialValue:
-                              snapshot.data!.data()?['phonenumber'] ?? '',
-                          keyboardType: TextInputType.phone,
-                          validator: (value) {
-                            if (value!.isEmpty)
-                              return "Please enter the phoneNumber";
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: TextFormField(
-                          onSaved: (value) {
-                            address = value!;
-                          },
-                          decoration: InputDecoration(
-                            hintText: "Address",
-                          ),
-                          maxLines: 5,
-                          initialValue: snapshot.data!.data()?['address'] ?? '',
-                          validator: (value) {
-                            if (value!.isEmpty)
-                              return "Please enter the Address";
-                          },
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 16),
-                        child: ElevatedButton(
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: 70,
-                            child: Text(
-                              "Submit",
-                              style: TextStyle(fontSize: 20),
+                    ),
+                    onPressed: () async {
+                      if (!_key.currentState!.validate()) {
+                        return;
+                      }
+                      _key.currentState!.save();
+                      await DatabaseServices()
+                          .updateDatabase(
+                        id: user.uid,
+                        phoneNumber: phoneNumber ?? userData.phoneNumber,
+                        name: name ?? userData.name,
+                        type: userData.type,
+                      )
+                          .catchError((onError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              onError.toString(),
                             ),
                           ),
-                          onPressed: () async {
-                            if (!_key.currentState!.validate()) {
-                              return;
-                            }
-                            _key.currentState!.save();
-                            await userData.update({
-                              'phonenumber': phoneNumber ??
-                                  snapshot.data!.data()!['phonenumber'],
-                              'name': name ?? snapshot.data!.data()!['name'],
-                              'address':
-                                  address ?? snapshot.data!.data()!['address'],
-                              'type': snapshot.data!.data()!['type'],
-                            });
-                            var email1 = user.email;
-                            await user.updateEmail(email ?? email1!);
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  )),
-            );
-          }
-          return Container();
-        },
+                        );
+                      });
+
+                      await user.updateEmail(email ?? user.email!);
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }
