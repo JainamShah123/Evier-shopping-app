@@ -1,3 +1,4 @@
+import 'package:evier/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -39,9 +40,10 @@ class App extends StatelessWidget {
           value: DatabaseServices().products(),
           initialData: null,
         ),
-        FutureProvider<UserData?>.value(
-          initialData: UserData(),
-          value: DatabaseServices().userData(),
+        StreamProvider<UserData?>(
+          initialData: UserData.initialData(),
+          create: (context) => DatabaseServices().userData(),
+          child: HomeScreen(),
         ),
       ],
       child: MyApp(),

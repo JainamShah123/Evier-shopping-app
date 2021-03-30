@@ -12,27 +12,26 @@ class DatabaseServices {
         snap.docs.map((doc) => ProductsData.fromFirestore(doc)).toList());
   }
 
-  Future<UserData?> userData() {
+  Stream<UserData?> userData() {
     var userId = FirebaseAuth.instance.currentUser?.uid;
-    var userDB = database.collection('user').doc(userId).get();
-    return userDB.then((value) => UserData.fromFirestore(value));
+    var userDB = database.collection('user').doc(userId).snapshots();
+    return userDB.map((event) => UserData.fromFirestore(event));
   }
 
-  Future updateDatabase({
-    String? id,
-    String? phoneNumber,
-    String? name,
-    String? address,
-    String? type,
-  }) async {
-    var productDB = database.collection('products');
-    var doc = productDB.doc(id);
+  // Future updateDatabase({
+  //   String? id,
+  //   String? phoneNumber,
+  //   String? name,
+  //   String? address,
+  //   String? type,
+  // }) async {
+  //   var productDB = database.collection('user').doc(id);
 
-    return await doc.update({
-      'phonenumber': phoneNumber,
-      'name': name,
-      'address': address,
-      'type': type,
-    });
-  }
+  //   return await productDB.set({
+  //     'phonenumber': phoneNumber!,
+  //     'name': name!,
+  //     'address': address!,
+  //     'type': type!,
+  //   });
+  // }
 }

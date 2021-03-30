@@ -21,4 +21,13 @@ class UserData {
       type: doc.data()?['type'],
     );
   }
+
+  factory UserData.initialData() {
+    return UserData(
+      address: '',
+      name: '',
+      phoneNumber: '',
+      type: '',
+    );
+  }
 }

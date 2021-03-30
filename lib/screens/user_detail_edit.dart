@@ -1,4 +1,4 @@
-import 'package:evier/database/database_services.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -13,6 +13,7 @@ class UserDetailEdit extends StatefulWidget {
 }
 
 class _UserDetailEditState extends State<UserDetailEdit> {
+  var userdb = FirebaseFirestore.instance.collection('user');
   String? name, email, address, phoneNumber;
 
   @override
@@ -105,29 +106,26 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                       ),
                     ),
                     onPressed: () async {
-                      if (!_key.currentState!.validate()) {
-                        return;
-                      }
-                      _key.currentState!.save();
-                      await DatabaseServices()
-                          .updateDatabase(
-                        id: user.uid,
-                        phoneNumber: phoneNumber ?? userData.phoneNumber,
-                        name: name ?? userData.name,
-                        type: userData.type,
-                      )
-                          .catchError((onError) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              onError.toString(),
+                      if (_key.currentState!.validate()) {
+                        _key.currentState!.save();
+                        await userdb.doc(user.uid).update({
+                          'address': address ?? userData.address!,
+                          'type': userData.type,
+                          'phonenumber': phoneNumber ?? userData.phoneNumber!,
+                          'name': name ?? userData.name!,
+                        }).catchError((onError) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                onError.toString(),
+                              ),
                             ),
-                          ),
-                        );
-                      });
+                          );
+                        });
 
-                      await user.updateEmail(email ?? user.email!);
-                      Navigator.pop(context);
+                        await user.updateEmail(email ?? user.email!);
+                        Navigator.pop(context);
+                      }
                     },
                   ),
                 ),

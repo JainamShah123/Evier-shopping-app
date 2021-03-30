@@ -6,11 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
+  @override
+  _AccountScreenState createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  UserData? userData;
+  @override
+  void dispose() {
+    userData = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
-    var userData = Provider.of<UserData?>(context);
+    // var userData = Provider.of<UserData?>(context);
+    userData = context.watch<UserData?>();
 
     return ListView(
       padding: EdgeInsets.all(16),
