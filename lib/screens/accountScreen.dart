@@ -51,13 +51,13 @@ class _AccountScreenState extends State<AccountScreen> {
         ListTile(
           leading: FaIcon(FontAwesomeIcons.phoneAlt),
           title: Text(
-            userData.phoneNumber ?? "Please enter the phone number",
+            userData?.phoneNumber ?? "Please enter the phone number",
           ),
         ),
         ListTile(
           leading: FaIcon(FontAwesomeIcons.addressCard),
           title: Text(
-            userData.address ?? "Please enter the address",
+            userData?.address ?? "Please enter the address",
           ),
         ),
         Align(
