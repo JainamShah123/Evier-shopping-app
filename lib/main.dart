@@ -24,6 +24,7 @@ void main() async {
       measurementId: "G-BQB9530LZD",
     ),
   );
+
   runApp(App());
 }
 
