@@ -10,7 +10,7 @@ class SellerProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
-    var products = Provider.of<List<ProductsData>?>(context);
+    var products = Provider.of<List<ProductsData?>?>(context);
     var uid = user!.uid;
     return Scaffold(
       appBar: AppBar(
@@ -37,16 +37,16 @@ class SellerProductScreen extends StatelessWidget {
               childAspectRatio: 1.6 / 2,
             ),
             itemCount: products?.where((element) {
-              if (element.seller == user.uid) return true;
+              if (element!.seller == user.uid) return true;
               return false;
             }).length,
             itemBuilder: (ctx, index) {
-              if (products?[index].seller == uid)
+              if (products?[index]!.seller == uid)
                 return Products(
-                  title: products?[index].productName,
-                  url: products?[index].imageUrl,
-                  price: products?[index].price,
-                  description: products?[index].description,
+                  title: products?[index]!.productName,
+                  url: products?[index]!.imageUrl,
+                  price: products?[index]!.price,
+                  description: products?[index]!.description,
                 );
               return SizedBox.shrink();
             }),

@@ -85,10 +85,11 @@ class _LoginState extends State<Login> {
             isLoading = true;
           });
 
-          await Auth().login(email, password, context);
-          setState(() {
-            isLoading = false;
-          });
+          await Auth()
+              .login(email, password, context)
+              .whenComplete(() => setState(() {
+                    isLoading = false;
+                  }));
         }
       },
       child: Container(

@@ -5,7 +5,6 @@ import 'user_data.dart';
 
 class DatabaseServices {
   final FirebaseFirestore database = FirebaseFirestore.instance;
-  var userId = FirebaseAuth.instance.currentUser?.uid;
 
   Stream<List<ProductsData>?> products() {
     var productDB = database.collection('products');
@@ -14,6 +13,7 @@ class DatabaseServices {
   }
 
   Future<UserData?> userData() {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
     var userDB = database.collection('user').doc(userId).get();
     return userDB.then((value) => UserData.fromFirestore(value));
   }

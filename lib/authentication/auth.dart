@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../screens/home_screen.dart';
 
-class Auth {
+class Auth with ChangeNotifier {
   FirebaseFirestore _storage = FirebaseFirestore.instance;
 
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,7 +23,7 @@ class Auth {
 
     try {
       userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email.toString(), password: password.toString());
+          email: email, password: password);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print("The password is too weak");
@@ -78,5 +78,7 @@ class Auth {
 
   Future logout() async {
     await _auth.signOut();
+    user = null;
+    notifyListeners();
   }
 }
