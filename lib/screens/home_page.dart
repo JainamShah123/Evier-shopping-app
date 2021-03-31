@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
           url: productsData[index]?.imageUrl,
           price: productsData[index]?.price.toString(),
           description: productsData[index]?.description,
+          id: productsData[index]?.id,
         ),
       ),
     );

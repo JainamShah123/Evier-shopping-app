@@ -22,7 +22,7 @@ class ProductsData {
   factory ProductsData.fromFirestore(DocumentSnapshot doc) {
     Map? data = doc.data();
     return ProductsData(
-      id: data?['id'],
+      id: doc.id,
       productName: data?['name'],
       price: data?['price'],
       seller: data?['seller'],

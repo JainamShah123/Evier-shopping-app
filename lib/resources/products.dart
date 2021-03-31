@@ -1,3 +1,4 @@
+import 'package:evier/database/database_services.dart';
 import 'package:evier/screens/cart_screen.dart';
 import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,11 @@ class Products extends StatelessWidget {
   final String? title;
   final String? price;
   final String? description;
+  final String? id;
 
   const Products({
     Key? key,
+    this.id,
     this.url,
     this.title,
     this.price,
@@ -69,8 +72,11 @@ class Products extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.favorite_border_sharp,
+                  IconButton(
+                    icon: Icon(Icons.favorite_border_sharp),
+                    onPressed: () async {
+                      await DatabaseServices().setFavourite(id!);
+                    },
                   ),
                 ],
               ),

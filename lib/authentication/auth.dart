@@ -1,6 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../screens/home_screen.dart';
 
@@ -78,8 +84,9 @@ class Auth with ChangeNotifier {
 
   Future logout() async {
     await _auth.signOut();
-    _storage.clearPersistence();
-    _auth.setPersistence(Persistence.NONE);
+    await _storage.clearPersistence();
+    await DefaultCacheManager().emptyCache();
+
     user = null;
     notifyListeners();
   }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evier/database/favourites.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'productsData.dart';
 import 'user_data.dart';
@@ -18,20 +19,24 @@ class DatabaseServices {
     return userDB.map((event) => UserData.fromFirestore(event));
   }
 
-  // Future updateDatabase({
-  //   String? id,
-  //   String? phoneNumber,
-  //   String? name,
-  //   String? address,
-  //   String? type,
-  // }) async {
-  //   var productDB = database.collection('user').doc(id);
+  Stream<List<Favourites?>?> favourites() {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var favouritedb = database
+        .collection('user')
+        .doc(userId)
+        .collection('favourites')
+        .snapshots();
 
-  //   return await productDB.set({
-  //     'phonenumber': phoneNumber!,
-  //     'name': name!,
-  //     'address': address!,
-  //     'type': type!,
-  //   });
-  // }
+    return favouritedb.map(
+        (snap) => snap.docs.map((e) => Favourites.fromFirestore(e)).toList());
+  }
+
+  Future setFavourite(String id) {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var favouritedb =
+        database.collection('user').doc(userId).collection('favourites').doc();
+    return favouritedb.set({
+      'id': id,
+    });
+  }
 }
