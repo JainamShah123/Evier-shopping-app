@@ -1,3 +1,4 @@
+import 'package:evier/database/favourites.dart';
 import 'package:evier/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,10 @@ class App extends StatelessWidget {
           initialData: UserData.initialData(),
           create: (context) => DatabaseServices().userData(),
           child: HomeScreen(),
+        ),
+        StreamProvider<List<Favourites?>?>.value(
+          value: DatabaseServices().favourites(),
+          initialData: null,
         ),
       ],
       child: MyApp(),

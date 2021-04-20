@@ -4,21 +4,31 @@ import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Products extends StatelessWidget {
+class Products extends StatefulWidget {
   final String? url;
   final String? title;
   final String? price;
   final String? description;
   final String? id;
+  final String? category;
+  final String? seller;
 
   const Products({
     Key? key,
+    this.seller,
     this.id,
     this.url,
     this.title,
+    this.category,
     this.price,
     this.description,
   }) : super(key: key);
+
+  @override
+  _ProductsState createState() => _ProductsState();
+}
+
+class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -31,27 +41,27 @@ class Products extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (ctx) => ProductScreen(
-                  title: title,
-                  description: description,
-                  price: price,
-                  url: url,
+                  title: widget.title,
+                  description: widget.description,
+                  price: widget.price,
+                  url: widget.url,
                 ),
               ),
             );
           },
           child: Stack(
             children: [
-              Image.network(url!),
+              Image.network(widget.url!),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: ListTile(
                   tileColor: Colors.white,
                   title: Text(
-                    title!,
+                    widget.title!,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                   ),
                   subtitle: Text(
-                    '₹$price',
+                    '₹${widget.price}',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -73,9 +83,20 @@ class Products extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.favorite_border_sharp),
+                    icon: DatabaseServices().favIsSet(widget.id!)
+                        ? Icon(Icons.favorite_sharp)
+                        : Icon(Icons.favorite_border_sharp),
                     onPressed: () async {
-                      await DatabaseServices().setFavourite(id!);
+                      if (!DatabaseServices().favIsSet(widget.id!))
+                        await DatabaseServices().setFavourite(
+                          category: widget.category!,
+                          id: widget.id!,
+                          price: widget.price!,
+                          productName: widget.title!,
+                          seller: widget.seller!,
+                          description: widget.description ?? "",
+                          imageUrl: widget.url!,
+                        );
                     },
                   ),
                 ],

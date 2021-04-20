@@ -27,9 +27,11 @@ class HomePage extends StatelessWidget {
         itemBuilder: (ctx, index) => Products(
           title: productsData[index]?.productName,
           url: productsData[index]?.imageUrl,
-          price: productsData[index]?.price.toString(),
+          price: productsData[index]?.price,
           description: productsData[index]?.description,
           id: productsData[index]?.id,
+          category: productsData[index]?.category,
+          seller: productsData[index]?.seller,
         ),
       ),
     );

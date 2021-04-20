@@ -55,10 +55,8 @@ class Auth with ChangeNotifier {
     String? password,
     BuildContext context,
   ) async {
-    late UserCredential userCredential;
-
     try {
-      userCredential = await _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
           email: email!, password: password!);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -78,11 +76,16 @@ class Auth with ChangeNotifier {
   }
 
   Future logout() async {
-    await _auth.signOut();
-    await _storage.clearPersistence();
-    await DefaultCacheManager().emptyCache();
+    try {
+      await _auth.signOut();
+      await _storage.clearPersistence();
+      await DefaultCacheManager().emptyCache();
 
-    user = null;
-    notifyListeners();
+      user = null;
+    } catch (e) {
+      print(e);
+    } finally {
+      notifyListeners();
+    }
   }
 }
