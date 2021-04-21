@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:evier/resources/strings.dart';
+import 'package:provider/provider.dart';
 
 class AddProductScreen extends StatefulWidget {
   @override
@@ -17,22 +18,24 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  User user = FirebaseAuth.instance.currentUser!;
   CollectionReference productDatabase =
       FirebaseFirestore.instance.collection("products");
 
   FirebaseStorage storage = FirebaseStorage.instance;
-  String? productPrice, productCategory, productCompany, productDescription;
-  String? nameOfProduct;
+  String? productPrice,
+      productCategory,
+      productCompany,
+      productDescription,
+      nameOfProduct,
+      location,
+      imageUrl,
+      sellerId,
+      optionText;
   final key = GlobalKey<FormState>();
-  String? location;
-  String? imageUrl;
-  String? sellerId = FirebaseAuth.instance.currentUser!.uid;
   PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
   File? file;
-  String? optionText;
   late Reference storageReference;
   late TaskSnapshot storageTaskSnapshot;
 
@@ -65,19 +68,42 @@ class _AddProductScreenState extends State<AddProductScreen> {
     if (key.currentState!.validate()) {
       key.currentState!.save();
 
-      productDatabase.add({
-        'price': productPrice!,
-        'name': nameOfProduct!,
-        'description': productDescription!,
-        'imageUrl': imageUrl.toString(),
-        'category': productCategory!,
-        'seller': sellerId,
-      }).whenComplete(() => Navigator.pop(context));
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text("Confirm"),
+          content: Text("Are you sure you want to add the product"),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                await productDatabase.add({
+                  'price': productPrice!,
+                  'name': nameOfProduct!,
+                  'description': productDescription!,
+                  'imageUrl': imageUrl.toString(),
+                  'category': productCategory!,
+                  'seller': sellerId,
+                }).whenComplete(() => Navigator.of(context).pop());
+              },
+              child: Text("ADD"),
+            ),
+            TextButton(
+              onPressed: () {
+                return Navigator.of(context).pop(false);
+              },
+              child: Text("NO"),
+            ),
+          ],
+        ),
+      ).whenComplete(() => Navigator.of(context).pop());
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    User? user = Provider.of(context);
+    sellerId = user!.uid;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.addProduct),
@@ -126,7 +152,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Strings.productNameError";
+                    return Strings.productNameError;
                   }
                   return null;
                 },
