@@ -4,9 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import './screens.dart';
-import '../resources/strings.dart';
 import '../resources/routes.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,31 +17,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
   final _key = GlobalKey<FormState>();
-
-  final List<Map<String, Object>> _pages = [
-    {
-      'page': HomePage(),
-      'title': Strings.title,
-    },
-    {
-      'page': CategoryScreen(),
-      'title': Strings.categoryTitle,
-    },
-    {
-      'page': FavouriteScreen(),
-      'title': Strings.favouriteTitle,
-    },
-    {
-      'page': AccountScreen(),
-      'title': Strings.accountTitle,
-    },
-  ];
-
-  void selectPage(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
         actions: [
@@ -66,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: BorderStyle.solid,
                             ),
                           ),
-                          hintText: Strings.search,
+                          hintText: AppLocalizations.of(context)!.search,
                           hintStyle: TextStyle(color: Colors.white),
                           focusColor: Colors.white,
                           fillColor: Colors.white,
@@ -135,6 +110,31 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, Object>> _pages = [
+      {
+        'page': HomePage(),
+        'title': AppLocalizations.of(context)!.title,
+      },
+      {
+        'page': CategoryScreen(),
+        'title': AppLocalizations.of(context)!.categoryTitle,
+      },
+      {
+        'page': FavouriteScreen(),
+        'title': AppLocalizations.of(context)!.favouriteTitle,
+      },
+      {
+        'page': AccountScreen(),
+        'title': AppLocalizations.of(context)!.accountTitle,
+      },
+    ];
+
+    void selectPage(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
     return Scaffold(
       drawer: EvierDrawer(),
       backgroundColor: Colors.grey[200],

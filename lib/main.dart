@@ -1,7 +1,6 @@
 import 'package:evier/database/favourites.dart';
 import 'package:evier/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';

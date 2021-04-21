@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavouriteScreen extends StatelessWidget {
   @override
@@ -38,16 +39,17 @@ class FavouriteScreen extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text("Confirm"),
+                  title: Text(AppLocalizations.of(context)!.confirm),
                   content:
-                      const Text("Are you sure you wish to delete this item?"),
+                      Text(AppLocalizations.of(context)!.deleteItemWarning),
                   actions: <Widget>[
                     TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text("DELETE")),
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text(AppLocalizations.of(context)!.delete),
+                    ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: const Text("CANCEL"),
+                      child: Text(AppLocalizations.of(context)!.cancel),
                     ),
                   ],
                 );

@@ -1,5 +1,6 @@
 import 'package:evier/database/productsData.dart';
 import 'package:evier/resources/products.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ class HomePage extends StatelessWidget {
     var productsData = Provider.of<List<ProductsData?>?>(context);
     if (productsData == null)
       return Center(
-        child: Text("Currently there are no products in our application"),
+        child: Text(AppLocalizations.of(context)!.noProducts),
       );
     return Container(
       padding: EdgeInsets.only(left: 8, right: 8, top: 8),

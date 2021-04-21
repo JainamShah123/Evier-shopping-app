@@ -1,8 +1,8 @@
-import 'package:evier/resources/strings.dart';
 import 'package:flutter/foundation.dart';
 
 import '../authentication/auth.dart';
 import '../resources/custom_box_decoration.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import '../resources/custom_gradient.dart';
 
@@ -23,12 +23,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return TextFormField(
       keyboardType: TextInputType.phone,
       decoration: InputDecoration(
-        hintText: "Phone Number",
+        hintText: AppLocalizations.of(context)!.phoneNumberHint,
         prefixIcon: Icon(Icons.phone),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return "Please Enter the Phone Number";
+          return AppLocalizations.of(context)!.phoneNumberError;
         }
         return null;
       },
@@ -70,12 +70,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget nameFormField() {
     return TextFormField(
       decoration: InputDecoration(
-        hintText: "Full Name",
+        hintText: AppLocalizations.of(context)!.accountNameHint,
         prefixIcon: Icon(Icons.account_circle_outlined),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return "Please Enter the Name";
+          return AppLocalizations.of(context)!.accountNameError;
         }
         return null;
       },
@@ -89,12 +89,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        hintText: Strings.emailHint,
+        hintText: AppLocalizations.of(context)!.emailHint,
         prefixIcon: Icon(Icons.mail_outline_rounded),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return Strings.emailError;
+          return AppLocalizations.of(context)!.emailError;
         }
 
         return null;
@@ -110,12 +110,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: Strings.passwordHint,
+        hintText: AppLocalizations.of(context)!.passwordHint,
         prefixIcon: Icon(Icons.lock_outline_rounded),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return Strings.passwordError;
+          return AppLocalizations.of(context)!.passwordError;
         }
         return null;
       },
@@ -128,7 +128,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget goToLoginPageButton(BuildContext context) {
     return TextButton(
       child: Text(
-        Strings.goToLoginPage,
+        AppLocalizations.of(context)!.goToLoginPage,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20,
@@ -175,7 +175,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              Strings.register,
+              AppLocalizations.of(context)!.register,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
@@ -202,7 +202,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     ),
                     child: Center(
                       child: Text(
-                        Strings.title,
+                        AppLocalizations.of(context)!.title,
                         style: TextStyle(
                           fontSize: 100,
                           fontWeight: FontWeight.bold,
@@ -222,7 +222,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          Strings.register,
+                          AppLocalizations.of(context)!.register,
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -311,7 +311,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         children: [
                           SizedBox(height: 20),
                           Text(
-                            Strings.title,
+                            AppLocalizations.of(context)!.title,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 50,
@@ -333,7 +333,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                   children: [
                                     SizedBox(height: 15),
                                     Text(
-                                      Strings.register,
+                                      AppLocalizations.of(context)!.register,
                                       style: TextStyle(
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold,

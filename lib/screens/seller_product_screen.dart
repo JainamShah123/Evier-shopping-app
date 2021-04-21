@@ -1,6 +1,7 @@
 import 'package:evier/database/productsData.dart';
 import 'package:evier/resources/products.dart';
 import 'package:evier/resources/routes.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class SellerProductScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Your Product"),
+        title: Text(AppLocalizations.of(context)!.yourProducts),
         actions: [
           IconButton(
             icon: Icon(Icons.add),

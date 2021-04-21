@@ -2,10 +2,10 @@ import 'package:evier/authentication/auth.dart';
 import 'package:evier/resources/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../resources/custom_box_decoration.dart';
 import '../resources/custom_gradient.dart';
-import '../resources/strings.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -23,12 +23,12 @@ class _LoginState extends State<Login> {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
-        hintText: Strings.emailHint,
+        hintText: AppLocalizations.of(context)!.emailHint,
         prefixIcon: Icon(Icons.mail_outline_rounded),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return Strings.emailError;
+          return AppLocalizations.of(context)!.emailError;
         }
 
         return null;
@@ -44,12 +44,12 @@ class _LoginState extends State<Login> {
       keyboardType: TextInputType.visiblePassword,
       obscureText: true,
       decoration: InputDecoration(
-        hintText: Strings.passwordHint,
+        hintText: AppLocalizations.of(context)!.passwordHint,
         prefixIcon: Icon(Icons.lock_outline_rounded),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return Strings.passwordError;
+          return AppLocalizations.of(context)!.passwordError;
         }
         return null;
       },
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
   Widget createAccountButton() {
     return TextButton(
       child: Text(
-        Strings.createAccount,
+        AppLocalizations.of(context)!.createAccount,
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20,
@@ -101,7 +101,7 @@ class _LoginState extends State<Login> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              Strings.login,
+              AppLocalizations.of(context)!.login,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 20),
             ),
@@ -128,7 +128,7 @@ class _LoginState extends State<Login> {
                     ),
                     child: Center(
                       child: Text(
-                        Strings.title,
+                        AppLocalizations.of(context)!.title,
                         style: TextStyle(
                           fontSize: 100,
                           fontWeight: FontWeight.bold,
@@ -148,7 +148,7 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          Strings.login,
+                          AppLocalizations.of(context)!.login,
                           style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
@@ -227,7 +227,7 @@ class _LoginState extends State<Login> {
                       children: [
                         SizedBox(height: 20),
                         Text(
-                          Strings.title,
+                          AppLocalizations.of(context)!.title,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 50,
@@ -252,7 +252,7 @@ class _LoginState extends State<Login> {
                                   children: [
                                     SizedBox(height: 15),
                                     Text(
-                                      Strings.login,
+                                      AppLocalizations.of(context)!.login,
                                       style: TextStyle(
                                         fontSize: 35,
                                         fontWeight: FontWeight.bold,

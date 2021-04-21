@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:evier/resources/strings.dart';
 import 'package:provider/provider.dart';
 
 class AddProductScreen extends StatefulWidget {
@@ -106,7 +106,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.addProduct),
+        title: Text(AppLocalizations.of(context)!.addProduct),
         centerTitle: true,
         actions: [
           IconButton(
@@ -148,11 +148,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 key: UniqueKey(),
                 decoration: InputDecoration(
-                  hintText: "product Name",
+                  hintText: AppLocalizations.of(context)!.productNameHint,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.productNameError;
+                    return AppLocalizations.of(context)!.productNameError;
                   }
                   return null;
                 },
@@ -168,11 +168,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   decimal: true,
                 ),
                 decoration: InputDecoration(
-                  hintText: Strings.priceHint,
+                  hintText: AppLocalizations.of(context)!.priceHint,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.priceError;
+                    return AppLocalizations.of(context)!.priceError;
                   }
                   return null;
                 },
@@ -185,11 +185,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: Strings.categoryTitle,
+                  hintText: AppLocalizations.of(context)!.categoryTitle,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.categoryError;
+                    return AppLocalizations.of(context)!.categoryError;
                   }
                   return null;
                 },
@@ -202,11 +202,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  hintText: Strings.companyTitle,
+                  hintText: AppLocalizations.of(context)!.companyTitle,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.companyError;
+                    return AppLocalizations.of(context)!.companyError;
                   }
                   return null;
                 },
@@ -220,11 +220,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               TextFormField(
                 maxLines: 15,
                 decoration: InputDecoration(
-                  hintText: Strings.productDescription,
+                  hintText: AppLocalizations.of(context)!.productDescription,
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return Strings.productDescriptionError;
+                    return AppLocalizations.of(context)!
+                        .productDescriptionError;
                   }
                   return null;
                 },
@@ -246,7 +247,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                           MaterialStateProperty.all<Color>(Colors.blue),
                     ),
                     child: Text(
-                      Strings.addProduct,
+                      AppLocalizations.of(context)!.addProduct,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,

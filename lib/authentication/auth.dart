@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
 import '../screens/home_screen.dart';
 
@@ -79,7 +78,6 @@ class Auth with ChangeNotifier {
     try {
       await _auth.signOut();
       await _storage.clearPersistence();
-      await DefaultCacheManager().emptyCache();
 
       user = null;
     } catch (e) {

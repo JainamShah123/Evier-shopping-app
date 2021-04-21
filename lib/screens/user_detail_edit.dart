@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:provider/provider.dart';
 
@@ -39,10 +40,11 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                   },
                   initialValue: userData!.name ?? '',
                   decoration: InputDecoration(
-                    hintText: "Name",
+                    hintText: AppLocalizations.of(context)!.accountNameHint,
                   ),
                   validator: (value) {
-                    if (value!.isEmpty) return "Please enter the Name";
+                    if (value!.isEmpty)
+                      return AppLocalizations.of(context)!.accountNameError;
                   },
                 ),
                 Padding(
@@ -52,12 +54,13 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                       email = value!;
                     },
                     decoration: InputDecoration(
-                      hintText: "Email",
+                      hintText: AppLocalizations.of(context)!.emailHint,
                     ),
                     keyboardType: TextInputType.emailAddress,
                     initialValue: user!.email,
                     validator: (value) {
-                      if (value!.isEmpty) return "Please enter the Email";
+                      if (value!.isEmpty)
+                        return AppLocalizations.of(context)!.emailHint;
                     },
                   ),
                 ),
@@ -68,12 +71,13 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                       phoneNumber = value!;
                     },
                     decoration: InputDecoration(
-                      hintText: "Phone Number",
+                      hintText: AppLocalizations.of(context)!.phoneNumberHint,
                     ),
                     initialValue: userData.phoneNumber ?? '',
                     keyboardType: TextInputType.phone,
                     validator: (value) {
-                      if (value!.isEmpty) return "Please enter the phoneNumber";
+                      if (value!.isEmpty)
+                        return AppLocalizations.of(context)!.phoneNumberError;
                     },
                   ),
                 ),
@@ -84,12 +88,13 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                       address = value!;
                     },
                     decoration: InputDecoration(
-                      hintText: "Address",
+                      hintText: AppLocalizations.of(context)!.addressHint,
                     ),
                     maxLines: 5,
                     initialValue: userData.address ?? '',
                     validator: (value) {
-                      if (value!.isEmpty) return "Please enter the Address";
+                      if (value!.isEmpty)
+                        return AppLocalizations.of(context)!.addressError;
                     },
                   ),
                 ),
