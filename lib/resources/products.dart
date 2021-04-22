@@ -83,9 +83,7 @@ class _ProductsState extends State<Products> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   IconButton(
-                    icon: DatabaseServices().favIsSet(widget.id!)
-                        ? Icon(Icons.favorite_sharp)
-                        : Icon(Icons.favorite_border_sharp),
+                    icon: Icon(Icons.favorite_border_sharp),
                     onPressed: () async {
                       if (!DatabaseServices().favIsSet(widget.id!))
                         await DatabaseServices().setFavourite(

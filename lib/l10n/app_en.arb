@@ -8,6 +8,8 @@
   "accountNameError": "Please enter your name",
   "createAccount": "Create Account",
   "login": "Login",
+  "profile": "Profile",
+  "home": "Home",
   "categoryFloorTrap": "Floor Trap",
   "logout": "Logout",
   "addProduct": "Add Product",

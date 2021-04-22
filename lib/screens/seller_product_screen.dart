@@ -38,7 +38,7 @@ class SellerProductScreen extends StatelessWidget {
               childAspectRatio: 1.6 / 2,
             ),
             itemCount: products?.where((element) {
-              if (element!.seller == user.uid) return true;
+              if (element?.seller == user.uid) return true;
               return false;
             }).length,
             itemBuilder: (ctx, index) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -15,16 +16,20 @@ class BottomNavigationBarWidget extends StatelessWidget {
       items: [
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.home),
-          label: "Home",
+          label: AppLocalizations.of(context)!.home,
         ),
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.list),
-          label: "Categories",
+          label: AppLocalizations.of(context)!.categoryTitle,
         ),
         BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.heart), label: "Favourite"),
+          icon: FaIcon(FontAwesomeIcons.heart),
+          label: AppLocalizations.of(context)!.favouriteTitle,
+        ),
         BottomNavigationBarItem(
-            icon: FaIcon(FontAwesomeIcons.userCircle), label: "Profile"),
+          icon: FaIcon(FontAwesomeIcons.userCircle),
+          label: AppLocalizations.of(context)!.profile,
+        ),
       ],
     );
   }

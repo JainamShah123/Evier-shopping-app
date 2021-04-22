@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       {
         'page': AccountScreen(),
-        'title': AppLocalizations.of(context)!.accountTitle,
+        'title': AppLocalizations.of(context)!.profile,
       },
     ];
 
