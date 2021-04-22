@@ -1,8 +1,4 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  },
   "appTitle": "Evier - Sanitary shopping application",
   "title": "Evier",
   "categoryTitle": "Category",
@@ -11,7 +7,6 @@
   "accountNameHint": "Name",
   "accountNameError": "Please enter your name",
   "createAccount": "Create Account",
-  "signInWithGoogle": "Sign in with Google",
   "login": "Login",
   "categoryFloorTrap": "Floor Trap",
   "logout": "Logout",
