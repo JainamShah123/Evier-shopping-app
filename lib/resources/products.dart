@@ -1,5 +1,4 @@
 import 'package:evier/database/database_services.dart';
-import 'package:evier/screens/cart_screen.dart';
 import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,16 +11,18 @@ class Products extends StatefulWidget {
   final String? id;
   final String? category;
   final String? seller;
+  final String? company;
 
   const Products({
     Key? key,
-    this.seller,
-    this.id,
-    this.url,
-    this.title,
-    this.category,
-    this.price,
-    this.description,
+    required this.seller,
+    required this.id,
+    required this.url,
+    required this.title,
+    required this.category,
+    required this.price,
+    required this.description,
+    required this.company,
   }) : super(key: key);
 
   @override
@@ -29,6 +30,57 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+  void setCart(BuildContext ctx) async {
+    bool cartIsSet = await DatabaseServices().cartIsSet(widget.id!);
+
+    if (!cartIsSet) {
+      await DatabaseServices().setCart(
+        company: widget.company!,
+        category: widget.category!,
+        id: widget.id!,
+        price: widget.price!,
+        productName: widget.title!,
+        seller: widget.seller!,
+        description: widget.description ?? "",
+        imageUrl: widget.url!,
+      );
+      setState(() {
+        cartIsSet = true;
+      });
+    } else {
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          content: Text("Already added in cart"),
+        ),
+      );
+    }
+  }
+
+  void setFav(BuildContext ctx) async {
+    bool favIsSet = await DatabaseServices().favIsSet(widget.id!);
+    if (!favIsSet) {
+      await DatabaseServices().setFavourite(
+        company: widget.company!,
+        category: widget.category!,
+        id: widget.id!,
+        price: widget.price!,
+        productName: widget.title!,
+        seller: widget.seller!,
+        description: widget.description ?? "",
+        imageUrl: widget.url!,
+      );
+      setState(() {
+        favIsSet = true;
+      });
+    } else {
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          content: Text("Already added in favourites"),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -72,32 +124,13 @@ class _ProductsState extends State<Products> {
                     child: FaIcon(
                       FontAwesomeIcons.shoppingCart,
                     ),
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (ctx) => CartScreen()));
-                    },
+                    onTap: () => setCart(context),
                   ),
                 ),
               ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.favorite_border_sharp),
-                    onPressed: () async {
-                      if (!DatabaseServices().favIsSet(widget.id!))
-                        await DatabaseServices().setFavourite(
-                          category: widget.category!,
-                          id: widget.id!,
-                          price: widget.price!,
-                          productName: widget.title!,
-                          seller: widget.seller!,
-                          description: widget.description ?? "",
-                          imageUrl: widget.url!,
-                        );
-                    },
-                  ),
-                ],
+              IconButton(
+                icon: FaIcon(FontAwesomeIcons.heart),
+                onPressed: () => setFav(context),
               ),
             ],
           ),

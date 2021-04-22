@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/database/favourites.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'cart.dart';
 import 'productsData.dart';
 import 'user_data.dart';
 
@@ -32,14 +33,42 @@ class DatabaseServices with ChangeNotifier {
         (snap) => snap.docs.map((e) => Favourites.fromFirestore(e)).toList());
   }
 
-  bool favIsSet(String id) {
+  Stream<List<Cart?>?> cart() {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var cartdb =
+        database.collection('user').doc(userId).collection('cart').snapshots();
+
+    return cartdb
+        .map((snap) => snap.docs.map((e) => Cart.fromFirestore(e)).toList());
+  }
+
+  Future<bool> favIsSet(String id) {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     var favouritedb = database
         .collection('user')
         .doc(userId)
         .collection('favourites')
-        .doc(id);
-    var ans = favouritedb.id.isEmpty ? true : false;
+        .doc(id)
+        .get();
+
+    Future<bool> ans =
+        favouritedb.then((value) => !value.exists ? false : true);
+
+    return ans;
+  }
+
+  Future<bool> cartIsSet(String id) {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var favouritedb = database
+        .collection('user')
+        .doc(userId)
+        .collection('cart')
+        .doc(id)
+        .get();
+
+    Future<bool> ans =
+        favouritedb.then((value) => !value.exists ? false : true);
+
     return ans;
   }
 
@@ -62,6 +91,7 @@ class DatabaseServices with ChangeNotifier {
     required String price,
     required String description,
     required String imageUrl,
+    required String company,
   }) {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     var favouritedb = database
@@ -76,6 +106,39 @@ class DatabaseServices with ChangeNotifier {
       'category': category,
       'seller': seller,
       'price': price,
+      'company': company,
     });
+  }
+
+  Future setCart({
+    required String id,
+    required String productName,
+    required String category,
+    required String seller,
+    required String price,
+    required String description,
+    required String imageUrl,
+    required String company,
+  }) {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var favouritedb =
+        database.collection('user').doc(userId).collection('cart').doc(id);
+    return favouritedb.set({
+      'name': productName,
+      'imageUrl': imageUrl,
+      'description': description,
+      'category': category,
+      'seller': seller,
+      'price': price,
+      'company': company,
+    });
+  }
+
+  Future removeCart(String id) async {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var favouritedb =
+        database.collection('user').doc(userId).collection('cart').doc(id);
+    favouritedb.delete();
+    notifyListeners();
   }
 }

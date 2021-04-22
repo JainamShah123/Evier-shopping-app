@@ -38,5 +38,6 @@
   "confirm": "Confirm",
   "deleteItemWarning": "Are you sure you wish to delete this item?",
   "delete": "DELETE",
-  "cancel": "CANCEL"
+  "cancel": "CANCEL",
+  "cart": "Cart"
 }

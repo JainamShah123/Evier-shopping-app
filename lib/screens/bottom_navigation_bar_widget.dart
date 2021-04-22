@@ -27,6 +27,10 @@ class BottomNavigationBarWidget extends StatelessWidget {
           label: AppLocalizations.of(context)!.favouriteTitle,
         ),
         BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.shoppingCart),
+          label: AppLocalizations.of(context)!.cart,
+        ),
+        BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.userCircle),
           label: AppLocalizations.of(context)!.profile,
         ),

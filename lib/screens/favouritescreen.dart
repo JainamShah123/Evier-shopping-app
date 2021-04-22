@@ -10,9 +10,14 @@ class FavouriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var favourites = Provider.of<List<Favourites?>?>(context);
-    if (favourites == null)
+    if (favourites == null) {
       return Center(
         child: CircularProgressIndicator(),
+      );
+    }
+    if (favourites.isEmpty)
+      return Center(
+        child: Text("No products in favourite"),
       );
 
     return ListView.builder(
@@ -63,6 +68,7 @@ class FavouriteScreen extends StatelessWidget {
             price: favourites[index]?.price.toString(),
             description: favourites[index]?.description,
             id: favourites[index]?.id,
+            company: favourites[index]?.company,
             category: favourites[index]?.category,
             seller: favourites[index]?.seller,
           ),
@@ -73,7 +79,7 @@ class FavouriteScreen extends StatelessWidget {
 }
 
 class FavouritesList extends StatelessWidget {
-  final String? title, url, price, description, id, category, seller;
+  final String? title, url, price, description, id, category, seller, company;
 
   const FavouritesList(
       {Key? key,
@@ -83,13 +89,23 @@ class FavouritesList extends StatelessWidget {
       this.description,
       this.id,
       this.category,
+      this.company,
       this.seller})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text(title!),
-      subtitle: Text(price!),
+      title: Text(
+        "Product Name:  $title",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text("Product price:  $price"),
+      children: [
+        Image.network(url!),
+        Text(company!),
+      ],
     );
   }
 }

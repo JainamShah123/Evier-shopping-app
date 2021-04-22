@@ -79,7 +79,7 @@ class ProductScreen extends StatelessWidget {
                   ),
                   Container(
                     width: double.infinity,
-                    child: TextButton(
+                    child: ElevatedButton(
                       onPressed: () {},
                       child: Text(
                         "Add To Cart",

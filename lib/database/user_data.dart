@@ -7,10 +7,10 @@ class UserData {
   String? type;
 
   UserData({
-    this.address,
-    this.name,
-    this.phoneNumber,
-    this.type,
+    required this.address,
+    required this.name,
+    required this.phoneNumber,
+    required this.type,
   });
 
   factory UserData.fromFirestore(DocumentSnapshot doc) {

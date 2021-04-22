@@ -9,7 +9,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productsData = Provider.of<List<ProductsData?>?>(context);
-    if (productsData == null)
+    if (productsData == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+    if (productsData.isEmpty)
       return Center(
         child: Text(AppLocalizations.of(context)!.noProducts),
       );
@@ -26,6 +31,7 @@ class HomePage extends StatelessWidget {
         ),
         itemCount: productsData.length,
         itemBuilder: (ctx, index) => Products(
+          company: productsData[index]?.company,
           title: productsData[index]?.productName,
           url: productsData[index]?.imageUrl,
           price: productsData[index]?.price,

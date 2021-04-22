@@ -1,10 +1,5 @@
-import 'package:evier/screens/category_all_screens/category_Floortap.dart';
-import 'package:evier/screens/category_all_screens/category_health_facuet.dart';
-import 'package:evier/screens/category_all_screens/category_watertap.dart';
-
 import '../resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
-import 'category_all_screens/category_shower_Screen.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override
@@ -21,8 +16,8 @@ class CategoryScreen extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => ShowerPage()));
+              // Navigator.push(
+              //     context, MaterialPageRoute(builder: (ctx) => ShowerPage()));
             },
             child: Container(
               decoration: CustomBoxDecoration(),
@@ -38,8 +33,8 @@ class CategoryScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => HealthFacuet()));
+              // Navigator.push(
+              // context, MaterialPageRoute(builder: (ctx) => HealthFacuet()));
             },
             child: Container(
               decoration: CustomBoxDecoration(),
@@ -55,8 +50,8 @@ class CategoryScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => WaterTap()));
+              // Navigator.push(
+              // context, MaterialPageRoute(builder: (ctx) => WaterTap()));
             },
             child: Container(
               decoration: CustomBoxDecoration(),
@@ -71,8 +66,9 @@ class CategoryScreen extends StatelessWidget {
           ),
           InkWell(
             onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (ctx) => Floortap()));
+              //   Navigator.push(
+              //       context, MaterialPageRoute(builder: (ctx) => Floortap()));
+              //
             },
             child: Container(
               decoration: CustomBoxDecoration(),

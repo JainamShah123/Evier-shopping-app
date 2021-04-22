@@ -1,3 +1,4 @@
+import 'package:evier/screens/cart_screen.dart';
 import 'package:evier/screens/drawer.dart';
 
 import 'package:flutter/foundation.dart';
@@ -122,6 +123,10 @@ class _HomeScreenState extends State<HomeScreen> {
       {
         'page': FavouriteScreen(),
         'title': AppLocalizations.of(context)!.favouriteTitle,
+      },
+      {
+        'page': CartScreen(),
+        'title': AppLocalizations.of(context)!.cart,
       },
       {
         'page': AccountScreen(),
