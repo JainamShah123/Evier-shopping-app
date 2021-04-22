@@ -78,7 +78,7 @@ class FavouriteScreen extends StatelessWidget {
   }
 }
 
-class FavouritesList extends StatelessWidget {
+class FavouritesList extends StatefulWidget {
   final String? title, url, price, description, id, category, seller, company;
 
   const FavouritesList(
@@ -92,19 +92,76 @@ class FavouritesList extends StatelessWidget {
       this.company,
       this.seller})
       : super(key: key);
+
+  @override
+  _FavouritesListState createState() => _FavouritesListState();
+}
+
+class _FavouritesListState extends State<FavouritesList> {
   @override
   Widget build(BuildContext context) {
+    void setCart({
+      String? url,
+      String? title,
+      String? price,
+      String? description,
+      String? id,
+      String? category,
+      String? seller,
+      String? company,
+    }) async {
+      bool cartIsSet = await DatabaseServices().cartIsSet(id!);
+
+      if (!cartIsSet) {
+        await DatabaseServices().setCart(
+          company: company!,
+          category: category!,
+          id: id,
+          price: price!,
+          productName: title!,
+          seller: seller!,
+          description: description ?? "",
+          imageUrl: url!,
+        );
+        setState(() {
+          cartIsSet = true;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Already added in cart"),
+          ),
+        );
+      }
+    }
+
     return ExpansionTile(
+      childrenPadding: EdgeInsets.all(8),
+      trailing: IconButton(
+        onPressed: () => setCart(
+          company: widget.company,
+          category: widget.category,
+          description: widget.description,
+          id: widget.id,
+          price: widget.price,
+          seller: widget.seller,
+          title: widget.title,
+          url: widget.url,
+        ),
+        icon: FaIcon(
+          FontAwesomeIcons.shoppingCart,
+        ),
+      ),
       title: Text(
-        "Product Name:  $title",
+        "Product Name:  ${widget.title}",
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),
       ),
-      subtitle: Text("Product price:  $price"),
+      subtitle: Text("Product price:  ${widget.price}"),
       children: [
-        Image.network(url!),
-        Text(company!),
+        Image.network(widget.url!),
+        Text(widget.company!),
       ],
     );
   }
