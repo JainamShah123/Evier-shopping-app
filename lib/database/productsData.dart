@@ -30,7 +30,7 @@ class ProductsData {
       price: data?['price'],
       seller: data?['seller'],
       category: data?['category'],
-      description: data?['descripttion'],
+      description: data?['description'],
       imageUrl: data?['imageUrl'],
     );
   }

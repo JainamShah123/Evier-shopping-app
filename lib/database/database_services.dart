@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:evier/database/favourites.dart';
+import 'package:evier/database/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'cart.dart';
@@ -132,6 +133,42 @@ class DatabaseServices with ChangeNotifier {
       'price': price,
       'company': company,
     });
+  }
+
+  Future submitOrders({
+    required List<Cart?> cart,
+    required String amount,
+  }) {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var orderdb =
+        database.collection('user').doc(userId).collection('orders').doc();
+
+    var map = cart.map((e) => {
+          "id": e!.id,
+          "name": e.productName,
+          "price": e.price,
+          "company": e.company,
+          "seller": e.seller,
+          "description": e.description,
+          "url": e.imageUrl,
+        });
+
+    return orderdb.set({
+      'orderDetails': map.toList(),
+      'amount': amount.toString(),
+    });
+  }
+
+  Stream<List<Orders?>?> orders() {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    var orderdb = database
+        .collection('user')
+        .doc(userId)
+        .collection('orders')
+        .snapshots();
+
+    return orderdb
+        .map((snap) => snap.docs.map((e) => Orders.fromFirestore(e)).toList());
   }
 
   Future removeCart(String id) async {

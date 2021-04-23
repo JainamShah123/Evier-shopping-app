@@ -1,5 +1,6 @@
 import 'package:evier/database/cart.dart';
 import 'package:evier/database/favourites.dart';
+import 'package:evier/database/orders.dart';
 import 'package:evier/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,10 @@ class App extends StatelessWidget {
         ),
         StreamProvider<List<Cart?>?>.value(
           value: DatabaseServices().cart(),
+          initialData: null,
+        ),
+        StreamProvider<List<Orders?>?>.value(
+          value: DatabaseServices().orders(),
           initialData: null,
         ),
       ],

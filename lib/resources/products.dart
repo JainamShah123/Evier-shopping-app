@@ -30,6 +30,11 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void setCart(BuildContext ctx) async {
     bool cartIsSet = await DatabaseServices().cartIsSet(widget.id!);
 
@@ -41,12 +46,9 @@ class _ProductsState extends State<Products> {
         price: widget.price!,
         productName: widget.title!,
         seller: widget.seller!,
-        description: widget.description ?? "",
+        description: widget.description!,
         imageUrl: widget.url!,
       );
-      setState(() {
-        cartIsSet = true;
-      });
     } else {
       ScaffoldMessenger.of(ctx).showSnackBar(
         SnackBar(
