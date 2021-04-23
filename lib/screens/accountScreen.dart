@@ -2,6 +2,7 @@ import 'package:evier/authentication/auth.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/database/user_data.dart';
 import 'package:evier/resources/routes.dart';
+import 'package:evier/screens/recent_orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -63,6 +64,18 @@ class _AccountScreenState extends State<AccountScreen> {
                 title: Text(
                   snapshot.data?.address ?? "Please enter the address",
                 ),
+              ),
+              ListTile(
+                title: Text(
+                  "Recent Orders",
+                ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (ctx) => RecentOrders(),
+                    ),
+                  );
+                },
               ),
               Align(
                 alignment: Alignment.bottomCenter,

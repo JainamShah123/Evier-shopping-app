@@ -1,9 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evier/database/cart.dart';
 
 class Orders {
-  List<Cart?> cart;
-  double amount;
+  List<dynamic> cart;
+  String amount;
   Orders({
     required this.cart,
     required this.amount,
@@ -11,6 +10,7 @@ class Orders {
 
   factory Orders.fromFirestore(DocumentSnapshot doc) {
     Map? data = doc.data();
+
     return Orders(
       cart: data!['orderDetails'],
       amount: data['amount'],
