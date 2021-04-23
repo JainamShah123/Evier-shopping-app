@@ -1,5 +1,6 @@
 import 'package:evier/database/cart.dart';
 import 'package:evier/database/database_services.dart';
+import 'package:evier/screens/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -81,7 +82,13 @@ class CartScreen extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           child: ElevatedButton(
             child: Text("Order Now"),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => OrderScreen(),
+                ),
+              );
+            },
           ),
         )
       ],
