@@ -83,6 +83,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   'imageUrl': imageUrl.toString(),
                   'category': productCategory!,
                   'seller': sellerId,
+                  'company': productCompany,
                 }).whenComplete(() => Navigator.of(context).pop());
               },
               child: Text("ADD"),

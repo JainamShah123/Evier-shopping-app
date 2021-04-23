@@ -63,18 +63,15 @@ class CartScreen extends StatelessWidget {
                 );
               },
               key: Key(indexid),
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: CartList(
-                  title: cart[index]?.productName,
-                  url: cart[index]?.imageUrl,
-                  price: cart[index]?.price.toString(),
-                  description: cart[index]?.description,
-                  id: cart[index]?.id,
-                  company: cart[index]?.company,
-                  category: cart[index]?.category,
-                  seller: cart[index]?.seller,
-                ),
+              child: CartList(
+                title: cart[index]?.productName,
+                url: cart[index]?.imageUrl,
+                price: cart[index]?.price.toString(),
+                description: cart[index]?.description,
+                id: cart[index]?.id,
+                company: cart[index]?.company,
+                category: cart[index]?.category,
+                seller: cart[index]?.seller,
               ),
             );
           },
@@ -108,7 +105,8 @@ class CartList extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
+    return ListTile(
+      hoverColor: Colors.red,
       title: Text(
         "Product Name:  $title",
         style: TextStyle(
@@ -116,10 +114,12 @@ class CartList extends StatelessWidget {
         ),
       ),
       subtitle: Text("Product price:  $price"),
-      children: [
-        Image.network(url!),
-        Text(company!),
-      ],
+      leading: Image.network(
+        url!,
+        fit: BoxFit.contain,
+        cacheHeight: 200,
+        cacheWidth: 200,
+      ),
     );
   }
 }
