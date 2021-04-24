@@ -39,5 +39,11 @@
     "deleteItemWarning": "શું તમે ખરેખર આ આઇટમ કાઢી નાખવા માંગો છો?",
     "delete": "કાઢો",
     "cancel": "રદ કરો",
-    "cart": "કાર્ટ"
+    "cart": "કાર્ટ",
+    "recentOrders": "તમારા તાજેતરના ઓર્ડર",
+    "order": "ઓર્ડર",
+    "totalPrice": "કુલ કિંમત",
+    "total": "કુલ",
+    "orderNow": "હવે મંગાવો",
+    "totalShipping": "કુલ શિપિંગ"
 }

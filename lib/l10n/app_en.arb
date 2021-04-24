@@ -39,5 +39,11 @@
   "deleteItemWarning": "Are you sure you wish to delete this item?",
   "delete": "DELETE",
   "cancel": "CANCEL",
-  "cart": "Cart"
+  "cart": "Cart",
+  "recentOrders": "Your recent orders",
+  "order": "Order",
+  "totalPrice": "Total Price",
+  "total": "Total",
+  "orderNow": "Order now",
+  "totalShipping": "Total Shipping"
 }

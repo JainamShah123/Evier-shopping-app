@@ -44,7 +44,7 @@ class ProductScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "This Product is Very Unique Color is So nice this Product",
+                          description!,
                           style: TextStyle(
                             fontSize: 18,
                           ),

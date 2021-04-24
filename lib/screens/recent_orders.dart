@@ -1,6 +1,7 @@
 import 'package:evier/database/orders.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RecentOrders extends StatelessWidget {
   @override
@@ -9,7 +10,7 @@ class RecentOrders extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Your recent orders"),
+        title: Text(AppLocalizations.of(context)!.recentOrders),
       ),
       body: ListView.builder(
           shrinkWrap: true,
@@ -25,7 +26,6 @@ class RecentOrders extends StatelessWidget {
                   );
                 });
           }),
-      // body: Text(orders![0]!.cart[0]["company"]),
     );
   }
 }

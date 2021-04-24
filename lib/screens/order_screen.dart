@@ -2,6 +2,7 @@ import 'package:evier/database/cart.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OrderScreen extends StatelessWidget {
   @override
@@ -38,7 +39,7 @@ class OrderScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Order"),
+        title: Text(AppLocalizations.of(context)!.order),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -49,28 +50,28 @@ class OrderScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total Price:"),
+                Text("${AppLocalizations.of(context)!.totalPrice}:"),
                 Text(countItemPrice().toString()),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total Shipping:"),
+                Text("${AppLocalizations.of(context)!.totalShipping}:"),
                 Text(countShipping().toString()),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Total:"),
+                Text("${AppLocalizations.of(context)!.total}:"),
                 Text((countItemPrice() + countShipping()).toString()),
               ],
             ),
             Text("Payment mode: Cash on divelery"),
             ElevatedButton(
               onPressed: () => submitOrder(),
-              child: Text("Order now"),
+              child: Text(AppLocalizations.of(context)!.orderNow),
             ),
           ],
         ),
