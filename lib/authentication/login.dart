@@ -133,7 +133,6 @@ class _LoginState extends State<Login> {
       child: Container(
         height: 50,
         width: 100,
-        //// decoration: CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
