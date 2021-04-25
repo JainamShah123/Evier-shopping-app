@@ -17,9 +17,7 @@ class Auth with ChangeNotifier {
     required String name,
     required String phoneNumber,
   }) async {
-    late UserCredential userCredential;
-
-    userCredential = await _auth
+    await _auth
         .createUserWithEmailAndPassword(
           email: email,
           password: password,
@@ -32,8 +30,6 @@ class Auth with ChangeNotifier {
             name: name,
           ),
         );
-
-    return userCredential;
   }
 
   Future login(
