@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../authentication/auth.dart';
-import '../resources/custom_box_decoration.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import '../resources/custom_gradient.dart';
+
+import '../colors.dart';
+import '../letter_spacing.dart';
+import '../theme.dart';
 
 enum Character { user, seller }
 
@@ -19,22 +22,143 @@ class _RegistrationPageState extends State<RegistrationPage> {
   String? email, password, gender, name, mobileNumber;
   bool isloading = false;
 
-  Widget phoneNumber() {
-    return TextFormField(
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.phoneNumberHint,
-        prefixIcon: Icon(Icons.phone),
+  Widget nameFormField() {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: TextFormField(
+        textInputAction: TextInputAction.next,
+        cursorColor: colorScheme.onSurface,
+        keyboardType: TextInputType.name,
+        decoration: InputDecoration(
+          hintText: AppLocalizations.of(context)!.accountNameHint,
+          prefixIcon: Icon(
+            FontAwesomeIcons.user,
+            color: shrineBrown600,
+          ),
+          hintStyle: TextStyle(
+            letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+            color: shrineBrown900,
+          ),
+        ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return AppLocalizations.of(context)!.accountNameError;
+          }
+          return null;
+        },
+        onSaved: (value) {
+          name = value;
+        },
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.phoneNumberError;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        mobileNumber = value;
-      },
+    );
+  }
+
+  Widget emailFormField() {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: Container(
+        child: TextFormField(
+          textInputAction: TextInputAction.next,
+          cursorColor: colorScheme.onSurface,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.emailHint,
+            prefixIcon: Icon(
+              FontAwesomeIcons.envelope,
+              color: shrineBrown600,
+            ),
+            hintStyle: TextStyle(
+              letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+              color: shrineBrown900,
+            ),
+          ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocalizations.of(context)!.emailError;
+            }
+            return null;
+          },
+          onSaved: (value) {
+            email = value;
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget passwordFormField() {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: Container(
+        child: TextFormField(
+          textInputAction: TextInputAction.next,
+          cursorColor: colorScheme.onSurface,
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
+          obscuringCharacter: "*",
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.passwordHint,
+            prefixIcon: Icon(
+              FontAwesomeIcons.key,
+              color: shrineBrown900,
+            ),
+            hintStyle: TextStyle(
+              letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+              color: shrineBrown600,
+            ),
+          ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocalizations.of(context)!.passwordError;
+            }
+            return null;
+          },
+          onSaved: (value) {
+            password = value;
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget phoneNumber() {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: Container(
+        child: TextFormField(
+          textInputAction: TextInputAction.done,
+          cursorColor: colorScheme.onSurface,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.phoneNumberHint,
+            prefixIcon: Icon(
+              FontAwesomeIcons.phoneAlt,
+              color: shrineBrown600,
+            ),
+            hintStyle: TextStyle(
+              letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+              color: shrineBrown600,
+            ),
+          ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocalizations.of(context)!.phoneNumberHint;
+            }
+            return null;
+          },
+          onSaved: (value) {
+            password = value;
+          },
+        ),
+      ),
     );
   }
 
@@ -42,6 +166,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Row(
       children: [
         Radio(
+          activeColor: shrineBrown900,
           value: Character.user,
           groupValue: character,
           onChanged: (Character? value) {
@@ -53,6 +178,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         Text("User"),
         Radio(
+          activeColor: shrineBrown900,
           value: Character.seller,
           groupValue: character,
           onChanged: (Character? value) {
@@ -67,77 +193,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
     );
   }
 
-  Widget nameFormField() {
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.accountNameHint,
-        prefixIcon: Icon(Icons.account_circle_outlined),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.accountNameError;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        name = value;
-      },
-    );
-  }
-
-  Widget emailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.emailHint,
-        prefixIcon: Icon(Icons.mail_outline_rounded),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.emailError;
-        }
-
-        return null;
-      },
-      onSaved: (value) {
-        email = value;
-      },
-    );
-  }
-
-  Widget passwordFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.visiblePassword,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.passwordHint,
-        prefixIcon: Icon(Icons.lock_outline_rounded),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.passwordError;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        password = value;
-      },
-    );
-  }
-
   Widget goToLoginPageButton(BuildContext context) {
-    return TextButton(
-      child: Text(
-        AppLocalizations.of(context)!.goToLoginPage,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: TextButton(
+        child: Text(
+          AppLocalizations.of(context)!.goToLoginPage,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 20,
+            color: shrineBrown900,
+          ),
         ),
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
-      onPressed: () {
-        Navigator.pop(context);
-      },
     );
   }
 
@@ -164,11 +235,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   Widget registerButton(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 8,
+        shape: const BeveledRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(7)),
+        ),
+      ),
       onPressed: () => register(context),
       child: Container(
-        height: 45,
-        width: 150,
-        decoration: CustomBoxDecoration(),
+        height: 50,
+        width: 120,
+        // decoration: CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
@@ -188,183 +265,80 @@ class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (kIsWeb &&
-              MediaQuery.of(context).size.height <
-                  MediaQuery.of(context).size.width)
-          ? SingleChildScrollView(
-              child: Row(
+      body: SafeArea(
+        child: Container(
+          alignment: Alignment.center,
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          padding: EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Form(
+              key: _key,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width / 2,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[800],
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.title,
-                        style: TextStyle(
-                          fontSize: 100,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                  Text(
+                    AppLocalizations.of(context)!.register,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width / 2,
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.register,
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: _key,
-                          child: Container(
-                            width: 400,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  nameFormField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  emailFormField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  passwordFormField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  userType(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  phoneNumber(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  isloading
-                                      ? CircularProgressIndicator()
-                                      : registerButton(context),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        goToLoginPageButton(context),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 15,
                   ),
-                ],
-              ),
-            )
-          : SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Center(child: goToLoginPageButton(context)),
-                      ],
-                    ),
+                  nameFormField(),
+                  SizedBox(
+                    height: 15,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 650,
-                    decoration: BoxDecoration(
-                      gradient: CustomGradient(),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
-                      ),
-                    ),
-                    padding: EdgeInsets.all(0.2),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(height: 20),
-                          Text(
-                            AppLocalizations.of(context)!.title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 50,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(40),
-                              ),
-                            ),
-                            color: Colors.white,
-                            child: Padding(
-                              padding: EdgeInsets.all(25),
-                              child: Form(
-                                key: _key,
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 15),
-                                    Text(
-                                      AppLocalizations.of(context)!.register,
-                                      style: TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 15),
-                                    nameFormField(),
-                                    SizedBox(height: 20),
-                                    emailFormField(),
-                                    SizedBox(height: 15),
-                                    passwordFormField(),
-                                    SizedBox(height: 15),
-                                    userType(),
-                                    SizedBox(height: 15),
-                                    phoneNumber(),
-                                    SizedBox(height: 15),
-                                    isloading
-                                        ? CircularProgressIndicator()
-                                        : registerButton(context),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  emailFormField(),
+                  SizedBox(
+                    height: 15,
                   ),
+                  passwordFormField(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  userType(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  phoneNumber(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  registerButton(context),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  goToLoginPageButton(context),
                 ],
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PrimaryColorOverride extends StatelessWidget {
+  const _PrimaryColorOverride({
+    Key? key,
+    required this.color,
+    required this.child,
+  }) : super(key: key);
+
+  final Color color;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      child: child,
+      data: Theme.of(context).copyWith(primaryColor: color),
     );
   }
 }

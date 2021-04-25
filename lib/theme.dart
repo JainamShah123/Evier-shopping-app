@@ -23,8 +23,8 @@ ThemeData _buildShrineTheme() {
   return base.copyWith(
     appBarTheme: const AppBarTheme(brightness: Brightness.light, elevation: 0),
     colorScheme: _shrineColorScheme,
-    accentColor: shrinePink100,
-    primaryColor: shrineBrown900,
+    accentColor: shrineBrown900,
+    primaryColor: shrinePink100,
     buttonColor: shrinePink100,
     scaffoldBackgroundColor: shrineBackgroundWhite,
     cardColor: shrineBackgroundWhite,
@@ -37,6 +37,11 @@ ThemeData _buildShrineTheme() {
     inputDecorationTheme: const InputDecorationTheme(
       border: CutCornersBorder(
         borderSide: BorderSide(color: shrineBrown900, width: 0.5),
+      ),
+      focusedBorder: CutCornersBorder(
+        borderSide: BorderSide(
+          color: shrineBrown900,
+        ),
       ),
       contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
     ),

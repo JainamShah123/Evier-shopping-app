@@ -1,4 +1,3 @@
-import '../resources/custom_box_decoration.dart';
 import 'package:flutter/material.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -20,7 +19,7 @@ class CategoryScreen extends StatelessWidget {
               //     context, MaterialPageRoute(builder: (ctx) => ShowerPage()));
             },
             child: Container(
-              decoration: CustomBoxDecoration(),
+              ////decoration: CustomBoxDecoration(),
               child: Center(
                 child: Text(
                   "Shower",
@@ -37,7 +36,7 @@ class CategoryScreen extends StatelessWidget {
               // context, MaterialPageRoute(builder: (ctx) => HealthFacuet()));
             },
             child: Container(
-              decoration: CustomBoxDecoration(),
+              ////decoration: CustomBoxDecoration(),
               child: Center(
                 child: Text(
                   "Health Facuet",
@@ -54,7 +53,7 @@ class CategoryScreen extends StatelessWidget {
               // context, MaterialPageRoute(builder: (ctx) => WaterTap()));
             },
             child: Container(
-              decoration: CustomBoxDecoration(),
+              ////decoration: CustomBoxDecoration(),
               child: Center(
                   child: Text(
                 "Water Tap",
@@ -71,7 +70,7 @@ class CategoryScreen extends StatelessWidget {
               //
             },
             child: Container(
-              decoration: CustomBoxDecoration(),
+              ////decoration: CustomBoxDecoration(),
               child: Center(
                   child: Text(
                 "Floor Trap",

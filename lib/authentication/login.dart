@@ -1,11 +1,9 @@
 import 'package:evier/authentication/auth.dart';
 import 'package:evier/resources/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../resources/custom_box_decoration.dart';
-import '../resources/custom_gradient.dart';
 import '../colors.dart';
 import '../theme.dart';
 import '../letter_spacing.dart';
@@ -25,7 +23,7 @@ class _LoginState extends State<Login> {
   Widget emailFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return PrimaryColorOverride(
+    return _PrimaryColorOverride(
       color: shrineBrown900,
       child: Container(
         child: TextFormField(
@@ -33,11 +31,14 @@ class _LoginState extends State<Login> {
           cursorColor: colorScheme.onSurface,
           keyboardType: TextInputType.emailAddress,
           decoration: InputDecoration(
-            focusColor: shrineBrown900,
-            labelText: AppLocalizations.of(context)!.emailHint,
-            prefixIcon: Icon(Icons.mail_outline_rounded),
-            labelStyle: TextStyle(
+            hintText: AppLocalizations.of(context)!.emailHint,
+            prefixIcon: Icon(
+              FontAwesomeIcons.envelope,
+              color: shrineBrown600,
+            ),
+            hintStyle: TextStyle(
               letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+              color: shrineBrown900,
             ),
           ),
           validator: (value) {
@@ -55,22 +56,39 @@ class _LoginState extends State<Login> {
   }
 
   Widget passwordFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.visiblePassword,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.passwordHint,
-        prefixIcon: Icon(Icons.lock_outline_rounded),
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return _PrimaryColorOverride(
+      color: shrineBrown900,
+      child: Container(
+        child: TextFormField(
+          textInputAction: TextInputAction.send,
+          cursorColor: colorScheme.onSurface,
+          keyboardType: TextInputType.visiblePassword,
+          obscureText: true,
+          obscuringCharacter: "*",
+          decoration: InputDecoration(
+            hintText: AppLocalizations.of(context)!.passwordHint,
+            prefixIcon: Icon(
+              FontAwesomeIcons.key,
+              color: shrineBrown600,
+            ),
+            hintStyle: TextStyle(
+              letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+              color: shrineBrown900,
+            ),
+          ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocalizations.of(context)!.passwordError;
+            }
+            return null;
+          },
+          onSaved: (value) {
+            password = value;
+          },
+        ),
       ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.passwordError;
-        }
-        return null;
-      },
-      onSaved: (value) {
-        password = value;
-      },
     );
   }
 
@@ -81,7 +99,7 @@ class _LoginState extends State<Login> {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 20,
-              fontWeight: FontWeight.bold,
+              // fontWeight: FontWeight.bold,
             ),
       ),
       onPressed: () {
@@ -92,6 +110,12 @@ class _LoginState extends State<Login> {
 
   Widget loginButton(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 8,
+        shape: const BeveledRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(7)),
+        ),
+      ),
       onPressed: () async {
         if (_key.currentState!.validate()) {
           _key.currentState!.save();
@@ -99,17 +123,17 @@ class _LoginState extends State<Login> {
             isLoading = true;
           });
 
-          await Auth()
-              .login(email, password, context)
-              .whenComplete(() => setState(() {
-                    isLoading = false;
-                  }));
+          await Auth().login(email, password, context).whenComplete(
+                () => setState(() {
+                  isLoading = false;
+                }),
+              );
         }
       },
       child: Container(
-        height: 45,
-        width: 150,
-        decoration: CustomBoxDecoration(),
+        height: 50,
+        width: 100,
+        //// decoration: CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
@@ -129,176 +153,55 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (kIsWeb &&
-              MediaQuery.of(context).size.height <
-                  MediaQuery.of(context).size.width)
-          ? SingleChildScrollView(
-              child: Row(
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Form(
+              key: _key,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width / 2,
-                    decoration: BoxDecoration(
-                      color: Colors.blue[800],
-                    ),
-                    child: Center(
-                      child: Text(
-                        AppLocalizations.of(context)!.title,
-                        style: TextStyle(
-                          fontSize: 100,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
+                  Text(
+                    AppLocalizations.of(context)!.title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3!
+                        .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    width: MediaQuery.of(context).size.width / 2,
-                    color: Colors.white,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.login,
-                          style: TextStyle(
-                            fontSize: 40,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Form(
-                          key: _key,
-                          child: Container(
-                            width: 400,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  emailFormField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  passwordFormField(),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  isLoading
-                                      ? CircularProgressIndicator()
-                                      : loginButton(context),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        createAccountButton(),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                ],
-              ),
-            )
-          : SingleChildScrollView(
-              child: Stack(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(child: createAccountButton()),
-                      ],
-                    ),
+                  emailFormField(),
+                  SizedBox(
+                    height: 12,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 500,
-                    decoration: BoxDecoration(
-                      gradient: CustomGradient(),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40),
-                        bottomRight: Radius.circular(40),
-                      ),
-                    ),
-                    padding: EdgeInsets.all(1),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(height: 20),
-                        Text(
-                          AppLocalizations.of(context)!.title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 50,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(40),
-                            ),
-                          ),
-                          color: Colors.white,
-                          child: Padding(
-                            padding: EdgeInsets.all(25),
-                            child: Form(
-                              key: _key,
-                              child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SizedBox(height: 15),
-                                    Text(
-                                      AppLocalizations.of(context)!.login,
-                                      style: TextStyle(
-                                        fontSize: 35,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 15),
-                                    emailFormField(),
-                                    SizedBox(height: 20),
-                                    passwordFormField(),
-                                    SizedBox(height: 25),
-                                    isLoading
-                                        ? CircularProgressIndicator()
-                                        : loginButton(context),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  passwordFormField(),
+                  SizedBox(
+                    height: 10,
                   ),
+                  loginButton(context),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  createAccountButton(),
                 ],
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 }
 
-class PrimaryColorOverride extends StatelessWidget {
-  const PrimaryColorOverride({
+class _PrimaryColorOverride extends StatelessWidget {
+  const _PrimaryColorOverride({
     Key? key,
     required this.color,
     required this.child,

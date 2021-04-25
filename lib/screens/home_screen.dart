@@ -1,3 +1,4 @@
+import 'package:evier/colors.dart';
 import 'package:evier/screens/cart_screen.dart';
 import 'package:evier/screens/drawer.dart';
 
@@ -20,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final _key = GlobalKey<FormState>();
 
   Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
         actions: [
           (kIsWeb &&
                   MediaQuery.of(context).size.height <
@@ -91,8 +94,22 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Builder(
             builder: (BuildContext context) => IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: FaIcon(
-                FontAwesomeIcons.bars,
+              icon: Container(
+                margin: EdgeInsets.zero,
+                alignment: Alignment.center,
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  color: shrineBrown900,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(40),
+                  ),
+                ),
+                child: FaIcon(
+                  FontAwesomeIcons.bars,
+                  color: shrineSurfaceWhite,
+                  size: 15,
+                ),
               ),
               tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
@@ -103,9 +120,19 @@ class _HomeScreenState extends State<HomeScreen> {
                     MediaQuery.of(context).size.width)
             ? null
             : true,
-        title: Text(
-          pages[_selectedIndex]['title'] as String,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Container(
+          width: 70,
+          height: 40,
+          decoration: BoxDecoration(
+            color: shrineBrown900,
+            borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            pages[_selectedIndex]['title'] as String,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: shrineSurfaceWhite),
+          ),
         ),
       );
 
