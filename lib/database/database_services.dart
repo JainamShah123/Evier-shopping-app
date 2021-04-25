@@ -178,4 +178,18 @@ class DatabaseServices with ChangeNotifier {
     favouritedb.delete();
     notifyListeners();
   }
+
+  Future saveUserData({
+    required UserCredential userInfo,
+    required String gender,
+    required String phoneNumber,
+    required String name,
+  }) async {
+    var userId = FirebaseAuth.instance.currentUser?.uid;
+    await database.collection('user').doc(userId).set({
+      'type': gender,
+      'phonenumber': phoneNumber,
+      'name': name,
+    });
+  }
 }

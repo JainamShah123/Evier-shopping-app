@@ -1,3 +1,5 @@
+import 'package:evier/screens/home_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -19,7 +21,7 @@ class RegistrationPage extends StatefulWidget {
 class _RegistrationPageState extends State<RegistrationPage> {
   final _key = GlobalKey<FormState>();
   Character? character = Character.user;
-  String? email, password, gender, name, mobileNumber;
+  String? email, password, gender = "User", name, mobileNumber;
   bool isloading = false;
 
   Widget nameFormField() {
@@ -106,7 +108,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
             hintText: AppLocalizations.of(context)!.passwordHint,
             prefixIcon: Icon(
               FontAwesomeIcons.key,
-              color: shrineBrown900,
+              color: shrineBrown600,
             ),
             hintStyle: TextStyle(
               letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
@@ -152,10 +154,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
             if (value!.isEmpty) {
               return AppLocalizations.of(context)!.phoneNumberHint;
             }
+
             return null;
           },
           onSaved: (value) {
-            password = value;
+            mobileNumber = value;
           },
         ),
       ),
@@ -166,7 +169,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Row(
       children: [
         Radio(
-          activeColor: shrineBrown900,
+          activeColor: shrineBrown600,
           value: Character.user,
           groupValue: character,
           onChanged: (Character? value) {
@@ -178,7 +181,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         Text("User"),
         Radio(
-          activeColor: shrineBrown900,
+          activeColor: shrineBrown600,
           value: Character.seller,
           groupValue: character,
           onChanged: (Character? value) {
@@ -215,21 +218,45 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void register(BuildContext context) async {
     if (_key.currentState!.validate()) {
       _key.currentState!.save();
+      print(
+        mobileNumber! + name! + email! + gender! + password!,
+      );
       setState(() {
         isloading = true;
       });
-      await Auth().signup(
-        email: email!,
-        password: password!,
-        gender: gender,
-        name: name,
-        phoneNumber: mobileNumber,
-        context: context,
-      );
+      try {
+        await Auth().signup(
+          email: email!,
+          password: password!,
+          gender: gender!,
+          name: name!,
+          phoneNumber: mobileNumber!,
+        );
 
-      setState(() {
-        isloading = false;
-      });
+        setState(() {
+          isloading = false;
+        });
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("The password is too weak"),
+          ));
+        } else if (e.code == 'email-already-in-use') {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text("The email is already in use"),
+          ));
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.toString()),
+        ));
+      } finally {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(),
+          ),
+        );
+      }
     }
   }
 
@@ -245,7 +272,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Container(
         height: 50,
         width: 120,
-        // decoration: CustomBoxDecoration(),
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(

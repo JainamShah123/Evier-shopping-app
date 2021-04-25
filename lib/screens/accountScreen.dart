@@ -1,4 +1,5 @@
 import 'package:evier/authentication/auth.dart';
+import 'package:evier/authentication/login.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/database/user_data.dart';
 import 'package:evier/resources/routes.dart';
@@ -48,7 +49,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 )),
-                subtitle: Center(child: Text(user!.email ?? '')),
+                subtitle: Center(child: Text(user?.email ?? '')),
               ),
               Divider(
                 thickness: 1,
@@ -91,8 +92,13 @@ class _AccountScreenState extends State<AccountScreen> {
                       },
                     ),
                     TextButton(
-                      onPressed: () {
-                        Auth().logout();
+                      onPressed: () async {
+                        await Auth().logout();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (context) => Login(),
+                          ),
+                        );
                       },
                       child: Text('Logout'),
                     ),

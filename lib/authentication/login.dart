@@ -1,5 +1,6 @@
 import 'package:evier/authentication/auth.dart';
 import 'package:evier/resources/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -99,7 +100,6 @@ class _LoginState extends State<Login> {
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.bodyText1!.copyWith(
               fontSize: 20,
-              // fontWeight: FontWeight.bold,
             ),
       ),
       onPressed: () {
@@ -122,12 +122,38 @@ class _LoginState extends State<Login> {
           setState(() {
             isLoading = true;
           });
-
-          await Auth().login(email, password, context).whenComplete(
-                () => setState(() {
-                  isLoading = false;
-                }),
-              );
+          try {
+            await Auth()
+                .login(
+                  email,
+                  password,
+                )
+                .whenComplete(
+                  () => setState(() {
+                    isLoading = false;
+                  }),
+                );
+          } on FirebaseAuthException catch (e) {
+            if (e.code == 'user-not-found') {
+              print('No user found for that email.');
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("No user found for that email."),
+              ));
+            } else if (e.code == 'wrong-password') {
+              print('Wrong password provided for that user.');
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text("Wrong password provided for that user."),
+              ));
+            }
+          } catch (e) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              new SnackBar(
+                content: Text(
+                  e.toString(),
+                ),
+              ),
+            );
+          }
         }
       },
       child: Container(
@@ -184,7 +210,11 @@ class _LoginState extends State<Login> {
                   SizedBox(
                     height: 10,
                   ),
-                  loginButton(context),
+                  isLoading
+                      ? CircularProgressIndicator(
+                          color: shrineBrown600,
+                        )
+                      : loginButton(context),
                   SizedBox(
                     height: 10,
                   ),

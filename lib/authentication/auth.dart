@@ -1,8 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:evier/database/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import '../screens/home_screen.dart';
+import 'package:flutter/foundation.dart';
 
 class Auth with ChangeNotifier {
   FirebaseFirestore _storage = FirebaseFirestore.instance;
@@ -14,72 +13,40 @@ class Auth with ChangeNotifier {
   Future signup({
     required String email,
     required String password,
-    String? gender,
-    String? phoneNumber,
-    String? name,
-    required BuildContext context,
+    required String gender,
+    required String name,
+    required String phoneNumber,
   }) async {
     late UserCredential userCredential;
 
-    try {
-      userCredential = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        print("The password is too weak");
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("The password is too weak"),
-        ));
-      } else if (e.code == 'email-already-in-use') {
-        print("The email is already in use");
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("The email is already in use"),
-        ));
-      }
-    } finally {
-      _storage.collection("user").doc(userCredential.user!.uid).set({
-        'type': gender,
-        'phonenumber': phoneNumber,
-        'name': name,
-      });
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => HomeScreen()),
-      );
-    }
+    userCredential = await _auth
+        .createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        )
+        .then(
+          (value) async => await DatabaseServices().saveUserData(
+            userInfo: value,
+            gender: gender,
+            phoneNumber: phoneNumber,
+            name: name,
+          ),
+        );
+
+    return userCredential;
   }
 
   Future login(
     String? email,
     String? password,
-    BuildContext context,
   ) async {
-    try {
-      await _auth.signInWithEmailAndPassword(
-          email: email!, password: password!);
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        print('No user found for that email.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("No user found for that email."),
-        ));
-      } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Wrong password provided for that user."),
-        ));
-      }
-    } catch (e) {
-      print(e);
-    }
+    await _auth.signInWithEmailAndPassword(email: email!, password: password!);
   }
 
   Future logout() async {
     try {
       await _auth.signOut();
       await _storage.clearPersistence();
-
-      user = null;
     } catch (e) {
       print(e);
     } finally {
