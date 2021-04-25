@@ -10,7 +10,7 @@ import './screens/screens.dart'
         AddProductScreen,
         SellerProductScreen,
         UserDetailEdit;
-import 'resources/themes.dart';
+import 'theme.dart';
 import 'resources/routes.dart';
 
 class MyApp extends StatelessWidget {
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (context) => AppLocalizations.of(context)!.appTitle,
-      theme: theme,
+      theme: shrineTheme,
       home: Wrapper(),
       routes: {
         Routes.registerRoute: (context) => RegistrationPage(),

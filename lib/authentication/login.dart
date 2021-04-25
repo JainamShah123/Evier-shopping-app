@@ -6,6 +6,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../resources/custom_box_decoration.dart';
 import '../resources/custom_gradient.dart';
+import '../colors.dart';
+import '../theme.dart';
+import '../letter_spacing.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -20,22 +23,34 @@ class _LoginState extends State<Login> {
   final _key = GlobalKey<FormState>();
 
   Widget emailFormField() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.emailHint,
-        prefixIcon: Icon(Icons.mail_outline_rounded),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return AppLocalizations.of(context)!.emailError;
-        }
+    final colorScheme = Theme.of(context).colorScheme;
 
-        return null;
-      },
-      onSaved: (value) {
-        email = value;
-      },
+    return PrimaryColorOverride(
+      color: shrineBrown900,
+      child: Container(
+        child: TextFormField(
+          textInputAction: TextInputAction.next,
+          cursorColor: colorScheme.onSurface,
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            focusColor: shrineBrown900,
+            labelText: AppLocalizations.of(context)!.emailHint,
+            prefixIcon: Icon(Icons.mail_outline_rounded),
+            labelStyle: TextStyle(
+              letterSpacing: letterSpacingOrNone(mediumLetterSpacing),
+            ),
+          ),
+          validator: (value) {
+            if (value!.isEmpty) {
+              return AppLocalizations.of(context)!.emailError;
+            }
+            return null;
+          },
+          onSaved: (value) {
+            email = value;
+          },
+        ),
+      ),
     );
   }
 
@@ -64,10 +79,10 @@ class _LoginState extends State<Login> {
       child: Text(
         AppLocalizations.of(context)!.createAccount,
         textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
       ),
       onPressed: () {
         Navigator.pushNamed(context, Routes.registerRoute);
@@ -278,6 +293,25 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
+    );
+  }
+}
+
+class PrimaryColorOverride extends StatelessWidget {
+  const PrimaryColorOverride({
+    Key? key,
+    required this.color,
+    required this.child,
+  }) : super(key: key);
+
+  final Color color;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      child: child,
+      data: Theme.of(context).copyWith(primaryColor: color),
     );
   }
 }
