@@ -22,6 +22,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   final _key = GlobalKey<FormState>();
   Character? character = Character.user;
   String? email, password, gender = "User", name, mobileNumber;
+
   bool isloading = false;
 
   Widget nameFormField() {
@@ -140,6 +141,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
           cursorColor: colorScheme.onSurface,
           keyboardType: TextInputType.phone,
           decoration: InputDecoration(
+            prefix: Text("+91"),
             hintText: AppLocalizations.of(context)!.phoneNumberHint,
             prefixIcon: Icon(
               FontAwesomeIcons.phoneAlt,

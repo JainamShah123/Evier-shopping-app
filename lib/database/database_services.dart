@@ -17,9 +17,12 @@ class DatabaseServices with ChangeNotifier {
   }
 
   Stream<UserData?> userData() {
-    var userId = FirebaseAuth.instance.currentUser?.uid;
-    var userDB = database.collection('user').doc(userId).snapshots();
-    return userDB.map((event) => UserData.fromFirestore(event));
+    var currentUser = FirebaseAuth.instance.currentUser;
+    var userDB = database.collection('user').doc(currentUser!.uid).snapshots();
+    return userDB.map((event) => UserData.fromFirestore(
+          doc: event,
+          user: currentUser,
+        ));
   }
 
   Stream<List<Favourites?>?> favourites() {

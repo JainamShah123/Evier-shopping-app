@@ -17,7 +17,7 @@ class Auth with ChangeNotifier {
     required String name,
     required String phoneNumber,
   }) async {
-    await _auth
+    UserCredential user = await _auth
         .createUserWithEmailAndPassword(
           email: email,
           password: password,
@@ -30,6 +30,10 @@ class Auth with ChangeNotifier {
             name: name,
           ),
         );
+    //! await user.user!.updateProfile(
+    //!   displayName: name,
+    //! );
+    //! await user.user!.linkWithPhoneNumber(phoneNumber);
   }
 
   Future login(

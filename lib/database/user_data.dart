@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserData {
   String? address;
@@ -13,7 +14,10 @@ class UserData {
     required this.type,
   });
 
-  factory UserData.fromFirestore(DocumentSnapshot doc) {
+  factory UserData.fromFirestore({
+    required DocumentSnapshot doc,
+    required User user,
+  }) {
     return UserData(
       address: doc.data()?['address'],
       name: doc.data()?['name'],
