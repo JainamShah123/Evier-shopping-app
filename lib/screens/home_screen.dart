@@ -17,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  final _key = GlobalKey<FormState>();
 
   Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
         elevation: 0.0,
