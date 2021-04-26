@@ -1,3 +1,4 @@
+import 'package:evier/evier_backdrop.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
@@ -10,6 +11,6 @@ class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User? _user = Provider.of<User?>(context);
-    return (_user == null) ? Login() : HomeScreen();
+    return (_user == null) ? Login() : EvierBackDrop();
   }
 }

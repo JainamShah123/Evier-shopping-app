@@ -45,6 +45,7 @@ class Auth with ChangeNotifier {
 
   Future logout() async {
     try {
+      user = null;
       await _auth.signOut();
       await _storage.clearPersistence();
     } catch (e) {

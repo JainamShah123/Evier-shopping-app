@@ -18,41 +18,41 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
-        elevation: 0.0,
-        // backgroundColor: Colors.transparent,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0),
-            child: Icon(
-              FontAwesomeIcons.search,
-            ),
-          ),
-        ],
-        leading: Builder(
-          builder: (BuildContext context) => IconButton(
-            onPressed: () => Scaffold.of(context).openDrawer(),
-            icon: Icon(
-              FontAwesomeIcons.bars,
-              color: shrineBrown900,
-            ),
-            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-          ),
-        ),
-        centerTitle: (kIsWeb &&
-                MediaQuery.of(context).size.height <
-                    MediaQuery.of(context).size.width)
-            ? null
-            : true,
-        title: Text(
-          pages[_selectedIndex]['title'] as String,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            color: shrineBrown900,
-            fontSize: Theme.of(context).textTheme.headline5!.fontSize,
-          ),
-        ),
-      );
+  // Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
+  //       elevation: 0.0,
+  //       // backgroundColor: Colors.transparent,
+  //       actions: [
+  //         Padding(
+  //           padding: const EdgeInsets.only(right: 16.0),
+  //           child: Icon(
+  //             FontAwesomeIcons.search,
+  //           ),
+  //         ),
+  //       ],
+  //       leading: Builder(
+  //         builder: (BuildContext context) => IconButton(
+  //           onPressed: () => Scaffold.of(context).openDrawer(),
+  //           icon: Icon(
+  //             FontAwesomeIcons.bars,
+  //             color: shrineBrown900,
+  //           ),
+  //           tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+  //         ),
+  //       ),
+  //       centerTitle: (kIsWeb &&
+  //               MediaQuery.of(context).size.height <
+  //                   MediaQuery.of(context).size.width)
+  //           ? null
+  //           : true,
+  //       title: Text(
+  //         pages[_selectedIndex]['title'] as String,
+  //         style: TextStyle(
+  //           fontWeight: FontWeight.bold,
+  //           color: shrineBrown900,
+  //           fontSize: Theme.of(context).textTheme.headline5!.fontSize,
+  //         ),
+  //       ),
+  //     );
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return Scaffold(
-      drawer: EvierDrawer(),
+      // drawer: EvierDrawer(),
       backgroundColor: Colors.grey[200],
-      appBar: appBarPanel(_pages) as PreferredSizeWidget?,
+
       body: _pages[_selectedIndex]['page'] as Widget?,
       bottomNavigationBar: (kIsWeb &&
               MediaQuery.of(context).size.height <

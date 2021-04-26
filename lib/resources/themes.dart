@@ -1,7 +1,8 @@
+import 'package:evier/colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData theme = ThemeData(
-  scaffoldBackgroundColor: Colors.white,
+  scaffoldBackgroundColor: shrineBackgroundWhite,
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
