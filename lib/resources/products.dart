@@ -1,7 +1,7 @@
+import 'package:evier/colors.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Products extends StatefulWidget {
   final String? url;
@@ -30,11 +30,6 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void setCart(BuildContext ctx) async {
     bool cartIsSet = await DatabaseServices().cartIsSet(widget.id!);
 
@@ -85,57 +80,49 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0.0,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        child: InkWell(
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (ctx) => ProductScreen(
-                  title: widget.title,
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (ctx) => ProductScreen(
                   description: widget.description,
                   price: widget.price,
+                  title: widget.title,
                   url: widget.url,
+                )));
+      },
+      child: Card(
+        borderOnForeground: true,
+        elevation: 0,
+        color: shrineBackgroundWhite,
+        shadowColor: Colors.transparent,
+        shape: BeveledRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10))),
+        child: Column(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(16),
+              child: Container(
+                margin: EdgeInsets.only(top: 2),
+                height: 130,
+                width: 150,
+                child: Image.network(
+                  widget.url!,
+                  fit: BoxFit.cover,
                 ),
               ),
-            );
-          },
-          child: Stack(
-            children: [
-              Image.network(widget.url!),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: ListTile(
-                  tileColor: Colors.white,
-                  title: Text(
-                    widget.title!,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  subtitle: Text(
-                    '₹${widget.price}',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
-                  ),
-                  trailing: InkWell(
-                    child: FaIcon(
-                      FontAwesomeIcons.shoppingCart,
-                    ),
-                    onTap: () => setCart(context),
-                  ),
-                ),
-              ),
-              IconButton(
-                icon: FaIcon(FontAwesomeIcons.heart),
-                onPressed: () => setFav(context),
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Text(
+              "Name: ${widget.title!}".toUpperCase(),
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            Text(
+              "Price: ₹${widget.price!}",
+              style: Theme.of(context).textTheme.bodyText2,
+            ),
+          ],
         ),
       ),
     );

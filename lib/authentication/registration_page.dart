@@ -337,7 +337,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   SizedBox(
                     height: 15,
                   ),
-                  registerButton(context),
+                  isloading
+                      ? CircularProgressIndicator()
+                      : registerButton(context),
                   SizedBox(
                     height: 10,
                   ),

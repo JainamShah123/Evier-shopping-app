@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                       MediaQuery.of(context).size.width)
               ? 5
               : 2,
-          childAspectRatio: 1.6 / 2,
+          childAspectRatio: 1 / 1.2,
         ),
         itemCount: productsData.length,
         itemBuilder: (ctx, index) => Products(

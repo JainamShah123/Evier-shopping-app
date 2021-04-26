@@ -19,7 +19,7 @@ class EvierBackDrop extends StatelessWidget {
           color: shrineBrown900,
         ),
         title: Text(
-          "Evier",
+          AppLocalizations.of(context)!.title,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -40,10 +40,6 @@ class EvierBackDrop extends StatelessWidget {
                   builder: (context) => SellerProductScreen())),
             ),
         ],
-      ),
-      frontLayerBorderRadius: BorderRadius.only(
-        topLeft: Radius.circular(25),
-        topRight: Radius.circular(25),
       ),
       frontLayer: HomeScreen(),
     );
