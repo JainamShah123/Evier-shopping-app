@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import './screens.dart';
-import '../resources/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -22,97 +21,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget appBarPanel(List<Map<String, Object>> pages) => AppBar(
         elevation: 0.0,
-        backgroundColor: Colors.transparent,
+        // backgroundColor: Colors.transparent,
         actions: [
-          (kIsWeb &&
-                  MediaQuery.of(context).size.height <
-                      MediaQuery.of(context).size.width)
-              ? Builder(builder: (context) {
-                  return Container(
-                    padding: EdgeInsets.all(5),
-                    alignment: Alignment.center,
-                    height: Scaffold.of(context).appBarMaxHeight,
-                    width: 700,
-                    child: Form(
-                      key: _key,
-                      child: TextFormField(
-                        style: TextStyle(color: Colors.white),
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(40),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              style: BorderStyle.solid,
-                            ),
-                          ),
-                          hintText: AppLocalizations.of(context)!.search,
-                          hintStyle: TextStyle(color: Colors.white),
-                          focusColor: Colors.white,
-                          fillColor: Colors.white,
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
-                })
-              : Container(
-                  padding: EdgeInsets.only(
-                    right: 20,
-                  ),
-                  child: Icon(Icons.search)),
-          (kIsWeb &&
-                  MediaQuery.of(context).size.height <
-                      MediaQuery.of(context).size.width)
-              ? SizedBox(
-                  width: 10,
-                )
-              : Container(),
-          (kIsWeb &&
-                  MediaQuery.of(context).size.height <
-                      MediaQuery.of(context).size.width)
-              ? InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.accountRoute);
-                  },
-                  child: Icon(
-                    Icons.account_circle_outlined,
-                    size: 40,
-                  ))
-              : Container(),
-          (kIsWeb &&
-                  MediaQuery.of(context).size.height <
-                      MediaQuery.of(context).size.width)
-              ? SizedBox(
-                  width: 10,
-                )
-              : Container(),
-        ],
-        leading: Center(
-          child: Builder(
-            builder: (BuildContext context) => IconButton(
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              icon: Container(
-                margin: EdgeInsets.zero,
-                alignment: Alignment.center,
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: shrineBrown900,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(40),
-                  ),
-                ),
-                child: FaIcon(
-                  FontAwesomeIcons.bars,
-                  color: shrineSurfaceWhite,
-                  size: 15,
-                ),
-              ),
-              tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          Padding(
+            padding: const EdgeInsets.only(right: 16.0),
+            child: Icon(
+              FontAwesomeIcons.search,
             ),
+          ),
+        ],
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+            onPressed: () => Scaffold.of(context).openDrawer(),
+            icon: Icon(
+              FontAwesomeIcons.bars,
+              color: shrineBrown900,
+            ),
+            tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           ),
         ),
         centerTitle: (kIsWeb &&
@@ -120,18 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     MediaQuery.of(context).size.width)
             ? null
             : true,
-        title: Container(
-          width: 70,
-          height: 40,
-          decoration: BoxDecoration(
+        title: Text(
+          pages[_selectedIndex]['title'] as String,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
             color: shrineBrown900,
-            borderRadius: BorderRadius.all(Radius.elliptical(20, 20)),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            pages[_selectedIndex]['title'] as String,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, color: shrineSurfaceWhite),
+            fontSize: Theme.of(context).textTheme.headline5!.fontSize,
           ),
         ),
       );

@@ -17,7 +17,7 @@ class Auth with ChangeNotifier {
     required String name,
     required String phoneNumber,
   }) async {
-    UserCredential user = await _auth
+    await _auth
         .createUserWithEmailAndPassword(
           email: email,
           password: password,

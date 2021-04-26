@@ -17,11 +17,10 @@ class DatabaseServices with ChangeNotifier {
   }
 
   Stream<UserData?> userData() {
-    var currentUser = FirebaseAuth.instance.currentUser;
-    var userDB = database.collection('user').doc(currentUser!.uid).snapshots();
+    var uid = FirebaseAuth.instance.currentUser?.uid;
+    var userDB = database.collection('user').doc(uid).snapshots();
     return userDB.map((event) => UserData.fromFirestore(
           doc: event,
-          user: currentUser,
         ));
   }
 

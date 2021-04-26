@@ -16,7 +16,7 @@ class UserData {
 
   factory UserData.fromFirestore({
     required DocumentSnapshot doc,
-    required User user,
+    // required User user,
   }) {
     return UserData(
       address: doc.data()?['address'],
