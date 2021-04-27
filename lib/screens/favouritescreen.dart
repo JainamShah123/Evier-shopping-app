@@ -17,7 +17,24 @@ class FavouriteScreen extends StatelessWidget {
     }
     if (favourites.isEmpty)
       return Center(
-        child: Text("No products in favourite"),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              FontAwesomeIcons.heart,
+              size: 70,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "No Favourites",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        ),
       );
 
     return ListView.builder(

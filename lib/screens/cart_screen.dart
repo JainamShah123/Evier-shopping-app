@@ -17,7 +17,24 @@ class CartScreen extends StatelessWidget {
     }
     if (cart.isEmpty)
       return Center(
-        child: Text("No products in cart"),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(
+              FontAwesomeIcons.shoppingBasket,
+              size: 70,
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            Text(
+              "No Items in Cart",
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ],
+        ),
       );
 
     return Stack(

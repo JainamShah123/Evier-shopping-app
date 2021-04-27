@@ -84,10 +84,14 @@ class _ProductsState extends State<Products> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (ctx) => ProductScreen(
-                  description: widget.description,
-                  price: widget.price,
-                  title: widget.title,
-                  url: widget.url,
+                  id: widget.id!,
+                  category: widget.category!,
+                  company: widget.company!,
+                  seller: widget.seller!,
+                  description: widget.description!,
+                  price: widget.price!,
+                  title: widget.title!,
+                  url: widget.url!,
                 )));
       },
       child: Card(
