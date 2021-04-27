@@ -18,79 +18,78 @@ class ProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title!),
+        title: Text(title!.toUpperCase()),
         centerTitle: true,
       ),
-      body: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 45),
-              child: Padding(
-                padding: const EdgeInsets.all(45),
-                child: Image.network(url!),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(bottom: 30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Container(
+          // color: Colors.red[100],
+          padding: EdgeInsets.only(top: 16, left: 16, right: 16),
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Column(
+              // mainAxisAlignment: Main,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  child: Image.network(
+                    url!,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  title!.toUpperCase(),
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                SizedBox(
+                  height: 32,
+                ),
+                Text(
+                  "₹${price!}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6!
+                      .copyWith(fontSize: 20),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  description!,
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(fontSize: 18),
+                ),
+                Expanded(
+                  child: Align(
+                    alignment: FractionalOffset.bottomCenter,
+                    child: ButtonBar(
+                      buttonHeight: double.infinity,
+                      buttonMinWidth: double.infinity,
+                      mainAxisSize: MainAxisSize.max,
+                      alignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          description!,
-                          style: TextStyle(
-                            fontSize: 18,
-                          ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text("Add to cart"),
                         ),
-                        Divider(),
-                        Text(
-                          "Product Name: ${title!}",
-                          style: TextStyle(
-                            fontSize: 22,
-                          ),
-                        ),
-                        Divider(),
-                        Text(
-                          "MRP: ${price!}",
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.red),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text("Buy now"),
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Buy Now",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Add To Cart",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
