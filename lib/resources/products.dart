@@ -103,7 +103,7 @@ class _ProductsState extends State<Products> {
               borderRadius: BorderRadius.circular(16),
               child: Container(
                 margin: EdgeInsets.only(top: 2),
-                height: 130,
+                height: 150,
                 width: 150,
                 child: Image.network(
                   widget.url!,
@@ -115,11 +115,11 @@ class _ProductsState extends State<Products> {
               height: 8,
             ),
             Text(
-              "Name: ${widget.title!}".toUpperCase(),
+              "${widget.title!}".toUpperCase(),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Text(
-              "Price: ₹${widget.price!}",
+              "₹${widget.price!}",
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],
