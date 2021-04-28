@@ -98,6 +98,12 @@ class CartScreen extends StatelessWidget {
           padding: EdgeInsets.only(bottom: 8),
           alignment: Alignment.bottomCenter,
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              elevation: 8,
+              shape: const BeveledRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(7)),
+              ),
+            ),
             child: Text("Order Now"),
             onPressed: () {
               Navigator.of(context).push(
@@ -137,7 +143,7 @@ class CartList extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      subtitle: Text("Product price:  $price"),
+      subtitle: Text("Product price:  ₹$price"),
       leading: Image.network(
         url!,
         fit: BoxFit.contain,

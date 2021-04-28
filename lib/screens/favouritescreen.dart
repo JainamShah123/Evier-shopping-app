@@ -3,6 +3,7 @@ import 'package:evier/database/favourites.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -45,7 +46,12 @@ class FavouriteScreen extends StatelessWidget {
         return Dismissible(
           direction: DismissDirection.endToStart,
           background: Container(
-            color: Colors.red,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(
+                12,
+              ),
+              color: Colors.red,
+            ),
             padding: EdgeInsets.all(16),
             alignment: Alignment.centerRight,
             child: FaIcon(
@@ -152,8 +158,7 @@ class _FavouritesListState extends State<FavouritesList> {
       }
     }
 
-    return ExpansionTile(
-      childrenPadding: EdgeInsets.all(8),
+    return ListTile(
       trailing: IconButton(
         onPressed: () => setCart(
           company: widget.company,
@@ -169,17 +174,14 @@ class _FavouritesListState extends State<FavouritesList> {
           FontAwesomeIcons.shoppingCart,
         ),
       ),
+      leading: Image.network(widget.url!),
       title: Text(
         "Product Name:  ${widget.title}",
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),
       ),
-      subtitle: Text("Product price:  ${widget.price}"),
-      children: [
-        Image.network(widget.url!),
-        Text(widget.company!),
-      ],
+      subtitle: Text("Product price:  ₹${widget.price}"),
     );
   }
 }

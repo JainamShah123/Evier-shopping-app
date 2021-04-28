@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'authentication/auth.dart';
+
 class EvierBackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -35,10 +37,31 @@ class EvierBackDrop extends StatelessWidget {
                 FontAwesomeIcons.inbox,
                 color: shrineBrown600,
               ),
-              title: Text(AppLocalizations.of(context)!.yourProducts),
+              title: Text(
+                AppLocalizations.of(context)!.yourProducts,
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
               onTap: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => SellerProductScreen())),
             ),
+          ListTile(
+            onTap: () async {
+              await Auth().logout();
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => Login(),
+                ),
+              );
+            },
+            title: Text(
+              'Logout',
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+            leading: Icon(
+              FontAwesomeIcons.signOutAlt,
+              color: shrineBrown600,
+            ),
+          ),
         ],
       ),
       frontLayer: HomeScreen(),

@@ -1,5 +1,6 @@
 import 'package:evier/authentication/auth.dart';
 import 'package:evier/authentication/login.dart';
+import 'package:evier/colors.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/database/user_data.dart';
 import 'package:evier/resources/routes.dart';
@@ -83,6 +84,12 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: Column(
                   children: [
                     ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 8,
+                        shape: const BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(7)),
+                        ),
+                      ),
                       child: Text("Edit"),
                       onPressed: () {
                         Navigator.pushNamed(
@@ -90,17 +97,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           Routes.userDetailEdit,
                         );
                       },
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        await Auth().logout();
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => Login(),
-                          ),
-                        );
-                      },
-                      child: Text('Logout'),
                     ),
                   ],
                 ),
