@@ -1,6 +1,3 @@
-import 'package:evier/authentication/auth.dart';
-import 'package:evier/authentication/login.dart';
-import 'package:evier/colors.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/database/user_data.dart';
 import 'package:evier/resources/routes.dart';

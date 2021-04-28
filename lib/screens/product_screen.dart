@@ -1,8 +1,9 @@
-import 'package:evier/colors.dart';
-import 'package:evier/database/database_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../colors.dart';
+import '../database/database.dart' show DatabaseServices;
 
 class ProductScreen extends StatelessWidget {
   final String url;

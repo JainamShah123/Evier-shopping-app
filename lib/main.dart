@@ -1,7 +1,3 @@
-import 'package:evier/database/cart.dart';
-import 'package:evier/database/favourites.dart';
-import 'package:evier/database/orders.dart';
-import 'package:evier/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,9 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import './myapp.dart';
-import './database/database_services.dart';
-import './database/productsData.dart';
-import './database/user_data.dart';
+import './database/database.dart';
+import './screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

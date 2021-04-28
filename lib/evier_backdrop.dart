@@ -1,12 +1,14 @@
-import 'package:backdrop/backdrop.dart';
-import 'package:evier/colors.dart';
-import 'package:evier/database/user_data.dart';
-import 'package:evier/screens/home_screen.dart';
-import 'package:evier/screens/screens.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import 'package:backdrop/backdrop.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import './colors.dart';
+import './database/database.dart' show UserData;
+import 'package:evier/screens/screens.dart'
+    show HomeScreen, SellerProductScreen, Login;
 
 import 'authentication/auth.dart';
 

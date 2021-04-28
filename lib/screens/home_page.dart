@@ -1,9 +1,11 @@
-import 'package:evier/database/productsData.dart';
-import 'package:evier/resources/products.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../database/database.dart' show ProductsData;
+import '../resources/products.dart';
 
 class HomePage extends StatelessWidget {
   @override

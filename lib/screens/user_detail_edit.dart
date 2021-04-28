@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../database/user_data.dart';
+import '../database/database.dart' show UserData;
 
 class UserDetailEdit extends StatefulWidget {
   @override
