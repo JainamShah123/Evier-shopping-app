@@ -104,7 +104,7 @@ class CartScreen extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(7)),
               ),
             ),
-            child: Text("Order Now"),
+            child: Text(AppLocalizations.of(context)!.orderNow),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
