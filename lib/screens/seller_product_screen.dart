@@ -46,6 +46,7 @@ class SellerProductScreen extends StatelessWidget {
             itemBuilder: (ctx, index) {
               if (products?[index]!.seller == uid)
                 return Products(
+                  sold: products?[index]!.sold,
                   seller: products?[index]!.seller,
                   id: products?[index]!.id,
                   category: products?[index]!.category,

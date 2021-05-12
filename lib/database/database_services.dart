@@ -225,6 +225,30 @@ class DatabaseServices with ChangeNotifier {
     notifyListeners();
   }
 
+  Future backToStock({
+    required String id,
+    required String url,
+    required String title,
+    required String price,
+    required String description,
+    required String seller,
+    required String company,
+    required String category,
+  }) async {
+    var dataref = FirebaseFirestore.instance.collection("products").doc(id);
+    dataref.set({
+      "sold_out": false,
+      'price': price,
+      'name': title,
+      'description': description,
+      'imageUrl': url,
+      'category': category,
+      'seller': seller,
+      'company': company
+    });
+    notifyListeners();
+  }
+
   Future addProduct({
     required String productPrice,
     required String nameOfProduct,

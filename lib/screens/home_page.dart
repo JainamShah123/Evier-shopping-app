@@ -32,16 +32,19 @@ class HomePage extends StatelessWidget {
           childAspectRatio: 1 / 1.1,
         ),
         itemCount: productsData.length,
-        itemBuilder: (ctx, index) => Products(
-          company: productsData[index]?.company,
-          title: productsData[index]?.productName,
-          url: productsData[index]?.imageUrl,
-          price: productsData[index]?.price,
-          description: productsData[index]?.description,
-          id: productsData[index]?.id,
-          category: productsData[index]?.category,
-          seller: productsData[index]?.seller,
-        ),
+        itemBuilder: (ctx, index) => productsData[index]!.sold == true
+            ? Container()
+            : Products(
+                sold: productsData[index]?.sold,
+                company: productsData[index]?.company,
+                title: productsData[index]?.productName,
+                url: productsData[index]?.imageUrl,
+                price: productsData[index]?.price,
+                description: productsData[index]?.description,
+                id: productsData[index]?.id,
+                category: productsData[index]?.category,
+                seller: productsData[index]?.seller,
+              ),
       ),
     );
   }

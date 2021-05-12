@@ -1,16 +1,16 @@
 import 'package:evier/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
-import '../authentication/auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
+import '../resources/primary_color_override.dart';
 import '../colors.dart';
 import '../letter_spacing.dart';
 import '../theme.dart';
+import '../authentication/auth.dart';
 
 enum Character { user, seller }
 
@@ -30,8 +30,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget nameFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: TextFormField(
         textInputAction: TextInputAction.next,
         cursorColor: colorScheme.onSurface,
@@ -63,8 +63,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget emailFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: Container(
         child: TextFormField(
           textInputAction: TextInputAction.next,
@@ -98,8 +98,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget passwordFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: Container(
         child: TextFormField(
           textInputAction: TextInputAction.next,
@@ -135,8 +135,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget phoneNumber() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: Container(
         child: TextFormField(
           textInputAction: TextInputAction.done,
@@ -201,8 +201,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 
   Widget goToLoginPageButton(BuildContext context) {
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: TextButton(
         child: Text(
           AppLocalizations.of(context)!.goToLoginPage,
@@ -353,25 +353,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _PrimaryColorOverride extends StatelessWidget {
-  const _PrimaryColorOverride({
-    Key? key,
-    required this.color,
-    required this.child,
-  }) : super(key: key);
-
-  final Color color;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      child: child,
-      data: Theme.of(context).copyWith(primaryColor: color),
     );
   }
 }

@@ -9,6 +9,7 @@ class ProductsData {
   String? description;
   String? imageUrl;
   String? company;
+  bool? sold;
 
   ProductsData({
     required this.id,
@@ -19,12 +20,14 @@ class ProductsData {
     required this.description,
     required this.imageUrl,
     required this.company,
+    required this.sold,
   });
 
   factory ProductsData.fromFirestore(DocumentSnapshot doc) {
     Map? data = doc.data();
     return ProductsData(
       id: doc.id,
+      sold: data?['sold_out'],
       company: data?['company'],
       productName: data?['name'],
       price: data?['price'],

@@ -12,9 +12,11 @@ class Products extends StatefulWidget {
   final String? category;
   final String? seller;
   final String? company;
+  final bool? sold;
 
   const Products({
     Key? key,
+    required this.sold,
     required this.seller,
     required this.id,
     required this.url,
@@ -84,6 +86,7 @@ class _ProductsState extends State<Products> {
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
             builder: (ctx) => ProductScreen(
+                  sold: widget.sold!,
                   id: widget.id!,
                   category: widget.category!,
                   company: widget.company!,

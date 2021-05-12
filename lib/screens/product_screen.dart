@@ -8,7 +8,7 @@ import '../colors.dart';
 import '../database/database.dart' show DatabaseServices, UserData;
 
 // ignore: must_be_immutable
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
   final String url;
   final String title;
   final String price;
@@ -17,9 +17,11 @@ class ProductScreen extends StatelessWidget {
   final String seller;
   final String company;
   final String category;
+  bool sold;
 
   ProductScreen({
     Key? key,
+    required this.sold,
     required this.url,
     required this.title,
     required this.price,
@@ -29,12 +31,20 @@ class ProductScreen extends StatelessWidget {
     required this.seller,
     required this.category,
   }) : super(key: key);
+
+  @override
+  _ProductScreenState createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
   late DatabaseServices databaseServices;
 
   void click() {}
+
   void updateProduct() {}
+
   void addToCart(BuildContext context) async {
-    if (await DatabaseServices().cartIsSet(id)) {
+    if (await DatabaseServices().cartIsSet(widget.id)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Product already added in cart"),
@@ -44,14 +54,14 @@ class ProductScreen extends StatelessWidget {
     }
     await databaseServices
         .setCart(
-          id: id,
-          productName: title,
-          category: category,
-          seller: seller,
-          price: price,
-          description: description,
-          imageUrl: url,
-          company: company,
+          id: widget.id,
+          productName: widget.title,
+          category: widget.category,
+          seller: widget.seller,
+          price: widget.price,
+          description: widget.description,
+          imageUrl: widget.url,
+          company: widget.company,
         )
         .whenComplete(
           () => ScaffoldMessenger.of(context).showSnackBar(
@@ -65,19 +75,43 @@ class ProductScreen extends StatelessWidget {
   void markAsSold(BuildContext context) async {
     try {
       await databaseServices.markProductAsSold(
-        id: id,
-        category: category,
-        company: company,
-        description: description,
-        price: price,
-        seller: seller,
-        title: title,
-        url: url,
+        id: widget.id,
+        category: widget.category,
+        company: widget.company,
+        description: widget.description,
+        price: widget.price,
+        seller: widget.seller,
+        title: widget.title,
+        url: widget.url,
       );
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
+    setState(() {
+      widget.sold = true;
+    });
+  }
+
+  void backToStock(BuildContext context) async {
+    try {
+      await databaseServices.backToStock(
+        id: widget.id,
+        category: widget.category,
+        company: widget.company,
+        description: widget.description,
+        price: widget.price,
+        seller: widget.seller,
+        title: widget.title,
+        url: widget.url,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+    setState(() {
+      widget.sold = false;
+    });
   }
 
   @override
@@ -87,7 +121,7 @@ class ProductScreen extends StatelessWidget {
     var userData = Provider.of<UserData?>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title.toUpperCase()),
+        title: Text(widget.title.toUpperCase()),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -104,7 +138,7 @@ class ProductScreen extends StatelessWidget {
                   height: 300,
                   width: double.infinity,
                   child: Image.network(
-                    url,
+                    widget.url,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -116,13 +150,13 @@ class ProductScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      title.toUpperCase(),
+                      widget.title.toUpperCase(),
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     IconButton(
                       icon: Icon(FontAwesomeIcons.heart),
                       onPressed: () async {
-                        if (await DatabaseServices().favIsSet(id)) {
+                        if (await DatabaseServices().favIsSet(widget.id)) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content:
@@ -133,14 +167,14 @@ class ProductScreen extends StatelessWidget {
                         }
                         await DatabaseServices()
                             .setFavourite(
-                              id: id,
-                              productName: title,
-                              category: category,
-                              seller: seller,
-                              price: price,
-                              description: description,
-                              imageUrl: url,
-                              company: company,
+                              id: widget.id,
+                              productName: widget.title,
+                              category: widget.category,
+                              seller: widget.seller,
+                              price: widget.price,
+                              description: widget.description,
+                              imageUrl: widget.url,
+                              company: widget.company,
                             )
                             .whenComplete(
                               () => ScaffoldMessenger.of(context).showSnackBar(
@@ -157,7 +191,7 @@ class ProductScreen extends StatelessWidget {
                   height: 32,
                 ),
                 Text(
-                  "₹$price",
+                  "₹${widget.price}",
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
@@ -167,7 +201,7 @@ class ProductScreen extends StatelessWidget {
                   height: 16,
                 ),
                 Text(
-                  description,
+                  widget.description,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -191,13 +225,17 @@ class ProductScreen extends StatelessWidget {
               width: 150,
               child: TextButton(
                 onPressed: () async {
-                  userData!.type == "Seller" && seller == user!.uid
-                      ? markAsSold(context)
+                  userData!.type == "Seller" && widget.seller == user!.uid
+                      ? widget.sold == true
+                          ? backToStock(context)
+                          : markAsSold(context)
                       : addToCart(context);
                 },
                 child: Text(
-                  userData!.type == "Seller" && seller == user!.uid
-                      ? "Mark as sold"
+                  userData!.type == "Seller" && widget.seller == user!.uid
+                      ? widget.sold == true
+                          ? "Mark in Stock"
+                          : "Mark as sold"
                       : "Add to cart",
                   style: TextStyle(
                     color: shrineBrown900,
@@ -211,12 +249,12 @@ class ProductScreen extends StatelessWidget {
               width: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  userData.type == "Seller" && seller == user!.uid
+                  userData.type == "Seller" && widget.seller == user!.uid
                       ? updateProduct()
                       : click();
                 },
                 child: Text(
-                  userData.type == "Seller" && seller == user!.uid
+                  userData.type == "Seller" && widget.seller == user!.uid
                       ? "Update"
                       : "Buy now",
                   style: TextStyle(fontSize: 20),

@@ -1,7 +1,6 @@
-import 'package:evier/authentication/auth.dart';
-import 'package:evier/resources/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:evier/resources/primary_color_override.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -9,6 +8,8 @@ import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../theme.dart';
 import '../letter_spacing.dart';
+import '../authentication/auth.dart';
+import '../resources/routes.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -26,8 +27,8 @@ class _LoginState extends State<Login> {
   Widget emailFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: Container(
         child: TextFormField(
           textInputAction: TextInputAction.next,
@@ -61,8 +62,8 @@ class _LoginState extends State<Login> {
   Widget passwordFormField() {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return _PrimaryColorOverride(
-      color: shrineBrown900,
+    return PrimaryColorOverride(
+      primaryColor: shrineBrown900,
       child: Container(
         child: TextFormField(
           textInputAction: TextInputAction.send,
@@ -125,16 +126,10 @@ class _LoginState extends State<Login> {
             isLoading = true;
           });
           try {
-            await auth
-                .login(
-                  email,
-                  password,
-                )
-                .whenComplete(
-                  () => setState(() {
-                    isLoading = false;
-                  }),
-                );
+            await auth.login(
+              email,
+              password,
+            );
           } on FirebaseAuthException catch (e) {
             if (e.code == 'user-not-found') {
               print('No user found for that email.');
@@ -228,25 +223,6 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class _PrimaryColorOverride extends StatelessWidget {
-  const _PrimaryColorOverride({
-    Key? key,
-    required this.color,
-    required this.child,
-  }) : super(key: key);
-
-  final Color color;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return Theme(
-      child: child,
-      data: Theme.of(context).copyWith(primaryColor: color),
     );
   }
 }
