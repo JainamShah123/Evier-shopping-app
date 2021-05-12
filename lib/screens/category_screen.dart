@@ -1,83 +1,56 @@
+import 'package:evier/resources/CategoryModel.dart';
 import 'package:flutter/material.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
+  @override
+  _CategoryScreenState createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  List<CategoryModel>? category = [];
+
+  @override
+  void initState() {
+    super.initState();
+    category = getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(16),
-      child: GridView(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
+      child: GridView.builder(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemBuilder: (context, index) => Card(
+          child: CategoryTile(
+            categoryName: category?[index].name,
+            imageurl: category?[index].url,
+          ),
         ),
+        itemCount: category?.length,
+      ),
+    );
+  }
+}
+
+class CategoryTile extends StatelessWidget {
+  final imageurl;
+  final categoryName;
+
+  CategoryTile({this.imageurl, this.categoryName});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      child: Stack(
         children: [
-          InkWell(
-            onTap: () {
-              // Navigator.push(
-              //     context, MaterialPageRoute(builder: (ctx) => ShowerPage()));
-            },
-            child: Container(
-              ////decoration: CustomBoxDecoration(),
-              child: Center(
-                child: Text(
-                  "Shower",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+          Container(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.network(
+                imageurl,
+                fit: BoxFit.contain,
               ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              // Navigator.push(
-              // context, MaterialPageRoute(builder: (ctx) => HealthFacuet()));
-            },
-            child: Container(
-              ////decoration: CustomBoxDecoration(),
-              child: Center(
-                child: Text(
-                  "Health Facuet",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              // Navigator.push(
-              // context, MaterialPageRoute(builder: (ctx) => WaterTap()));
-            },
-            child: Container(
-              ////decoration: CustomBoxDecoration(),
-              child: Center(
-                  child: Text(
-                "Water Tap",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              )),
-            ),
-          ),
-          InkWell(
-            onTap: () {
-              //   Navigator.push(
-              //       context, MaterialPageRoute(builder: (ctx) => Floortap()));
-              //
-            },
-            child: Container(
-              ////decoration: CustomBoxDecoration(),
-              child: Center(
-                  child: Text(
-                "Floor Trap",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              )),
             ),
           ),
         ],

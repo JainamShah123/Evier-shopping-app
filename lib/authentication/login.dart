@@ -212,7 +212,7 @@ class _LoginState extends State<Login> {
                   ),
                   isLoading
                       ? CircularProgressIndicator(
-                          color: shrineBrown600,
+                          backgroundColor: shrineBrown600,
                         )
                       : loginButton(context),
                   SizedBox(

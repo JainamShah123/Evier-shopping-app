@@ -1,3 +1,4 @@
+import 'package:evier/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,16 @@ class EvierBackDrop extends StatelessWidget {
     var userData = Provider.of<UserData?>(context);
     return BackdropScaffold(
       appBar: BackdropAppBar(
+        actions: [
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchScreen(),
+                );
+              }),
+        ],
         leading: BackdropToggleButton(
           icon: AnimatedIcons.close_menu,
           color: shrineBrown900,
