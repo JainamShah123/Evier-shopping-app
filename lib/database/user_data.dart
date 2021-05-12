@@ -5,6 +5,7 @@ class UserData {
   String? name;
   String? phoneNumber;
   String? type;
+  String? id;
 
   UserData({
     required this.address,
@@ -15,7 +16,6 @@ class UserData {
 
   factory UserData.fromFirestore({
     required DocumentSnapshot doc,
-    // required User user,
   }) {
     return UserData(
       address: doc.data()?['address'],

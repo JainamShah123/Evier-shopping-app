@@ -48,7 +48,6 @@ class CutCornersBorder extends OutlineInputBorder {
       );
     }
     return super.lerpFrom(a, t);
-    // return super.lerpFrom(a, t);
   }
 
   @override

@@ -1,9 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../colors.dart';
-import '../database/database.dart' show DatabaseServices;
+import '../database/database.dart' show DatabaseServices, UserData;
 
 class ProductScreen extends StatelessWidget {
   final String url;
@@ -26,8 +28,60 @@ class ProductScreen extends StatelessWidget {
     required this.seller,
     required this.category,
   }) : super(key: key);
+
+  void click() {}
+  void updateProduct() {}
+  void addToCart(BuildContext context) async {
+    if (await DatabaseServices().cartIsSet(id)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Product already added in cart"),
+        ),
+      );
+      return;
+    }
+    await DatabaseServices()
+        .setCart(
+          id: id,
+          productName: title,
+          category: category,
+          seller: seller,
+          price: price,
+          description: description,
+          imageUrl: url,
+          company: company,
+        )
+        .whenComplete(
+          () => ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("Product added to cart"),
+            ),
+          ),
+        );
+  }
+
+  void markAsSold(BuildContext context) async {
+    try {
+      await DatabaseServices().markProductAsSold(
+        id: id,
+        category: category,
+        company: company,
+        description: description,
+        price: price,
+        seller: seller,
+        title: title,
+        url: url,
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.toString())));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<User?>(context);
+    var userData = Provider.of<UserData?>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(title.toUpperCase()),
@@ -134,35 +188,14 @@ class ProductScreen extends StatelessWidget {
               width: 150,
               child: TextButton(
                 onPressed: () async {
-                  if (await DatabaseServices().cartIsSet(id)) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text("Product already added in cart"),
-                      ),
-                    );
-                    return;
-                  }
-                  await DatabaseServices()
-                      .setCart(
-                        id: id,
-                        productName: title,
-                        category: category,
-                        seller: seller,
-                        price: price,
-                        description: description,
-                        imageUrl: url,
-                        company: company,
-                      )
-                      .whenComplete(
-                        () => ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text("Product added to cart"),
-                          ),
-                        ),
-                      );
+                  userData!.type == "Seller" && seller == user!.uid
+                      ? markAsSold(context)
+                      : addToCart(context);
                 },
                 child: Text(
-                  "Add to cart",
+                  userData!.type == "Seller" && seller == user!.uid
+                      ? "Mark as sold"
+                      : "Add to cart",
                   style: TextStyle(
                     color: shrineBrown900,
                     fontSize: 20,
@@ -174,9 +207,15 @@ class ProductScreen extends StatelessWidget {
               height: 50,
               width: 150,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  userData!.type == "Seller" && seller == user!.uid
+                      ? updateProduct()
+                      : click();
+                },
                 child: Text(
-                  "Buy now",
+                  userData.type == "Seller" && seller == user!.uid
+                      ? "Update"
+                      : "Buy now",
                   style: TextStyle(fontSize: 20),
                 ),
                 style: ElevatedButton.styleFrom(

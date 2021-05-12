@@ -194,4 +194,27 @@ class DatabaseServices with ChangeNotifier {
       'name': name,
     });
   }
+
+  Future markProductAsSold({
+    required String id,
+    required String url,
+    required String title,
+    required String price,
+    required String description,
+    required String seller,
+    required String company,
+    required String category,
+  }) async {
+    var dataref = FirebaseFirestore.instance.collection("products").doc(id);
+    return dataref.set({
+      "sold_out": true,
+      'price': price,
+      'name': title,
+      'description': description,
+      'imageUrl': url,
+      'category': category,
+      'seller': seller,
+      'company': company
+    });
+  }
 }
