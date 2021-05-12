@@ -8,7 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './colors.dart';
 import './database/database.dart' show UserData;
-import '../screens/screens.dart' show HomeScreen, SellerProductScreen, Login;
+import '../screens/screens.dart' show HomeScreen, SellerProductScreen;
 
 import 'authentication/auth.dart';
 
