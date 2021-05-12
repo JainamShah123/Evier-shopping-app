@@ -63,11 +63,6 @@ class EvierBackDrop extends StatelessWidget {
           ListTile(
             onTap: () async {
               await auth.logout();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                  builder: (context) => Login(),
-                ),
-              );
             },
             title: Text(
               'Logout',
