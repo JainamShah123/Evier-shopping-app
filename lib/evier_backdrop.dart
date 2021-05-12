@@ -15,6 +15,7 @@ import 'authentication/auth.dart';
 class EvierBackDrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var auth = Provider.of<Auth>(context);
     var userData = Provider.of<UserData?>(context);
     return BackdropScaffold(
       appBar: BackdropAppBar(
@@ -61,7 +62,7 @@ class EvierBackDrop extends StatelessWidget {
             ),
           ListTile(
             onTap: () async {
-              await Auth().logout();
+              await auth.logout();
               Navigator.of(context).pushReplacement(
                 MaterialPageRoute(
                   builder: (context) => Login(),
