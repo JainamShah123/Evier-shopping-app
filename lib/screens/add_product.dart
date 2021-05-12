@@ -12,6 +12,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
 
+import '../colors.dart';
+
 class AddProductScreen extends StatefulWidget {
   @override
   _AddProductScreenState createState() => _AddProductScreenState();
@@ -85,13 +87,19 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   sellerId: sellerId!,
                 );
               },
-              child: Text("ADD"),
+              child: Text(
+                "ADD",
+                style: TextStyle(color: shrineBrown900),
+              ),
             ),
             TextButton(
               onPressed: () {
                 return Navigator.of(context).pop(false);
               },
-              child: Text("NO"),
+              child: Text(
+                "NO",
+                style: TextStyle(color: shrineBrown900),
+              ),
             ),
           ],
         ),
@@ -136,6 +144,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Container(
                 width: 200,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 8,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                    ),
+                  ),
                   onPressed: startImagePicker,
                   child: Text(
                     "Pick File",
@@ -242,11 +256,13 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   height: 45,
                   width: 160,
                   child: ElevatedButton(
-                    onPressed: () => onSave(),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8,
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                      ),
                     ),
+                    onPressed: () => onSave(),
                     child: Text(
                       AppLocalizations.of(context)!.addProduct,
                       textAlign: TextAlign.center,

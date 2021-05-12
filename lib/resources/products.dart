@@ -2,6 +2,7 @@ import 'package:evier/colors.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Products extends StatefulWidget {
   final String? url;
@@ -32,11 +33,12 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
+  late DatabaseServices databaseServices;
   void setCart(BuildContext ctx) async {
     bool cartIsSet = await DatabaseServices().cartIsSet(widget.id!);
 
     if (!cartIsSet) {
-      await DatabaseServices().setCart(
+      await databaseServices.setCart(
         company: widget.company!,
         category: widget.category!,
         id: widget.id!,
@@ -58,7 +60,7 @@ class _ProductsState extends State<Products> {
   void setFav(BuildContext ctx) async {
     bool favIsSet = await DatabaseServices().favIsSet(widget.id!);
     if (!favIsSet) {
-      await DatabaseServices().setFavourite(
+      await databaseServices.setFavourite(
         company: widget.company!,
         category: widget.category!,
         id: widget.id!,
@@ -82,6 +84,7 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
+    databaseServices = Provider.of<DatabaseServices>(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(

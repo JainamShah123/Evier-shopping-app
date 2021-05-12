@@ -11,6 +11,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:provider/provider.dart';
 
+import '../colors.dart';
+
 // ignore: must_be_immutable
 class UpdateProductScreen extends StatefulWidget {
   String? productPrice,
@@ -115,13 +117,19 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     )
                     .whenComplete(() => Navigator.pop(context));
               },
-              child: Text("ADD"),
+              child: Text(
+                "ADD",
+                style: TextStyle(color: shrineBrown900),
+              ),
             ),
             TextButton(
               onPressed: () {
                 return Navigator.of(context).pop(false);
               },
-              child: Text("NO"),
+              child: Text(
+                "NO",
+                style: TextStyle(color: shrineBrown900),
+              ),
             ),
           ],
         ),
@@ -135,7 +143,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addProduct),
+        title: Text("Update Product"),
         centerTitle: true,
         actions: [
           IconButton(
@@ -145,7 +153,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(16),
+        margin: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
         child: Form(
           key: key,
           child: ListView(
@@ -167,9 +175,15 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 width: 200,
                 child: ElevatedButton(
                   onPressed: startImagePicker,
+                  style: ElevatedButton.styleFrom(
+                    elevation: 8,
+                    shape: const BeveledRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(7)),
+                    ),
+                  ),
                   child: Text(
                     "Pick File",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: shrineBrown600),
                   ),
                 ),
               ),
@@ -274,20 +288,23 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
               ),
               Center(
                 child: Container(
+                  margin: EdgeInsets.only(bottom: 16),
                   height: 45,
                   width: 160,
                   child: ElevatedButton(
-                    onPressed: () => onSave(),
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.blue),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 8,
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(7)),
+                      ),
                     ),
+                    onPressed: () => onSave(),
                     child: Text(
-                      AppLocalizations.of(context)!.addProduct,
+                      AppLocalizations.of(context)!.addProduct.toUpperCase(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
+                        fontSize: 18,
+                        color: shrineBrown600,
                       ),
                     ),
                   ),

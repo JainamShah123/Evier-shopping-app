@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../colors.dart';
 import '../database/database.dart' show DatabaseServices, Favourites;
 
 class FavouriteScreen extends StatelessWidget {
@@ -73,11 +74,17 @@ class FavouriteScreen extends StatelessWidget {
                   actions: <Widget>[
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(true),
-                      child: Text(AppLocalizations.of(context)!.delete),
+                      child: Text(
+                        AppLocalizations.of(context)!.delete,
+                        style: TextStyle(color: shrineBrown900),
+                      ),
                     ),
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
-                      child: Text(AppLocalizations.of(context)!.cancel),
+                      child: Text(
+                        AppLocalizations.of(context)!.cancel,
+                        style: TextStyle(color: shrineBrown900),
+                      ),
                     ),
                   ],
                 );

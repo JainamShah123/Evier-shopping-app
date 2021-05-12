@@ -1,3 +1,4 @@
+import 'package:evier/colors.dart';
 import 'package:evier/database/cart.dart';
 import 'package:evier/database/database_services.dart';
 import 'package:evier/screens/order_screen.dart';
@@ -63,17 +64,25 @@ class CartScreen extends StatelessWidget {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text(AppLocalizations.of(context)!.confirm),
+                      title: Text(
+                        AppLocalizations.of(context)!.confirm,
+                      ),
                       content:
                           Text(AppLocalizations.of(context)!.deleteItemWarning),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(true),
-                          child: Text(AppLocalizations.of(context)!.delete),
+                          child: Text(
+                            AppLocalizations.of(context)!.delete,
+                            style: TextStyle(color: shrineBrown900),
+                          ),
                         ),
                         TextButton(
                           onPressed: () => Navigator.of(context).pop(false),
-                          child: Text(AppLocalizations.of(context)!.cancel),
+                          child: Text(
+                            AppLocalizations.of(context)!.cancel,
+                            style: TextStyle(color: shrineBrown900),
+                          ),
                         ),
                       ],
                     );
