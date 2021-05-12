@@ -208,7 +208,7 @@ class ProductScreen extends StatelessWidget {
               width: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  userData!.type == "Seller" && seller == user!.uid
+                  userData.type == "Seller" && seller == user!.uid
                       ? updateProduct()
                       : click();
                 },
