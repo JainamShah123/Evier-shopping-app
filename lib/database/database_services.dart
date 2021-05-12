@@ -272,4 +272,29 @@ class DatabaseServices with ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future updateProduct({
+    required String productPrice,
+    required String nameOfProduct,
+    required String productDescription,
+    required String imageUrl,
+    required String productCategory,
+    required String sellerId,
+    required String productCompany,
+    required String id,
+    required bool sold,
+  }) async {
+    CollectionReference productDatabase =
+        FirebaseFirestore.instance.collection("products");
+    await productDatabase.doc(id).set({
+      'price': productPrice,
+      'name': nameOfProduct,
+      'description': productDescription,
+      'imageUrl': imageUrl,
+      'category': productCategory,
+      'seller': sellerId,
+      'company': productCompany,
+      'sold_out': sold,
+    }).whenComplete(() => notifyListeners());
+  }
 }

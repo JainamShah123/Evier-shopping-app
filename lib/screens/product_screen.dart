@@ -1,3 +1,4 @@
+import 'package:evier/screens/update_product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,7 +42,23 @@ class _ProductScreenState extends State<ProductScreen> {
 
   void click() {}
 
-  void updateProduct() {}
+  void updateProduct(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => UpdateProductScreen(
+          imageUrl: widget.url,
+          productCategory: widget.category,
+          nameOfProduct: widget.title,
+          productCompany: widget.company,
+          productDescription: widget.description,
+          productPrice: widget.price,
+          sellerId: widget.seller,
+          id: widget.id,
+          sold: widget.sold,
+        ),
+      ),
+    );
+  }
 
   void addToCart(BuildContext context) async {
     if (await DatabaseServices().cartIsSet(widget.id)) {
@@ -250,7 +267,7 @@ class _ProductScreenState extends State<ProductScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   userData.type == "Seller" && widget.seller == user!.uid
-                      ? updateProduct()
+                      ? updateProduct(context)
                       : click();
                 },
                 child: Text(
