@@ -4,9 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../letter_spacing.dart';
-import '../colors.dart';
-import '../supplemental/cut_corners_border.dart';
+
+import 'colors.dart';
+import 'letter_spacing.dart';
+import 'supplemental/cut_corners_border.dart';
 
 const defaultLetterSpacing = 0.03;
 const mediumLetterSpacing = 0.04;
