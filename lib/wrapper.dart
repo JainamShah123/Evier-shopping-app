@@ -4,8 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
-import './screens/screens.dart' show Login;
-import './evier_backdrop.dart';
+import './screens/screens.dart' show Login, EvierBackDrop;
 
 class Wrapper extends StatelessWidget {
   @override

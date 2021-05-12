@@ -1,11 +1,16 @@
-import 'package:evier/screens/cart_screen.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import './screens.dart';
+import './screens.dart'
+    show
+        HomePage,
+        CategoryScreen,
+        FavouriteScreen,
+        CartScreen,
+        AccountScreen,
+        BottomNavigationBarWidget;
 
 class HomeScreen extends StatefulWidget {
   @override

@@ -24,16 +24,12 @@ class Auth with ChangeNotifier {
         )
         .then(
           (value) async => await DatabaseServices().saveUserData(
-            userInfo: value,
             gender: gender,
             phoneNumber: phoneNumber,
             name: name,
+            address: '',
           ),
         );
-    //! await user.user!.updateProfile(
-    //!   displayName: name,
-    //! );
-    //! await user.user!.linkWithPhoneNumber(phoneNumber);
   }
 
   Future login(
@@ -50,8 +46,7 @@ class Auth with ChangeNotifier {
       await _storage.clearPersistence();
     } catch (e) {
       print(e);
-    } finally {
-      notifyListeners();
     }
+    notifyListeners();
   }
 }

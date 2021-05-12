@@ -8,8 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './colors.dart';
 import './database/database.dart' show UserData;
-import 'package:evier/screens/screens.dart'
-    show HomeScreen, SellerProductScreen, Login;
+import '../screens/screens.dart' show HomeScreen, SellerProductScreen, Login;
 
 import 'authentication/auth.dart';
 
@@ -54,8 +53,11 @@ class EvierBackDrop extends StatelessWidget {
                 AppLocalizations.of(context)!.yourProducts,
                 style: Theme.of(context).textTheme.bodyText1,
               ),
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SellerProductScreen())),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => SellerProductScreen(),
+                ),
+              ),
             ),
           ListTile(
             onTap: () async {

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../database/database.dart' show DatabaseServices, UserData;
 
+// ignore: must_be_immutable
 class ProductScreen extends StatelessWidget {
   final String url;
   final String title;
@@ -17,7 +18,7 @@ class ProductScreen extends StatelessWidget {
   final String company;
   final String category;
 
-  const ProductScreen({
+  ProductScreen({
     Key? key,
     required this.url,
     required this.title,
@@ -28,6 +29,7 @@ class ProductScreen extends StatelessWidget {
     required this.seller,
     required this.category,
   }) : super(key: key);
+  late DatabaseServices databaseServices;
 
   void click() {}
   void updateProduct() {}
@@ -40,7 +42,7 @@ class ProductScreen extends StatelessWidget {
       );
       return;
     }
-    await DatabaseServices()
+    await databaseServices
         .setCart(
           id: id,
           productName: title,
@@ -62,7 +64,7 @@ class ProductScreen extends StatelessWidget {
 
   void markAsSold(BuildContext context) async {
     try {
-      await DatabaseServices().markProductAsSold(
+      await databaseServices.markProductAsSold(
         id: id,
         category: category,
         company: company,
@@ -80,6 +82,7 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    databaseServices = Provider.of<DatabaseServices>(context);
     var user = Provider.of<User?>(context);
     var userData = Provider.of<UserData?>(context);
     return Scaffold(

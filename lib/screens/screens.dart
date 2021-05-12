@@ -13,3 +13,4 @@ export './product_screen.dart';
 export './recent_orders.dart';
 export './seller_product_screen.dart';
 export './user_detail_edit.dart';
+export '../evier_backdrop.dart';

@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import './myapp.dart';
 import './database/database.dart';
 import './screens/home_screen.dart';
+import './authentication/auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,12 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => DatabaseServices(),
+        ),
         StreamProvider<User?>.value(
           value: FirebaseAuth.instance.authStateChanges(),
           initialData: null,

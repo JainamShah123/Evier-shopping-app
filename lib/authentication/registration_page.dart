@@ -2,6 +2,7 @@ import 'package:evier/screens/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../authentication/auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,6 +20,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  late Auth auth;
   final _key = GlobalKey<FormState>();
   Character? character = Character.user;
   String? email, password, gender = "User", name, mobileNumber;
@@ -227,7 +229,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
         isloading = true;
       });
       try {
-        await Auth().signup(
+        await auth.signup(
           email: email!,
           password: password!,
           gender: gender!,
@@ -292,6 +294,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    auth = Provider.of<Auth>(context);
     return Scaffold(
       body: SafeArea(
         child: Container(

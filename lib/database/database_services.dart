@@ -1,11 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:evier/database/favourites.dart';
-import 'package:evier/database/orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'cart.dart';
-import 'productsData.dart';
-import 'user_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+
+import '../database/favourites.dart';
+import '../database/orders.dart';
+import './cart.dart';
+import './productsData.dart';
+import './user_data.dart';
 
 class DatabaseServices with ChangeNotifier {
   final FirebaseFirestore database = FirebaseFirestore.instance;
@@ -95,14 +96,14 @@ class DatabaseServices with ChangeNotifier {
     required String description,
     required String imageUrl,
     required String company,
-  }) {
+  }) async {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     var favouritedb = database
         .collection('user')
         .doc(userId)
         .collection('favourites')
         .doc(id);
-    return favouritedb.set({
+    favouritedb.set({
       'name': productName,
       'imageUrl': imageUrl,
       'description': description,
@@ -111,6 +112,7 @@ class DatabaseServices with ChangeNotifier {
       'price': price,
       'company': company,
     });
+    notifyListeners();
   }
 
   Future setCart({
@@ -122,11 +124,11 @@ class DatabaseServices with ChangeNotifier {
     required String description,
     required String imageUrl,
     required String company,
-  }) {
+  }) async {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     var favouritedb =
         database.collection('user').doc(userId).collection('cart').doc(id);
-    return favouritedb.set({
+    favouritedb.set({
       'name': productName,
       'imageUrl': imageUrl,
       'description': description,
@@ -135,12 +137,13 @@ class DatabaseServices with ChangeNotifier {
       'price': price,
       'company': company,
     });
+    notifyListeners();
   }
 
   Future submitOrders({
     required List<Cart?> cart,
     required String amount,
-  }) {
+  }) async {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     var orderdb =
         database.collection('user').doc(userId).collection('orders').doc();
@@ -155,10 +158,11 @@ class DatabaseServices with ChangeNotifier {
           "url": e.imageUrl,
         });
 
-    return orderdb.set({
+    orderdb.set({
       'orderDetails': map.toList(),
       'amount': amount.toString(),
     });
+    notifyListeners();
   }
 
   Stream<List<Orders?>?> orders() {
@@ -182,17 +186,19 @@ class DatabaseServices with ChangeNotifier {
   }
 
   Future saveUserData({
-    required UserCredential userInfo,
     required String gender,
     required String phoneNumber,
     required String name,
+    required String address,
   }) async {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     await database.collection('user').doc(userId).set({
       'type': gender,
       'phonenumber': phoneNumber,
       'name': name,
+      'address': address
     });
+    notifyListeners();
   }
 
   Future markProductAsSold({
@@ -206,7 +212,7 @@ class DatabaseServices with ChangeNotifier {
     required String category,
   }) async {
     var dataref = FirebaseFirestore.instance.collection("products").doc(id);
-    return dataref.set({
+    dataref.set({
       "sold_out": true,
       'price': price,
       'name': title,
@@ -216,5 +222,30 @@ class DatabaseServices with ChangeNotifier {
       'seller': seller,
       'company': company
     });
+    notifyListeners();
+  }
+
+  Future addProduct({
+    required String productPrice,
+    required String nameOfProduct,
+    required String productDescription,
+    required String imageUrl,
+    required String productCategory,
+    required String sellerId,
+    required String productCompany,
+  }) async {
+    CollectionReference productDatabase =
+        FirebaseFirestore.instance.collection("products");
+    await productDatabase.doc().set({
+      'price': productPrice,
+      'name': nameOfProduct,
+      'description': productDescription,
+      'imageUrl': imageUrl,
+      'category': productCategory,
+      'seller': sellerId,
+      'company': productCompany,
+      'sold_out': false,
+    });
+    notifyListeners();
   }
 }

@@ -1,12 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../database/database.dart' show UserData;
+import '../database/database.dart' show DatabaseServices, UserData;
 
 class UserDetailEdit extends StatefulWidget {
   @override
@@ -14,13 +12,13 @@ class UserDetailEdit extends StatefulWidget {
 }
 
 class _UserDetailEditState extends State<UserDetailEdit> {
-  var userdb = FirebaseFirestore.instance.collection('user');
   String? name, email, address, phoneNumber;
 
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     var userData = Provider.of<UserData?>(context);
+    var databaseServices = Provider.of<DatabaseServices>(context);
 
     final _key = GlobalKey<FormState>();
     return Scaffold(
@@ -113,21 +111,24 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     onPressed: () async {
                       if (_key.currentState!.validate()) {
                         _key.currentState!.save();
-                        await userdb.doc(user.uid).update({
-                          'address': address ?? userData.address!,
-                          'type': userData.type,
-                          'phonenumber': phoneNumber ?? userData.phoneNumber!,
-                          'name': name ?? userData.name!,
-                        }).catchError((onError) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                onError.toString(),
+                        await databaseServices
+                            .saveUserData(
+                          gender: userData.type!,
+                          phoneNumber: phoneNumber ?? userData.phoneNumber!,
+                          name: name ?? userData.name!,
+                          address: address ?? userData.address!,
+                        )
+                            .catchError(
+                          (onError) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  onError.toString(),
+                                ),
                               ),
-                            ),
-                          );
-                        });
-
+                            );
+                          },
+                        );
                         await user.updateEmail(email ?? user.email!);
                         Navigator.pop(context);
                       }

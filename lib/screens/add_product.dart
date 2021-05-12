@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:evier/database/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -18,8 +18,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  CollectionReference productDatabase =
-      FirebaseFirestore.instance.collection("products");
+  late DatabaseServices databaseService;
 
   FirebaseStorage storage = FirebaseStorage.instance;
   String? productPrice,
@@ -76,15 +75,15 @@ class _AddProductScreenState extends State<AddProductScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                await productDatabase.add({
-                  'price': productPrice!,
-                  'name': nameOfProduct!,
-                  'description': productDescription!,
-                  'imageUrl': imageUrl.toString(),
-                  'category': productCategory!,
-                  'seller': sellerId,
-                  'company': productCompany,
-                }).whenComplete(() => Navigator.of(context).pop());
+                await databaseService.addProduct(
+                  imageUrl: imageUrl.toString(),
+                  nameOfProduct: nameOfProduct!,
+                  productCategory: productCategory!,
+                  productCompany: productCompany!,
+                  productDescription: productDescription!,
+                  productPrice: productPrice!,
+                  sellerId: sellerId!,
+                );
               },
               child: Text("ADD"),
             ),
@@ -102,7 +101,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of(context);
+    databaseService = Provider.of<DatabaseServices>(context);
+    User? user = Provider.of<User?>(context);
     sellerId = user!.uid;
 
     return Scaffold(

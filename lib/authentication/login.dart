@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import '../colors.dart';
 import '../theme.dart';
@@ -15,6 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late Auth auth;
   String? email, password;
 
   bool isLoading = false;
@@ -123,7 +125,7 @@ class _LoginState extends State<Login> {
             isLoading = true;
           });
           try {
-            await Auth()
+            await auth
                 .login(
                   email,
                   password,
@@ -177,6 +179,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    auth = Provider.of<Auth>(context);
     return Scaffold(
       body: SafeArea(
         child: Container(
