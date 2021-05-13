@@ -51,8 +51,21 @@ class OrderItems extends StatelessWidget {
           itemCount: orders![index]!.cart.length,
           itemBuilder: (context, ind) {
             return ListTile(
-              title: Text(orders![index]!.cart[ind]["name"]),
-              subtitle: Text(orders![index]!.cart[ind]["price"]),
+              hoverColor: Colors.red,
+              title: Text(
+                "Product Name:  ${orders![index]!.cart[ind]["name"]}",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              subtitle: Text(
+                  "Product price:  ₹${orders![index]!.cart[ind]["price"]}"),
+              leading: Image.network(
+                orders![index]!.cart[ind]["url"],
+                fit: BoxFit.contain,
+                cacheHeight: 200,
+                cacheWidth: 200,
+              ),
             );
           },
         );

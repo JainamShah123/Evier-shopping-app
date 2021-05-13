@@ -44,7 +44,7 @@ class CartScreen extends StatelessWidget {
           padding: EdgeInsets.only(left: 8, right: 8, top: 8),
           itemCount: cart.length,
           itemBuilder: (ctx, index) {
-            String indexid = cart[index]!.id.toString();
+            String indexid = cart[index]!.id!;
             return Dismissible(
               direction: DismissDirection.endToStart,
               background: Container(

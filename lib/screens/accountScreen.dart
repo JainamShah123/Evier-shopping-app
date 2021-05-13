@@ -24,8 +24,6 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
-    // var userData = Provider.of<UserData?>(context);
-    // userData = context.watch<UserData?>();
 
     return StreamBuilder<UserData?>(
       stream: DatabaseServices().userData(),

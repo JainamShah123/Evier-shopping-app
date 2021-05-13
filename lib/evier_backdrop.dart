@@ -8,7 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './colors.dart';
 import './database/database.dart' show UserData;
-import '../screens/screens.dart' show HomeScreen, SellerProductScreen;
+import '../screens/screens.dart'
+    show HomeScreen, ProductScreen, SellerProductScreen;
 
 import 'authentication/auth.dart';
 
@@ -21,13 +22,39 @@ class EvierBackDrop extends StatelessWidget {
       appBar: BackdropAppBar(
         actions: [
           IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () {
-                showSearch(
+            icon: Icon(Icons.search),
+            onPressed: () async {
+              try {
+                var result = await showSearch(
                   context: context,
-                  delegate: SearchScreen(),
+                  delegate: EvierSearch(),
                 );
-              }),
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => ProductScreen(
+                      sold: result!.sold!,
+                      url: result.imageUrl!,
+                      title: result.productName!,
+                      price: result.price!,
+                      description: result.description!,
+                      company: result.company!,
+                      id: result.id!,
+                      seller: result.seller!,
+                      category: result.category!,
+                    ),
+                  ),
+                );
+              } catch (e) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      e.toString(),
+                    ),
+                  ),
+                );
+              }
+            },
+          ),
         ],
         leading: BackdropToggleButton(
           icon: AnimatedIcons.close_menu,
