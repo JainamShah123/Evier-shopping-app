@@ -20,31 +20,33 @@ class HomePage extends StatelessWidget {
       return Center(
         child: Text(AppLocalizations.of(context)!.noProducts),
       );
-    return Container(
-      padding: EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: (kIsWeb &&
-                  MediaQuery.of(context).size.height <
-                      MediaQuery.of(context).size.width)
-              ? 5
-              : 2,
-          childAspectRatio: 1 / 1.1,
+    return Scrollbar(
+      child: Container(
+        padding: EdgeInsets.only(left: 8, right: 8, top: 8),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: (kIsWeb &&
+                    MediaQuery.of(context).size.height <
+                        MediaQuery.of(context).size.width)
+                ? 5
+                : 2,
+            childAspectRatio: 1 / 1.1,
+          ),
+          itemCount: productsData.length,
+          itemBuilder: (ctx, index) => productsData[index]!.sold == true
+              ? Container()
+              : Products(
+                  sold: productsData[index]?.sold,
+                  company: productsData[index]?.company,
+                  title: productsData[index]?.productName,
+                  url: productsData[index]?.imageUrl,
+                  price: productsData[index]?.price,
+                  description: productsData[index]?.description,
+                  id: productsData[index]?.id,
+                  category: productsData[index]?.category,
+                  seller: productsData[index]?.seller,
+                ),
         ),
-        itemCount: productsData.length,
-        itemBuilder: (ctx, index) => productsData[index]!.sold == true
-            ? Container()
-            : Products(
-                sold: productsData[index]?.sold,
-                company: productsData[index]?.company,
-                title: productsData[index]?.productName,
-                url: productsData[index]?.imageUrl,
-                price: productsData[index]?.price,
-                description: productsData[index]?.description,
-                id: productsData[index]?.id,
-                category: productsData[index]?.category,
-                seller: productsData[index]?.seller,
-              ),
       ),
     );
   }
