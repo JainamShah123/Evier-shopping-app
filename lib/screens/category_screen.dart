@@ -1,8 +1,9 @@
-import 'package:evier/colors.dart';
-import 'package:evier/database/productsData.dart';
-import 'package:evier/screens/category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/category_page.dart';
+import '../colors.dart';
+import '../database/productsData.dart';
 
 class CategoryScreen extends StatelessWidget {
   @override

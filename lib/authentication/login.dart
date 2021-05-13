@@ -1,4 +1,3 @@
-import 'package:evier/resources/primary_color_override.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -10,6 +9,7 @@ import '../theme.dart';
 import '../letter_spacing.dart';
 import '../authentication/auth.dart';
 import '../resources/routes.dart';
+import '../resources/primary_color_override.dart';
 
 class Login extends StatefulWidget {
   @override

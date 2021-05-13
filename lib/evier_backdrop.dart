@@ -1,4 +1,3 @@
-import 'package:evier/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,10 +7,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './colors.dart';
 import './database/database.dart' show ProductsData, UserData;
-import '../screens/screens.dart'
-    show HomeScreen, ProductScreen, SellerProductScreen;
 
-import 'authentication/auth.dart';
+import '../screens/search.dart';
+import './screens/screens.dart'
+    show ProductScreen, SellerProductScreen, HomeScreen;
+
+import './authentication/auth.dart';
 
 class EvierBackDrop extends StatelessWidget {
   @override

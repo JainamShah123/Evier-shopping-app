@@ -1,8 +1,9 @@
-import 'package:evier/colors.dart';
-import 'package:evier/database/database_services.dart';
-import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../colors.dart';
+import '../database/database_services.dart';
+import '../screens/product_screen.dart';
 
 class Products extends StatefulWidget {
   final String? url;

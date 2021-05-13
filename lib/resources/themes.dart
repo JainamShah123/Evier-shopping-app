@@ -1,5 +1,6 @@
-import 'package:evier/colors.dart';
 import 'package:flutter/material.dart';
+
+import '../colors.dart';
 
 ThemeData theme = ThemeData(
   scaffoldBackgroundColor: shrineBackgroundWhite,

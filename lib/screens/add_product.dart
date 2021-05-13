@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:evier/database/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -13,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 import '../colors.dart';
+import '../database/database_services.dart';
 
 class AddProductScreen extends StatefulWidget {
   @override

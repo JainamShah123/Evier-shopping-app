@@ -1,10 +1,11 @@
-import 'package:evier/screens/update_product.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../screens/update_product.dart';
 import '../colors.dart';
 import '../database/database.dart' show DatabaseServices, UserData;
 

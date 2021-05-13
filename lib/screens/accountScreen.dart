@@ -1,12 +1,13 @@
-import 'package:evier/database/database_services.dart';
-import 'package:evier/database/user_data.dart';
-import 'package:evier/resources/routes.dart';
-import 'package:evier/screens/recent_orders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../database/database_services.dart';
+import '../database/user_data.dart';
+import '../resources/routes.dart';
+import '../screens/recent_orders.dart';
 
 class AccountScreen extends StatefulWidget {
   @override

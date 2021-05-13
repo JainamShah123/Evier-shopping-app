@@ -1,8 +1,9 @@
-import 'package:evier/database/database.dart';
-import 'package:evier/screens/product_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../screens/product_screen.dart';
+import '../database/database.dart';
 
 class CategoryPage extends StatelessWidget {
   final String cat;
