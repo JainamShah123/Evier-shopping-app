@@ -7,7 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import './colors.dart';
-import './database/database.dart' show UserData;
+import './database/database.dart' show ProductsData, UserData;
 import '../screens/screens.dart'
     show HomeScreen, ProductScreen, SellerProductScreen;
 
@@ -25,25 +25,27 @@ class EvierBackDrop extends StatelessWidget {
             icon: Icon(Icons.search),
             onPressed: () async {
               try {
-                var result = await showSearch(
+                ProductsData? result = await showSearch<ProductsData?>(
                   context: context,
                   delegate: EvierSearch(),
                 );
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => ProductScreen(
-                      sold: result!.sold!,
-                      url: result.imageUrl!,
-                      title: result.productName!,
-                      price: result.price!,
-                      description: result.description!,
-                      company: result.company!,
-                      id: result.id!,
-                      seller: result.seller!,
-                      category: result.category!,
+
+                if (result != null)
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProductScreen(
+                        sold: result.sold!,
+                        url: result.imageUrl!,
+                        title: result.productName!,
+                        price: result.price!,
+                        description: result.description!,
+                        company: result.company!,
+                        id: result.id!,
+                        seller: result.seller!,
+                        category: result.category!,
+                      ),
                     ),
-                  ),
-                );
+                  );
               } catch (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

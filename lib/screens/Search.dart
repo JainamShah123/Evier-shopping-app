@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../database/database.dart';
 
-class EvierSearch extends SearchDelegate<ProductsData> {
+class EvierSearch extends SearchDelegate<ProductsData?> {
   List<ProductsData?>? data;
 
   @override
@@ -24,17 +24,7 @@ class EvierSearch extends SearchDelegate<ProductsData> {
       onPressed: () {
         close(
           context,
-          ProductsData(
-            id: "",
-            productName: "",
-            price: "",
-            seller: "",
-            category: "",
-            description: "",
-            imageUrl: "",
-            company: "",
-            sold: null,
-          ),
+          null,
         );
       },
       icon: Icon(
@@ -59,6 +49,9 @@ class EvierSearch extends SearchDelegate<ProductsData> {
       children: result
           .map((e) => ListTile(
                 onTap: () {
+                  if (e == null) {
+                    close(context, null);
+                  }
                   close(context, e!);
                 },
                 hoverColor: Colors.red,
