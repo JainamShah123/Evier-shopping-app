@@ -1,60 +1,53 @@
-import 'package:evier/resources/CategoryModel.dart';
+import 'package:evier/colors.dart';
+import 'package:evier/database/productsData.dart';
+import 'package:evier/screens/category_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class CategoryScreen extends StatefulWidget {
-  @override
-  _CategoryScreenState createState() => _CategoryScreenState();
-}
-
-class _CategoryScreenState extends State<CategoryScreen> {
-  List<CategoryModel>? category = [];
-
-  @override
-  void initState() {
-    super.initState();
-    category = getData();
-  }
-
+class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemBuilder: (context, index) => Card(
-          child: CategoryTile(
-            categoryName: category?[index].name,
-            imageurl: category?[index].url,
-          ),
-        ),
-        itemCount: category?.length,
+    var productData = Provider.of<List<ProductsData?>?>(context);
+    List<String> category = [];
+    productData!.forEach((element) {
+      category.add(element!.category!);
+    });
+
+    List<String> actualCat = category.toSet().toList();
+
+    return GridView.builder(
+      padding: EdgeInsets.all(16),
+      itemCount: actualCat.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 16.0,
       ),
-    );
-  }
-}
-
-class CategoryTile extends StatelessWidget {
-  final imageurl;
-  final categoryName;
-
-  CategoryTile({this.imageurl, this.categoryName});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                imageurl,
-                fit: BoxFit.contain,
+      itemBuilder: (BuildContext context, int index) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CategoryPage(
+                  cat: actualCat[index],
+                ),
+              ),
+            );
+          },
+          child: Container(
+            height: 100,
+            width: 100,
+            color: shrinePink50,
+            child: Center(
+              child: Text(
+                actualCat[index].toUpperCase(),
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
