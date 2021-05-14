@@ -250,10 +250,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
             content: Text("The email is already in use"),
           ));
         }
+        setState(() {
+          isloading = false;
+        });
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(e.toString()),
         ));
+        setState(() {
+          isloading = false;
+        });
       } finally {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
@@ -341,7 +347,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     height: 15,
                   ),
                   isloading
-                      ? CircularProgressIndicator()
+                      ? CircularProgressIndicator(
+                          backgroundColor: shrineBrown600,
+                        )
                       : registerButton(context),
                   SizedBox(
                     height: 10,

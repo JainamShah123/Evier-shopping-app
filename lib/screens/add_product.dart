@@ -52,6 +52,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void startImagePicker() async {
     imagePicker = await picker.getImage(
       source: ImageSource.camera,
+      imageQuality: 7,
     );
 
     file = File(imagePicker!.path);
@@ -77,15 +78,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                await databaseService.addProduct(
-                  imageUrl: imageUrl.toString(),
-                  nameOfProduct: nameOfProduct!,
-                  productCategory: productCategory!,
-                  productCompany: productCompany!,
-                  productDescription: productDescription!,
-                  productPrice: productPrice!,
-                  sellerId: sellerId!,
-                );
+                await databaseService
+                    .addProduct(
+                      imageUrl: imageUrl.toString(),
+                      nameOfProduct: nameOfProduct!,
+                      productCategory: productCategory!,
+                      productCompany: productCompany!,
+                      productDescription: productDescription!,
+                      productPrice: productPrice!,
+                      sellerId: sellerId!,
+                    )
+                    .whenComplete(() => Navigator.of(context).pop());
               },
               child: Text(
                 "ADD",
@@ -103,7 +106,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             ),
           ],
         ),
-      ).whenComplete(() => Navigator.of(context).pop());
+      );
     }
   }
 
@@ -134,7 +137,24 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 height: 200,
                 width: 200,
                 child: imagePickedFromFile
-                    ? Image.network(imageUrl!)
+                    ? Image.network(
+                        imageUrl!,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          }
+                          return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: shrineBrown600,
+                              value: loadingProgress.expectedTotalBytes != null
+                                  ? loadingProgress.cumulativeBytesLoaded /
+                                      loadingProgress.expectedTotalBytes!
+                                  : null,
+                            ),
+                          );
+                        },
+                      )
                     : Center(
                         child: Icon(
                           Icons.camera,

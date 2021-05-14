@@ -14,7 +14,9 @@ class FavouriteScreen extends StatelessWidget {
     var favourites = Provider.of<List<Favourites?>?>(context);
     if (favourites == null) {
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          backgroundColor: shrineBrown600,
+        ),
       );
     }
     if (favourites.isEmpty)

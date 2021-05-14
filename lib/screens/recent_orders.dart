@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../colors.dart';
 import '../database/database.dart' show Orders;
 
 class RecentOrders extends StatelessWidget {
@@ -12,7 +13,9 @@ class RecentOrders extends StatelessWidget {
     if (orders == null) {
       return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(
+            backgroundColor: shrineBrown600,
+          ),
         ),
       );
     }

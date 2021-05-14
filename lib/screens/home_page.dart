@@ -5,7 +5,8 @@ import 'package:provider/provider.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../database/database.dart' show DatabaseServices, ProductsData;
+import '../colors.dart';
+import '../database/database.dart' show ProductsData;
 import '../resources/products.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,9 @@ class _HomePageState extends State<HomePage> {
     var productsData = Provider.of<List<ProductsData?>?>(context);
     if (productsData == null) {
       return Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          backgroundColor: shrineBrown600,
+        ),
       );
     }
 

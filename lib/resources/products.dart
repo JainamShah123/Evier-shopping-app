@@ -101,6 +101,21 @@ class _ProductsState extends State<Products> {
                 child: Image.network(
                   widget.productData.imageUrl!,
                   fit: BoxFit.cover,
+                  loadingBuilder: (BuildContext context, Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: shrineBrown600,
+                        value: loadingProgress.expectedTotalBytes != null
+                            ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

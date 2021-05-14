@@ -143,6 +143,9 @@ class _LoginState extends State<Login> {
                 content: Text("Wrong password provided for that user."),
               ));
             }
+            setState(() {
+              isLoading = false;
+            });
           } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               new SnackBar(
@@ -151,6 +154,9 @@ class _LoginState extends State<Login> {
                 ),
               ),
             );
+            setState(() {
+              isLoading = false;
+            });
           }
         }
       },

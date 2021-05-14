@@ -22,6 +22,7 @@ class CategoryScreen extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 16.0,
+        mainAxisSpacing: 16.0,
       ),
       itemBuilder: (BuildContext context, int index) {
         return GestureDetector(
