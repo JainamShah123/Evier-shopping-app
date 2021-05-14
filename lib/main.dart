@@ -1,3 +1,4 @@
+import 'package:evier/database/seller_product_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -60,6 +61,10 @@ class App extends StatelessWidget {
         ),
         StreamProvider<List<Orders?>?>.value(
           value: DatabaseServices().orders(),
+          initialData: null,
+        ),
+        StreamProvider<List<SellerProductData?>?>.value(
+          value: DatabaseServices().sellerProducts(),
           initialData: null,
         ),
       ],

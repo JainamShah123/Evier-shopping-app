@@ -1,3 +1,4 @@
+import 'package:evier/database/seller_product_data.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
@@ -13,8 +14,19 @@ class DatabaseServices with ChangeNotifier {
 
   Stream<List<ProductsData>?> products() {
     var productDB = database.collection('products');
-    return productDB.snapshots().map((snap) =>
-        snap.docs.map((doc) => ProductsData.fromFirestore(doc)).toList());
+    return productDB.snapshots().map((snap) => snap.docs
+        .map((doc) => ProductsData.fromFirestore(doc))
+        .where((element) => element.sold == false)
+        .toList());
+  }
+
+  Stream<List<SellerProductData>?> sellerProducts() {
+    var uid = FirebaseAuth.instance.currentUser?.uid;
+    var productDB = database.collection('products');
+    return productDB.snapshots().map((snap) => snap.docs
+        .map((doc) => SellerProductData.fromFirestore(doc))
+        .where((element) => element.seller == uid)
+        .toList());
   }
 
   Stream<UserData?> userData() {

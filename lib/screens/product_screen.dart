@@ -7,32 +7,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../screens/update_product.dart';
 import '../colors.dart';
-import '../database/database.dart' show DatabaseServices, UserData;
+import '../database/database.dart'
+    show DatabaseServices, ProductsData, UserData;
 
 // ignore: must_be_immutable
 class ProductScreen extends StatefulWidget {
-  final String url;
-  final String title;
-  final String price;
-  final String description;
-  final String id;
-  final String seller;
-  final String company;
-  final String category;
-  bool sold;
+  final ProductsData productsData;
 
   ProductScreen({
-    Key? key,
-    required this.sold,
-    required this.url,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.company,
-    required this.id,
-    required this.seller,
-    required this.category,
-  }) : super(key: key);
+    required this.productsData,
+  });
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
@@ -47,22 +31,22 @@ class _ProductScreenState extends State<ProductScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => UpdateProductScreen(
-          imageUrl: widget.url,
-          productCategory: widget.category,
-          nameOfProduct: widget.title,
-          productCompany: widget.company,
-          productDescription: widget.description,
-          productPrice: widget.price,
-          sellerId: widget.seller,
-          id: widget.id,
-          sold: widget.sold,
+          imageUrl: widget.productsData.imageUrl,
+          productCategory: widget.productsData.category,
+          nameOfProduct: widget.productsData.productName,
+          productCompany: widget.productsData.company,
+          productDescription: widget.productsData.description,
+          productPrice: widget.productsData.price,
+          sellerId: widget.productsData.seller,
+          id: widget.productsData.id,
+          sold: widget.productsData.sold,
         ),
       ),
     );
   }
 
   void addToCart(BuildContext context) async {
-    if (await DatabaseServices().cartIsSet(widget.id)) {
+    if (await databaseServices.cartIsSet(widget.productsData.id!)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Product already added in cart"),
@@ -72,14 +56,14 @@ class _ProductScreenState extends State<ProductScreen> {
     }
     await databaseServices
         .setCart(
-          id: widget.id,
-          productName: widget.title,
-          category: widget.category,
-          seller: widget.seller,
-          price: widget.price,
-          description: widget.description,
-          imageUrl: widget.url,
-          company: widget.company,
+          id: widget.productsData.id!,
+          productName: widget.productsData.productName!,
+          category: widget.productsData.category!,
+          seller: widget.productsData.seller!,
+          price: widget.productsData.price!,
+          description: widget.productsData.description!,
+          imageUrl: widget.productsData.imageUrl!,
+          company: widget.productsData.company!,
         )
         .whenComplete(
           () => ScaffoldMessenger.of(context).showSnackBar(
@@ -93,42 +77,42 @@ class _ProductScreenState extends State<ProductScreen> {
   void markAsSold(BuildContext context) async {
     try {
       await databaseServices.markProductAsSold(
-        id: widget.id,
-        category: widget.category,
-        company: widget.company,
-        description: widget.description,
-        price: widget.price,
-        seller: widget.seller,
-        title: widget.title,
-        url: widget.url,
+        id: widget.productsData.id!,
+        category: widget.productsData.category!,
+        company: widget.productsData.company!,
+        description: widget.productsData.description!,
+        price: widget.productsData.price!,
+        seller: widget.productsData.seller!,
+        title: widget.productsData.productName!,
+        url: widget.productsData.imageUrl!,
       );
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
     setState(() {
-      widget.sold = true;
+      widget.productsData.sold = true;
     });
   }
 
   void backToStock(BuildContext context) async {
     try {
       await databaseServices.backToStock(
-        id: widget.id,
-        category: widget.category,
-        company: widget.company,
-        description: widget.description,
-        price: widget.price,
-        seller: widget.seller,
-        title: widget.title,
-        url: widget.url,
+        id: widget.productsData.id!,
+        category: widget.productsData.category!,
+        company: widget.productsData.company!,
+        description: widget.productsData.description!,
+        price: widget.productsData.price!,
+        seller: widget.productsData.seller!,
+        title: widget.productsData.productName!,
+        url: widget.productsData.imageUrl!,
       );
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
     }
     setState(() {
-      widget.sold = false;
+      widget.productsData.sold = false;
     });
   }
 
@@ -139,7 +123,7 @@ class _ProductScreenState extends State<ProductScreen> {
     var userData = Provider.of<UserData?>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title.toUpperCase()),
+        title: Text(widget.productsData.productName!.toUpperCase()),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -156,7 +140,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 300,
                   width: double.infinity,
                   child: Image.network(
-                    widget.url,
+                    widget.productsData.imageUrl!,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -168,13 +152,14 @@ class _ProductScreenState extends State<ProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.title.toUpperCase(),
+                      widget.productsData.productName!.toUpperCase(),
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     IconButton(
                       icon: Icon(FontAwesomeIcons.heart),
                       onPressed: () async {
-                        if (await DatabaseServices().favIsSet(widget.id)) {
+                        if (await DatabaseServices()
+                            .favIsSet(widget.productsData.id!)) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content:
@@ -183,16 +168,16 @@ class _ProductScreenState extends State<ProductScreen> {
                           );
                           return;
                         }
-                        await DatabaseServices()
+                        await databaseServices
                             .setFavourite(
-                              id: widget.id,
-                              productName: widget.title,
-                              category: widget.category,
-                              seller: widget.seller,
-                              price: widget.price,
-                              description: widget.description,
-                              imageUrl: widget.url,
-                              company: widget.company,
+                              id: widget.productsData.id!,
+                              productName: widget.productsData.productName!,
+                              category: widget.productsData.category!,
+                              seller: widget.productsData.seller!,
+                              price: widget.productsData.price!,
+                              description: widget.productsData.description!,
+                              imageUrl: widget.productsData.imageUrl!,
+                              company: widget.productsData.company!,
                             )
                             .whenComplete(
                               () => ScaffoldMessenger.of(context).showSnackBar(
@@ -209,7 +194,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 32,
                 ),
                 Text(
-                  "₹${widget.price}",
+                  "₹${widget.productsData.price}",
                   style: Theme.of(context)
                       .textTheme
                       .headline6!
@@ -219,7 +204,7 @@ class _ProductScreenState extends State<ProductScreen> {
                   height: 16,
                 ),
                 Text(
-                  widget.description,
+                  widget.productsData.description!,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2!
@@ -243,15 +228,17 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: TextButton(
                 onPressed: () async {
-                  userData!.type == "Seller" && widget.seller == user!.uid
-                      ? widget.sold == true
+                  userData!.type == "Seller" &&
+                          widget.productsData.seller == user!.uid
+                      ? widget.productsData.sold == true
                           ? backToStock(context)
                           : markAsSold(context)
                       : addToCart(context);
                 },
                 child: Text(
-                  userData!.type == "Seller" && widget.seller == user!.uid
-                      ? widget.sold == true
+                  userData!.type == "Seller" &&
+                          widget.productsData.seller == user!.uid
+                      ? widget.productsData.sold == true
                           ? "Mark in Stock"
                           : "Mark as sold"
                       : "Add to cart",
@@ -267,12 +254,14 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  userData.type == "Seller" && widget.seller == user!.uid
+                  userData.type == "Seller" &&
+                          widget.productsData.seller == user!.uid
                       ? updateProduct(context)
                       : click();
                 },
                 child: Text(
-                  userData.type == "Seller" && widget.seller == user!.uid
+                  userData.type == "Seller" &&
+                          widget.productsData.seller == user!.uid
                       ? "Update"
                       : "Buy now",
                   style: TextStyle(fontSize: 20),

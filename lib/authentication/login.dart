@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -154,17 +155,17 @@ class _LoginState extends State<Login> {
         }
       },
       child: Container(
-        height: 50,
-        width: 100,
+        height: kIsWeb ? 40 : 50,
+        width: kIsWeb ? 70 : 100,
         alignment: Alignment.center,
         padding: const EdgeInsets.all(10.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              AppLocalizations.of(context)!.login,
+              AppLocalizations.of(context)!.login.toUpperCase(),
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: kIsWeb ? 16 : 20),
             ),
           ],
         ),
@@ -177,51 +178,101 @@ class _LoginState extends State<Login> {
     auth = Provider.of<Auth>(context);
     return Scaffold(
       body: SafeArea(
-        child: Container(
-          padding: EdgeInsets.all(16),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _key,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3!
-                        .copyWith(fontWeight: FontWeight.bold),
+        child: kIsWeb
+            ? Container(
+                padding: EdgeInsets.all(16),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _key,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            child: emailFormField()),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            child: passwordFormField()),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        isLoading
+                            ? CircularProgressIndicator(
+                                backgroundColor: shrineBrown600,
+                              )
+                            : loginButton(context),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        createAccountButton(),
+                      ],
+                    ),
                   ),
-                  SizedBox(
-                    height: 20,
+                ),
+              )
+            : Container(
+                padding: EdgeInsets.all(16),
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.center,
+                child: SingleChildScrollView(
+                  child: Form(
+                    key: _key,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppLocalizations.of(context)!.title,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3!
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        emailFormField(),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        passwordFormField(),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        isLoading
+                            ? CircularProgressIndicator(
+                                backgroundColor: shrineBrown600,
+                              )
+                            : loginButton(context),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        createAccountButton(),
+                      ],
+                    ),
                   ),
-                  emailFormField(),
-                  SizedBox(
-                    height: 12,
-                  ),
-                  passwordFormField(),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  isLoading
-                      ? CircularProgressIndicator(
-                          backgroundColor: shrineBrown600,
-                        )
-                      : loginButton(context),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  createAccountButton(),
-                ],
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

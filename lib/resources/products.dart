@@ -1,3 +1,4 @@
+import 'package:evier/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -6,28 +7,11 @@ import '../database/database_services.dart';
 import '../screens/product_screen.dart';
 
 class Products extends StatefulWidget {
-  final String? url;
-  final String? title;
-  final String? price;
-  final String? description;
-  final String? id;
-  final String? category;
-  final String? seller;
-  final String? company;
-  final bool? sold;
+  final ProductsData productData;
 
   const Products({
-    Key? key,
-    required this.sold,
-    required this.seller,
-    required this.id,
-    required this.url,
-    required this.title,
-    required this.category,
-    required this.price,
-    required this.description,
-    required this.company,
-  }) : super(key: key);
+    required this.productData,
+  });
 
   @override
   _ProductsState createState() => _ProductsState();
@@ -36,18 +20,18 @@ class Products extends StatefulWidget {
 class _ProductsState extends State<Products> {
   late DatabaseServices databaseServices;
   void setCart(BuildContext ctx) async {
-    bool cartIsSet = await DatabaseServices().cartIsSet(widget.id!);
+    bool cartIsSet = await DatabaseServices().cartIsSet(widget.productData.id!);
 
     if (!cartIsSet) {
       await databaseServices.setCart(
-        company: widget.company!,
-        category: widget.category!,
-        id: widget.id!,
-        price: widget.price!,
-        productName: widget.title!,
-        seller: widget.seller!,
-        description: widget.description!,
-        imageUrl: widget.url!,
+        company: widget.productData.company!,
+        category: widget.productData.category!,
+        id: widget.productData.id!,
+        price: widget.productData.price!,
+        productName: widget.productData.productName!,
+        seller: widget.productData.seller!,
+        description: widget.productData.description!,
+        imageUrl: widget.productData.imageUrl!,
       );
     } else {
       ScaffoldMessenger.of(ctx).showSnackBar(
@@ -59,17 +43,17 @@ class _ProductsState extends State<Products> {
   }
 
   void setFav(BuildContext ctx) async {
-    bool favIsSet = await DatabaseServices().favIsSet(widget.id!);
+    bool favIsSet = await DatabaseServices().favIsSet(widget.productData.id!);
     if (!favIsSet) {
       await databaseServices.setFavourite(
-        company: widget.company!,
-        category: widget.category!,
-        id: widget.id!,
-        price: widget.price!,
-        productName: widget.title!,
-        seller: widget.seller!,
-        description: widget.description ?? "",
-        imageUrl: widget.url!,
+        company: widget.productData.company!,
+        category: widget.productData.category!,
+        id: widget.productData.id!,
+        price: widget.productData.price!,
+        productName: widget.productData.productName!,
+        seller: widget.productData.seller!,
+        description: widget.productData.description ?? "",
+        imageUrl: widget.productData.imageUrl!,
       );
       setState(() {
         favIsSet = true;
@@ -91,15 +75,7 @@ class _ProductsState extends State<Products> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) => ProductScreen(
-              sold: widget.sold!,
-              id: widget.id!,
-              category: widget.category!,
-              company: widget.company!,
-              seller: widget.seller!,
-              description: widget.description!,
-              price: widget.price!,
-              title: widget.title!,
-              url: widget.url!,
+              productsData: widget.productData,
             ),
           ),
         );
@@ -110,7 +86,10 @@ class _ProductsState extends State<Products> {
         color: shrineBackgroundWhite,
         shadowColor: Colors.transparent,
         shape: BeveledRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
+        ),
         child: Column(
           children: [
             ClipRRect(
@@ -120,7 +99,7 @@ class _ProductsState extends State<Products> {
                 height: 150,
                 width: 150,
                 child: Image.network(
-                  widget.url!,
+                  widget.productData.imageUrl!,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -129,11 +108,11 @@ class _ProductsState extends State<Products> {
               height: 8,
             ),
             Text(
-              "${widget.title!}".toUpperCase(),
+              "${widget.productData.productName!}".toUpperCase(),
               style: Theme.of(context).textTheme.bodyText1,
             ),
             Text(
-              "₹${widget.price!}",
+              "₹${widget.productData.price!}",
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:evier/database/seller_product_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -5,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../database/database.dart' show ProductsData;
 import '../resources/products.dart';
 import '../resources/routes.dart';
 
@@ -13,7 +13,7 @@ class SellerProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
-    var products = Provider.of<List<ProductsData?>?>(context);
+    var products = Provider.of<List<SellerProductData?>?>(context);
     var uid = user!.uid;
     return Scaffold(
       appBar: AppBar(
@@ -46,15 +46,7 @@ class SellerProductScreen extends StatelessWidget {
             itemBuilder: (ctx, index) {
               if (products?[index]!.seller == uid)
                 return Products(
-                  sold: products?[index]!.sold,
-                  seller: products?[index]!.seller,
-                  id: products?[index]!.id,
-                  category: products?[index]!.category,
-                  company: products?[index]!.company,
-                  title: products?[index]!.productName,
-                  url: products?[index]!.imageUrl,
-                  price: products?[index]!.price,
-                  description: products?[index]!.description,
+                  productData: products![index]!.toProductsData(),
                 );
               return SizedBox.shrink();
             }),

@@ -35,15 +35,7 @@ class EvierBackDrop extends StatelessWidget {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ProductScreen(
-                        sold: result.sold!,
-                        url: result.imageUrl!,
-                        title: result.productName!,
-                        price: result.price!,
-                        description: result.description!,
-                        company: result.company!,
-                        id: result.id!,
-                        seller: result.seller!,
-                        category: result.category!,
+                        productsData: result,
                       ),
                     ),
                   );
