@@ -1,4 +1,4 @@
-import 'package:evier/screens/home_screen.dart';
+import 'package:evier/evier_backdrop.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -263,7 +263,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       } finally {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => Backdrop(),
           ),
         );
       }

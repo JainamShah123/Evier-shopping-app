@@ -20,7 +20,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  late DatabaseServices databaseService;
+  late DatabaseServices? databaseService;
 
   FirebaseStorage storage = FirebaseStorage.instance;
   String? productPrice,
@@ -78,7 +78,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                await databaseService
+                await databaseService!
                     .addProduct(
                       imageUrl: imageUrl.toString(),
                       nameOfProduct: nameOfProduct!,
@@ -112,7 +112,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    databaseService = Provider.of<DatabaseServices>(context);
+    databaseService = Provider.of<DatabaseServices?>(context);
     User? user = Provider.of<User?>(context);
     sellerId = user!.uid;
 

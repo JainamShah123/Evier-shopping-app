@@ -21,7 +21,7 @@ class DatabaseServices with ChangeNotifier {
         .toList());
   }
 
-  Stream<List<SellerProductData>?> sellerProducts() {
+  Stream<List<SellerProductData?>?> sellerProducts() {
     var uid = FirebaseAuth.instance.currentUser?.uid;
     var productDB = database.collection('products');
     return productDB.snapshots().map((snap) => snap.docs
