@@ -8,7 +8,7 @@ class Orders {
     required this.amount,
   });
 
-  factory Orders.fromFirestore(DocumentSnapshot doc) {
+  factory Orders.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map? data = doc.data();
 
     return Orders(

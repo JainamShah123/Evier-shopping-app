@@ -20,7 +20,7 @@ class Favourites {
     required this.imageUrl,
     required this.company,
   });
-  factory Favourites.fromFirestore(DocumentSnapshot doc) {
+  factory Favourites.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     Map? data = doc.data();
     return Favourites(
       id: doc.id,

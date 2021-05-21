@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../database/database_services.dart';
 import '../database/user_data.dart';
 import '../resources/routes.dart';
 import '../screens/recent_orders.dart';
@@ -25,83 +24,85 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
+    var userData = Provider.of<UserData?>(context);
 
-    return StreamBuilder<UserData?>(
-      stream: DatabaseServices().userData(),
-      builder: (context, snapshot) {
-        return ListView(
-          padding: EdgeInsets.all(16),
-          children: [
-            Center(
-              child: FaIcon(
-                FontAwesomeIcons.solidUserCircle,
-                color: Theme.of(context).primaryColor,
-                size: 70,
-              ),
+    // Change<UserData?>(
+    //   create: (BuildContext context) => database!.userData(),
+    //   initialData: null,
+    //   child: ,
+    // );
+
+    return ListView(
+      padding: EdgeInsets.all(16),
+      children: [
+        Center(
+          child: FaIcon(
+            FontAwesomeIcons.solidUserCircle,
+            color: Theme.of(context).primaryColor,
+            size: 70,
+          ),
+        ),
+        ListTile(
+          title: Center(
+              child: Text(
+            userData?.name ?? '',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-            ListTile(
-              title: Center(
-                  child: Text(
-                snapshot.data?.name ?? '',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+          )),
+          subtitle: Center(child: Text(user?.email ?? '')),
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        ListTile(
+          leading: FaIcon(FontAwesomeIcons.phoneAlt),
+          title: Text(
+            userData?.phoneNumber ??
+                AppLocalizations.of(context)!.phoneNumberError,
+          ),
+        ),
+        ListTile(
+          leading: FaIcon(FontAwesomeIcons.addressCard),
+          title: Text(
+            userData?.address ?? "Please enter the address",
+          ),
+        ),
+        ListTile(
+          title: Text(
+            "Recent Orders",
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (ctx) => RecentOrders(),
+              ),
+            );
+          },
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 8,
+                  shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(7)),
+                  ),
                 ),
-              )),
-              subtitle: Center(child: Text(user?.email ?? '')),
-            ),
-            Divider(
-              thickness: 1,
-            ),
-            ListTile(
-              leading: FaIcon(FontAwesomeIcons.phoneAlt),
-              title: Text(
-                snapshot.data?.phoneNumber ??
-                    AppLocalizations.of(context)!.phoneNumberError,
+                child: Text("Edit"),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    Routes.userDetailEdit,
+                  );
+                },
               ),
-            ),
-            ListTile(
-              leading: FaIcon(FontAwesomeIcons.addressCard),
-              title: Text(
-                snapshot.data?.address ?? "Please enter the address",
-              ),
-            ),
-            ListTile(
-              title: Text(
-                "Recent Orders",
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (ctx) => RecentOrders(),
-                  ),
-                );
-              },
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Column(
-                children: [
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 8,
-                      shape: const BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(7)),
-                      ),
-                    ),
-                    child: Text("Edit"),
-                    onPressed: () {
-                      Navigator.pushNamed(
-                        context,
-                        Routes.userDetailEdit,
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      },
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

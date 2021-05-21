@@ -24,7 +24,8 @@ class SellerProductData {
     required this.sold,
   });
 
-  factory SellerProductData.fromFirestore(DocumentSnapshot doc) {
+  factory SellerProductData.fromFirestore(
+      DocumentSnapshot<Map<String, dynamic>> doc) {
     Map? data = doc.data();
     return SellerProductData(
       id: doc.id,

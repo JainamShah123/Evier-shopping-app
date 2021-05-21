@@ -15,7 +15,8 @@ class DatabaseServices with ChangeNotifier {
   Stream<List<ProductsData>?> products() {
     var productDB = database.collection('products');
     return productDB.snapshots().map((snap) => snap.docs
-        .map((doc) => ProductsData.fromFirestore(doc))
+        .map((DocumentSnapshot<Map<String, dynamic>> doc) =>
+            ProductsData.fromFirestore(doc))
         .where((element) => element.sold == false)
         .toList());
   }
@@ -30,8 +31,9 @@ class DatabaseServices with ChangeNotifier {
   }
 
   Stream<UserData?> userData() {
-    var uid = FirebaseAuth.instance.currentUser?.uid;
-    var userDB = database.collection('user').doc(uid).snapshots();
+    var userid = FirebaseAuth.instance.currentUser!.uid;
+    var userDB = database.collection('user').doc(userid).snapshots();
+
     return userDB.map((event) => UserData.fromFirestore(
           doc: event,
         ));

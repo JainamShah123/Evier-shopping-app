@@ -15,7 +15,7 @@ class UserData {
   });
 
   factory UserData.fromFirestore({
-    required DocumentSnapshot doc,
+    required DocumentSnapshot<Map<String, dynamic>> doc,
   }) {
     return UserData(
       address: doc.data()?['address'],

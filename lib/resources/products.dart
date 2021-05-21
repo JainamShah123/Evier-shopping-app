@@ -18,12 +18,12 @@ class Products extends StatefulWidget {
 }
 
 class _ProductsState extends State<Products> {
-  late DatabaseServices databaseServices;
+  late DatabaseServices? databaseServices;
   void setCart(BuildContext ctx) async {
-    bool cartIsSet = await DatabaseServices().cartIsSet(widget.productData.id!);
+    bool cartIsSet = await databaseServices!.cartIsSet(widget.productData.id!);
 
     if (!cartIsSet) {
-      await databaseServices.setCart(
+      await databaseServices!.setCart(
         company: widget.productData.company!,
         category: widget.productData.category!,
         id: widget.productData.id!,
@@ -43,9 +43,9 @@ class _ProductsState extends State<Products> {
   }
 
   void setFav(BuildContext ctx) async {
-    bool favIsSet = await DatabaseServices().favIsSet(widget.productData.id!);
+    bool favIsSet = await databaseServices!.favIsSet(widget.productData.id!);
     if (!favIsSet) {
-      await databaseServices.setFavourite(
+      await databaseServices!.setFavourite(
         company: widget.productData.company!,
         category: widget.productData.category!,
         id: widget.productData.id!,
@@ -69,7 +69,7 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    databaseServices = Provider.of<DatabaseServices>(context);
+    databaseServices = Provider.of<DatabaseServices?>(context);
     return InkWell(
       onTap: () {
         Navigator.of(context).push(

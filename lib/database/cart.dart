@@ -20,8 +20,8 @@ class Cart {
     required this.imageUrl,
     required this.company,
   });
-  factory Cart.fromFirestore(DocumentSnapshot doc) {
-    Map? data = doc.data();
+  factory Cart.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
+    var data = doc.data();
     return Cart(
       id: doc.id,
       productName: data?['name'],

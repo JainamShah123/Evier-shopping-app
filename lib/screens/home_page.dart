@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                           MediaQuery.of(context).size.width)
                   ? 5
                   : 2,
-              childAspectRatio: 1 / 1.1,
+              childAspectRatio: 1 / 1.3,
             ),
             itemCount: productsData.length,
             itemBuilder: (ctx, index) {

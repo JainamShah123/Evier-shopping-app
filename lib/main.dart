@@ -1,4 +1,3 @@
-import 'package:evier/database/seller_product_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -7,7 +6,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 import './myapp.dart';
 import './database/database.dart';
-import './screens/home_screen.dart';
 import './authentication/auth.dart';
 
 void main() async {
@@ -35,38 +33,15 @@ class App extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => Auth(),
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<DatabaseServices?>(
           create: (context) => DatabaseServices(),
         ),
         StreamProvider<User?>.value(
           value: FirebaseAuth.instance.authStateChanges(),
           initialData: null,
         ),
-        StreamProvider<List<ProductsData?>?>.value(
-          value: DatabaseServices().products(),
-          initialData: null,
-        ),
-        StreamProvider<UserData?>(
-          initialData: UserData.initialData(),
-          create: (context) => DatabaseServices().userData(),
-          child: HomeScreen(),
-        ),
-        StreamProvider<List<Favourites?>?>.value(
-          value: DatabaseServices().favourites(),
-          initialData: null,
-        ),
-        StreamProvider<List<Cart?>?>.value(
-          value: DatabaseServices().cart(),
-          initialData: null,
-        ),
-        StreamProvider<List<Orders?>?>.value(
-          value: DatabaseServices().orders(),
-          initialData: null,
-        ),
-        StreamProvider<List<SellerProductData?>?>.value(
-          value: DatabaseServices().sellerProducts(),
-          initialData: null,
-        ),
+
+        // ProxyProvider<UserData?,bool>(update: ,create: ,),
       ],
       child: MyApp(),
     );

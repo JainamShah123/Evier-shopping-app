@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:backdrop/backdrop.dart';
+import 'package:backdrop/app_bar.dart';
+import 'package:backdrop/button.dart';
+import 'package:backdrop/scaffold.dart';
+import 'package:evier/authentication/auth.dart';
+import 'package:evier/database/database.dart';
+import 'package:evier/screens/Search.dart';
+import 'package:evier/screens/home_screen.dart';
+import 'package:evier/screens/product_screen.dart';
+import 'package:evier/screens/seller_product_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import './colors.dart';
-import './database/database.dart' show ProductsData, UserData;
+import 'colors.dart';
+import 'database/productsData.dart';
 
-import '../screens/search.dart';
-import './screens/screens.dart'
-    show ProductScreen, SellerProductScreen, HomeScreen;
+import './database/database.dart';
 
-import './authentication/auth.dart';
+class EvierBackDrop extends StatefulWidget {
+  @override
+  _EvierBackDropState createState() => _EvierBackDropState();
+}
 
-class EvierBackDrop extends StatelessWidget {
+class _EvierBackDropState extends State<EvierBackDrop> {
+  @override
+  Widget build(BuildContext context) {
+    var database = Provider.of<DatabaseServices?>(context);
+    return StreamProvider<UserData?>.value(
+      value: database!.userData(),
+      initialData: null,
+      child: Backdrop(),
+    );
+  }
+}
+
+class Backdrop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var auth = Provider.of<Auth>(context);
@@ -66,7 +86,7 @@ class EvierBackDrop extends StatelessWidget {
       ),
       backLayer: ListView(
         children: [
-          if (userData!.type == "Seller")
+          if (userData?.type == "Seller")
             ListTile(
               leading: Icon(
                 FontAwesomeIcons.inbox,
