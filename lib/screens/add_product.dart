@@ -1,6 +1,7 @@
-import 'dart:io';
+import 'dart:io' as io;
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,16 +37,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
   PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
-  File? file;
+  PickedFile? file;
   late Reference storageReference;
   late TaskSnapshot storageTaskSnapshot;
 
-  Future<void> uploadFile(File files) async {
+  Future<void> uploadFile(PickedFile files) async {
     storageReference = storage
         .ref()
         .child("/product_images")
         .child(DateTime.now().toString() + '.jpg');
-    storageTaskSnapshot = await storageReference.putFile(files);
+
+    if (kIsWeb) {
+      storageTaskSnapshot = await storageReference.putData(
+        await files.readAsBytes(),
+      );
+    } else {
+      storageTaskSnapshot = await storageReference.putFile(io.File(files.path));
+    }
     imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
   }
 
@@ -55,11 +63,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
       imageQuality: 7,
     );
 
-    file = File(imagePicker!.path);
+    file = imagePicker;
 
     if (file != null) {
-      await uploadFile(file!);
-
+      try {
+        await uploadFile(file!);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          new SnackBar(
+            content: Text(
+              e.toString(),
+            ),
+          ),
+        );
+      }
       setState(() {
         imagePickedFromFile = true;
       });
