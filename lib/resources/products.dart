@@ -8,9 +8,11 @@ import '../screens/product_screen.dart';
 
 class Products extends StatefulWidget {
   final ProductsData productData;
+  final UserData? userData;
 
   const Products({
     required this.productData,
+    required this.userData,
   });
 
   @override
@@ -70,11 +72,14 @@ class _ProductsState extends State<Products> {
   @override
   Widget build(BuildContext context) {
     databaseServices = Provider.of<DatabaseServices?>(context);
+    UserData? userData = Provider.of<UserData?>(context);
+
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (ctx) => ProductScreen(
+              userData: userData,
               productsData: widget.productData,
             ),
           ),

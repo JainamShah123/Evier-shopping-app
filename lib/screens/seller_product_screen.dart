@@ -1,3 +1,4 @@
+import 'package:evier/database/database.dart';
 import 'package:evier/database/seller_product_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class SellerProductScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     var products = Provider.of<List<SellerProductData?>?>(context);
+    var userData = Provider.of<UserData?>(context);
     var uid = user!.uid;
     return Scaffold(
       appBar: AppBar(
@@ -46,6 +48,7 @@ class SellerProductScreen extends StatelessWidget {
             itemBuilder: (ctx, index) {
               if (products?[index]!.seller == uid)
                 return Products(
+                  userData: userData,
                   productData: products![index]!.toProductsData(),
                 );
               return SizedBox.shrink();

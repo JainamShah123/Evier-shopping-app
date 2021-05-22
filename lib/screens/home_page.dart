@@ -1,3 +1,4 @@
+import 'package:evier/database/user_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     var productsData = Provider.of<List<ProductsData?>?>(context);
+    var userData = Provider.of<UserData?>(context);
     if (productsData == null) {
       return Center(
         child: CircularProgressIndicator(
@@ -44,7 +46,10 @@ class _HomePageState extends State<HomePage> {
             itemCount: productsData.length,
             itemBuilder: (ctx, index) {
               if (productsData[index]!.sold == false) {
-                return Products(productData: productsData[index]!);
+                return Products(
+                  productData: productsData[index]!,
+                  userData: userData,
+                );
               }
               return Container();
             }),

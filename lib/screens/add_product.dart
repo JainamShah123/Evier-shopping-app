@@ -105,7 +105,18 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       productPrice: productPrice!,
                       sellerId: sellerId!,
                     )
-                    .whenComplete(() => Navigator.of(context).pop());
+                    .onError(
+                      (error, stackTrace) =>
+                          ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            error.toString(),
+                          ),
+                        ),
+                      ),
+                    );
+                Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: Text(
                 "ADD",

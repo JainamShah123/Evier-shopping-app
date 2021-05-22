@@ -13,9 +13,11 @@ import '../database/database.dart'
 // ignore: must_be_immutable
 class ProductScreen extends StatefulWidget {
   final ProductsData productsData;
+  late UserData? userData;
 
   ProductScreen({
     required this.productsData,
+    required this.userData,
   });
 
   @override
@@ -23,7 +25,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
-  late DatabaseServices databaseServices;
+  late DatabaseServices? databaseServices;
 
   void click() {}
 
@@ -46,7 +48,7 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 
   void addToCart(BuildContext context) async {
-    if (await databaseServices.cartIsSet(widget.productsData.id!)) {
+    if (await databaseServices!.cartIsSet(widget.productsData.id!)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text("Product already added in cart"),
@@ -54,7 +56,7 @@ class _ProductScreenState extends State<ProductScreen> {
       );
       return;
     }
-    await databaseServices
+    await databaseServices!
         .setCart(
           id: widget.productsData.id!,
           productName: widget.productsData.productName!,
@@ -76,7 +78,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   void markAsSold(BuildContext context) async {
     try {
-      await databaseServices.markProductAsSold(
+      await databaseServices!.markProductAsSold(
         id: widget.productsData.id!,
         category: widget.productsData.category!,
         company: widget.productsData.company!,
@@ -97,7 +99,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
   void backToStock(BuildContext context) async {
     try {
-      await databaseServices.backToStock(
+      await databaseServices!.backToStock(
         id: widget.productsData.id!,
         category: widget.productsData.category!,
         company: widget.productsData.company!,
@@ -118,9 +120,9 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    databaseServices = Provider.of<DatabaseServices>(context);
+    databaseServices = Provider.of<DatabaseServices?>(context);
     var user = Provider.of<User?>(context);
-    var userData = Provider.of<UserData?>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.productsData.productName!.toUpperCase()),
@@ -168,7 +170,7 @@ class _ProductScreenState extends State<ProductScreen> {
                           );
                           return;
                         }
-                        await databaseServices
+                        await databaseServices!
                             .setFavourite(
                               id: widget.productsData.id!,
                               productName: widget.productsData.productName!,
@@ -228,7 +230,7 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: TextButton(
                 onPressed: () async {
-                  userData!.type == "Seller" &&
+                  widget.userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? widget.productsData.sold == true
                           ? backToStock(context)
@@ -236,7 +238,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       : addToCart(context);
                 },
                 child: Text(
-                  userData!.type == "Seller" &&
+                  widget.userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? widget.productsData.sold == true
                           ? "Mark in Stock"
@@ -254,13 +256,13 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  userData.type == "Seller" &&
+                  widget.userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? updateProduct(context)
                       : click();
                 },
                 child: Text(
-                  userData.type == "Seller" &&
+                  widget.userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? "Update"
                       : "Buy now",

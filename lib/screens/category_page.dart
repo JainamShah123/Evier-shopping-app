@@ -31,6 +31,7 @@ class CategoryPage extends StatelessWidget {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) => ProductScreen(
+                            userData: Provider.of<UserData?>(context),
                             productsData: e!,
                           ),
                         ),

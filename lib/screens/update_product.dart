@@ -1,5 +1,6 @@
-import 'dart:io';
+import 'dart:io' as io;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -43,7 +44,7 @@ class UpdateProductScreen extends StatefulWidget {
 }
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
-  late DatabaseServices databaseService;
+  late DatabaseServices? databaseService;
 
   FirebaseStorage storage = FirebaseStorage.instance;
   String? optionText, location;
@@ -52,16 +53,21 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
   PickedFile? imagePicker;
   bool imagePickedFromFile = false, imagePickedFromWeb = false;
   final picker = ImagePicker();
-  File? file;
+  PickedFile? file;
   late Reference storageReference;
   late TaskSnapshot storageTaskSnapshot;
 
-  Future<void> uploadFile(File files) async {
+  Future<void> uploadFile(PickedFile? files) async {
     storageReference = storage
         .ref()
         .child("/product_images")
         .child(DateTime.now().toString() + '.jpg');
-    storageTaskSnapshot = await storageReference.putFile(files);
+    if (kIsWeb)
+      storageTaskSnapshot =
+          await storageReference.putData(await files!.readAsBytes());
+    else
+      storageTaskSnapshot =
+          await storageReference.putFile(io.File(files!.path));
     widget.imageUrl = await storageTaskSnapshot.ref.getDownloadURL();
   }
 
@@ -70,10 +76,10 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
       source: ImageSource.camera,
     );
 
-    file = File(imagePicker!.path);
+    file = imagePicker;
 
     if (file != null) {
-      await uploadFile(file!);
+      await uploadFile(file);
 
       setState(() {
         imagePickedFromFile = true;
@@ -93,7 +99,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
           actions: [
             TextButton(
               onPressed: () async {
-                await databaseService
+                await databaseService!
                     .updateProduct(
                       imageUrl: widget.imageUrl.toString(),
                       nameOfProduct: widget.nameOfProduct!,
@@ -114,8 +120,9 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                           ),
                         ),
                       ),
-                    )
-                    .whenComplete(() => Navigator.pop(context));
+                    );
+                Navigator.pop(context);
+                Navigator.pop(context);
               },
               child: Text(
                 "ADD",
@@ -139,7 +146,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
   @override
   Widget build(BuildContext context) {
-    databaseService = Provider.of<DatabaseServices>(context);
+    databaseService = Provider.of<DatabaseServices?>(context);
 
     return Scaffold(
       appBar: AppBar(

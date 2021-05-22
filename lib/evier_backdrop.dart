@@ -124,6 +124,7 @@ class _BackdropState extends State<Backdrop> {
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => ProductScreen(
+                        userData: Provider.of<UserData?>(context),
                         productsData: result,
                       ),
                     ),
@@ -167,10 +168,17 @@ class _BackdropState extends State<Backdrop> {
               ),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) =>
+                  builder: (context) => MultiProvider(
+                    providers: [
                       StreamProvider<List<SellerProductData?>?>.value(
-                    value: database!.sellerProducts(),
-                    initialData: null,
+                        value: database!.sellerProducts(),
+                        initialData: null,
+                      ),
+                      StreamProvider.value(
+                        value: database.userData(),
+                        initialData: null,
+                      ),
+                    ],
                     child: SellerProductScreen(),
                   ),
                 ),
