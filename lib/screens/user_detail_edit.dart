@@ -18,7 +18,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     var userData = Provider.of<UserData?>(context);
-    var databaseServices = Provider.of<DatabaseServices>(context);
+    var databaseServices = Provider.of<DatabaseServices?>(context);
 
     final _key = GlobalKey<FormState>();
     return Scaffold(
@@ -111,7 +111,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     onPressed: () async {
                       if (_key.currentState!.validate()) {
                         _key.currentState!.save();
-                        await databaseServices
+                        await databaseServices!
                             .saveUserData(
                           gender: userData.type!,
                           phoneNumber: phoneNumber ?? userData.phoneNumber!,

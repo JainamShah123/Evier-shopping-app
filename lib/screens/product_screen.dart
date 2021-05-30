@@ -13,11 +13,9 @@ import '../database/database.dart'
 // ignore: must_be_immutable
 class ProductScreen extends StatefulWidget {
   final ProductsData productsData;
-  late UserData? userData;
 
   ProductScreen({
     required this.productsData,
-    required this.userData,
   });
 
   @override
@@ -25,6 +23,7 @@ class ProductScreen extends StatefulWidget {
 }
 
 class _ProductScreenState extends State<ProductScreen> {
+  late UserData? userData;
   late DatabaseServices? databaseServices;
 
   void click() {}
@@ -122,7 +121,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     databaseServices = Provider.of<DatabaseServices?>(context);
     var user = Provider.of<User?>(context);
-
+    userData = Provider.of<UserData?>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.productsData.productName!.toUpperCase()),
@@ -230,7 +229,7 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: TextButton(
                 onPressed: () async {
-                  widget.userData!.type == "Seller" &&
+                  userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? widget.productsData.sold == true
                           ? backToStock(context)
@@ -238,7 +237,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       : addToCart(context);
                 },
                 child: Text(
-                  widget.userData!.type == "Seller" &&
+                  userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? widget.productsData.sold == true
                           ? "Mark in Stock"
@@ -256,13 +255,13 @@ class _ProductScreenState extends State<ProductScreen> {
               width: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  widget.userData!.type == "Seller" &&
+                  userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? updateProduct(context)
                       : click();
                 },
                 child: Text(
-                  widget.userData!.type == "Seller" &&
+                  userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? "Update"
                       : "Buy now",

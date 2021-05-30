@@ -123,9 +123,12 @@ class _BackdropState extends State<Backdrop> {
                 if (result != null)
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => ProductScreen(
-                        userData: Provider.of<UserData?>(context),
-                        productsData: result,
+                      builder: (context) => StreamProvider.value(
+                        initialData: null,
+                        value: database!.userData(),
+                        child: ProductScreen(
+                          productsData: result,
+                        ),
                       ),
                     ),
                   );

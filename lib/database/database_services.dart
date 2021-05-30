@@ -12,7 +12,7 @@ import './user_data.dart';
 class DatabaseServices with ChangeNotifier {
   final FirebaseFirestore database = FirebaseFirestore.instance;
 
-  Stream<List<ProductsData>?> products() {
+  Stream<List<ProductsData?>?> products() {
     var productDB = database.collection('products');
     return productDB.snapshots().map((snap) => snap.docs
         .map((DocumentSnapshot<Map<String, dynamic>> doc) =>

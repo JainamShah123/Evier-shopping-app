@@ -15,6 +15,7 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productData = Provider.of<List<ProductsData?>?>(context);
+    var databaseServices = Provider.of<DatabaseServices?>(context);
     var categoryProduct =
         productData!.where((element) => element!.category == cat);
     return Scaffold(
@@ -30,9 +31,12 @@ class CategoryPage extends StatelessWidget {
                     onTap: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => ProductScreen(
-                            userData: Provider.of<UserData?>(context),
-                            productsData: e!,
+                          builder: (context) => StreamProvider.value(
+                            value: databaseServices!.userData(),
+                            initialData: null,
+                            child: ProductScreen(
+                              productsData: e!,
+                            ),
                           ),
                         ),
                       );

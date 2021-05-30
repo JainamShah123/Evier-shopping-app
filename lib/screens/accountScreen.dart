@@ -1,3 +1,4 @@
+import 'package:evier/database/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,6 +26,7 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     var user = Provider.of<User?>(context);
     var userData = Provider.of<UserData?>(context);
+    var databaseServices = Provider.of<DatabaseServices?>(context);
 
     // Change<UserData?>(
     //   create: (BuildContext context) => database!.userData(),
@@ -75,7 +77,11 @@ class _AccountScreenState extends State<AccountScreen> {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (ctx) => RecentOrders(),
+                builder: (ctx) => StreamProvider.value(
+                  value: databaseServices!.orders(),
+                  child: RecentOrders(),
+                  initialData: null,
+                ),
               ),
             );
           },

@@ -1,5 +1,6 @@
 import 'package:evier/database/database.dart';
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
 import '../colors.dart';
@@ -71,16 +72,18 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    databaseServices = Provider.of<DatabaseServices?>(context);
-    UserData? userData = Provider.of<UserData?>(context);
+    var databaseServices = Provider.of<DatabaseServices?>(context);
 
     return InkWell(
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (ctx) => ProductScreen(
-              userData: userData,
-              productsData: widget.productData,
+            builder: (ctx) => StreamProvider.value(
+              value: databaseServices!.userData(),
+              initialData: null,
+              child: ProductScreen(
+                productsData: widget.productData,
+              ),
             ),
           ),
         );
@@ -112,7 +115,7 @@ class _ProductsState extends State<Products> {
                       return child;
                     }
                     return Center(
-                      child: CircularProgressIndicator(
+                      child: LinearProgressIndicator(
                         backgroundColor: shrineBrown600,
                         value: loadingProgress.expectedTotalBytes != null
                             ? loadingProgress.cumulativeBytesLoaded /

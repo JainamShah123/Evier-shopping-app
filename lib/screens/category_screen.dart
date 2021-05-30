@@ -1,3 +1,4 @@
+import 'package:evier/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +10,7 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productData = Provider.of<List<ProductsData?>?>(context);
+    var databaseServices = Provider.of<DatabaseServices?>(context);
     List<String> category = [];
     productData!.forEach((element) {
       category.add(element!.category!);
@@ -29,8 +31,12 @@ class CategoryScreen extends StatelessWidget {
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => CategoryPage(
-                  cat: actualCat[index],
+                builder: (context) => StreamProvider.value(
+                  initialData: null,
+                  value: databaseServices!.products(),
+                  child: CategoryPage(
+                    cat: actualCat[index],
+                  ),
                 ),
               ),
             );
