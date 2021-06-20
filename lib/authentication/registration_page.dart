@@ -1,3 +1,4 @@
+import 'package:evier/database/database.dart';
 import 'package:evier/evier_backdrop.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,6 +21,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  late DatabaseServices? dbs;
   late Auth auth;
   final _key = GlobalKey<FormState>();
   Character? character = Character.user;
@@ -263,7 +265,27 @@ class _RegistrationPageState extends State<RegistrationPage> {
       } finally {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => Backdrop(),
+            builder: (context) => MultiProvider(
+              providers: [
+                StreamProvider.value(
+                  value: dbs?.userData(),
+                  initialData: null,
+                ),
+                StreamProvider.value(
+                  value: dbs?.products(),
+                  initialData: null,
+                ),
+                StreamProvider.value(
+                  value: dbs?.cart(),
+                  initialData: null,
+                ),
+                StreamProvider.value(
+                  value: dbs?.favourites(),
+                  initialData: null,
+                ),
+              ],
+              child: Backdrop(),
+            ),
           ),
         );
       }
@@ -300,6 +322,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    dbs = Provider.of<DatabaseServices?>(context);
     auth = Provider.of<Auth>(context);
     return Scaffold(
       body: SafeArea(

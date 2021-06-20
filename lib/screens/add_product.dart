@@ -15,6 +15,8 @@ import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../database/database_services.dart';
 
+enum options { gallery, camera }
+
 class AddProductScreen extends StatefulWidget {
   @override
   _AddProductScreenState createState() => _AddProductScreenState();
@@ -22,7 +24,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   late DatabaseServices? databaseService;
-
+  late options option;
   FirebaseStorage storage = FirebaseStorage.instance;
   String? productPrice,
       productCategory,
@@ -58,10 +60,28 @@ class _AddProductScreenState extends State<AddProductScreen> {
   }
 
   void startImagePicker() async {
-    imagePicker = await picker.getImage(
-      source: ImageSource.camera,
-      imageQuality: 7,
-    );
+    switch (option) {
+      case options.camera:
+        imagePicker = await picker.getImage(
+          source: ImageSource.camera,
+          imageQuality: 7,
+        );
+        break;
+
+      case options.gallery:
+        imagePicker = await picker.getImage(
+          source: ImageSource.gallery,
+          imageQuality: 7,
+        );
+        break;
+
+      default:
+        imagePicker = await picker.getImage(
+          source: ImageSource.camera,
+          imageQuality: 7,
+        );
+        break;
+    }
 
     file = imagePicker;
 
@@ -198,10 +218,62 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(7)),
                     ),
                   ),
-                  onPressed: startImagePicker,
+                  onPressed: () async {
+                    await showDialog(
+                        context: context,
+                        builder: (context) => Dialog(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Icon(FontAwesomeIcons.camera),
+                                        TextButton(
+                                          onPressed: () {
+                                            option = options.camera;
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
+                                          },
+                                          child: Text(
+                                            "Camera",
+                                            style: TextStyle(
+                                              color: shrineBrown900,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(),
+                                    Row(
+                                      children: [
+                                        Icon(FontAwesomeIcons.fileImage),
+                                        TextButton(
+                                          onPressed: () {
+                                            option = options.gallery;
+                                            Navigator.of(context,
+                                                    rootNavigator: true)
+                                                .pop();
+                                          },
+                                          child: Text(
+                                            "Gallery",
+                                            style: TextStyle(
+                                                color: shrineBrown900),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ));
+                    startImagePicker();
+                  },
                   child: Text(
-                    "Pick File",
-                    style: TextStyle(color: Colors.white),
+                    "Pick File".toUpperCase(),
+                    style: TextStyle(color: shrineBrown600, fontSize: 20),
                   ),
                 ),
               ),
@@ -302,7 +374,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
               Center(
                 child: Container(
                   height: 45,
-                  width: 160,
+                  width: 190,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       elevation: 8,
@@ -312,11 +384,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     ),
                     onPressed: () => onSave(),
                     child: Text(
-                      AppLocalizations.of(context)!.addProduct,
+                      AppLocalizations.of(context)!.addProduct.toUpperCase(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: shrineBrown600,
                       ),
                     ),
                   ),

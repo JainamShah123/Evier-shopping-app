@@ -203,7 +203,7 @@ class DatabaseServices with ChangeNotifier {
     required String gender,
     required String phoneNumber,
     required String name,
-    required String address,
+    required String? address,
   }) async {
     var userId = FirebaseAuth.instance.currentUser?.uid;
     await database.collection('user').doc(userId).set({

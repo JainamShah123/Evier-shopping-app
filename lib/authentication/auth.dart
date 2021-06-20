@@ -25,7 +25,7 @@ class Auth with ChangeNotifier {
             gender: gender,
             phoneNumber: phoneNumber,
             name: name,
-            address: '',
+            address: null,
           ),
         );
   }

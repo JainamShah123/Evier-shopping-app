@@ -36,7 +36,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                   onSaved: (value) {
                     name = value!;
                   },
-                  initialValue: userData!.name ?? '',
+                  initialValue: userData?.name ?? '',
                   decoration: InputDecoration(
                     hintText: AppLocalizations.of(context)!.accountNameHint,
                   ),
@@ -71,7 +71,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     decoration: InputDecoration(
                       hintText: AppLocalizations.of(context)!.phoneNumberHint,
                     ),
-                    initialValue: userData.phoneNumber ?? '',
+                    initialValue: userData?.phoneNumber ?? '',
                     keyboardType: TextInputType.phone,
                     validator: (value) {
                       if (value!.isEmpty)
@@ -89,7 +89,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                       hintText: AppLocalizations.of(context)!.addressHint,
                     ),
                     maxLines: 5,
-                    initialValue: userData.address ?? '',
+                    initialValue: userData?.address ?? '',
                     validator: (value) {
                       if (value!.isEmpty)
                         return AppLocalizations.of(context)!.addressError;
@@ -113,7 +113,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                         _key.currentState!.save();
                         await databaseServices!
                             .saveUserData(
-                          gender: userData.type!,
+                          gender: userData!.type!,
                           phoneNumber: phoneNumber ?? userData.phoneNumber!,
                           name: name ?? userData.name!,
                           address: address ?? userData.address!,

@@ -28,12 +28,6 @@ class _AccountScreenState extends State<AccountScreen> {
     var userData = Provider.of<UserData?>(context);
     var databaseServices = Provider.of<DatabaseServices?>(context);
 
-    // Change<UserData?>(
-    //   create: (BuildContext context) => database!.userData(),
-    //   initialData: null,
-    //   child: ,
-    // );
-
     return ListView(
       padding: EdgeInsets.all(16),
       children: [
@@ -71,6 +65,7 @@ class _AccountScreenState extends State<AccountScreen> {
           ),
         ),
         ListTile(
+          leading: Icon(FontAwesomeIcons.history),
           title: Text(
             "Recent Orders",
           ),
