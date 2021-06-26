@@ -69,7 +69,7 @@ class OrderScreen extends StatelessWidget {
                 Text((countItemPrice() + countShipping()).toString()),
               ],
             ),
-            Text("Payment mode: Cash on divelery"),
+            Text(AppLocalizations.of(context)!.paymod),
             ElevatedButton(
               onPressed: () => submitOrder(),
               child: Text(AppLocalizations.of(context)!.orderNow),

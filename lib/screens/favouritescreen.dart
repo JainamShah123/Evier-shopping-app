@@ -34,7 +34,7 @@ class FavouriteScreen extends StatelessWidget {
               height: 25,
             ),
             Text(
-              "No Favourites",
+              AppLocalizations.of(context)!.nofav,
               style: Theme.of(context).textTheme.bodyText1,
             ),
           ],

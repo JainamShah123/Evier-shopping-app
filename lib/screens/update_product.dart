@@ -150,7 +150,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Update Product"),
+        title: Text(AppLocalizations.of(context)!.updateproduct),
         centerTitle: true,
         actions: [
           IconButton(
@@ -189,7 +189,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                     ),
                   ),
                   child: Text(
-                    "Pick File",
+                    AppLocalizations.of(context)!.pickfile,
                     style: TextStyle(color: shrineBrown600),
                   ),
                 ),

@@ -148,12 +148,12 @@ class CartList extends StatelessWidget {
     return ListTile(
       hoverColor: Colors.red,
       title: Text(
-        "Product Name:  $title",
+        "${AppLocalizations.of(context)!.productNameHint}:  $title",
         style: TextStyle(
           fontWeight: FontWeight.bold,
         ),
       ),
-      subtitle: Text("Product price:  ₹$price"),
+      subtitle: Text("${AppLocalizations.of(context)!.priceHint}:  ₹$price"),
       leading: Image.network(
         url!,
         fit: BoxFit.contain,

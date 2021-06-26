@@ -61,7 +61,7 @@ class _AccountScreenState extends State<AccountScreen> {
         ListTile(
           leading: FaIcon(FontAwesomeIcons.addressCard),
           title: Text(
-            userData?.address ?? "Please enter the address",
+            userData?.address ?? AppLocalizations.of(context)!.addressError,
           ),
         ),
         ListTile(
@@ -92,7 +92,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(7)),
                   ),
                 ),
-                child: Text("Edit"),
+                child: Text(AppLocalizations.of(context)!.edit),
                 onPressed: () {
                   Navigator.pushNamed(
                     context,

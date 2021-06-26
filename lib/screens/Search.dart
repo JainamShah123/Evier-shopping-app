@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../database/database.dart';
 
@@ -42,7 +43,7 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
       );
     }
     if (data!.isEmpty) {
-      return Text("No Data");
+      return Text(AppLocalizations.of(context)!.);
     }
     final result = data!.where(
         (element) => element!.productName!.toLowerCase().contains(query));
@@ -57,12 +58,12 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
                 },
                 hoverColor: Colors.red,
                 title: Text(
-                  "Product Name:  ${e!.productName}",
+                  "${AppLocalizations.of(context)!.productNameHint}:  ${e!.productName}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text("Product price:  ₹${e.price}"),
+                subtitle: Text("${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
                 leading: Image.network(
                   e.imageUrl!,
                   fit: BoxFit.contain,
@@ -95,12 +96,12 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
                 },
                 hoverColor: Colors.red,
                 title: Text(
-                  "Product Name:  ${e!.productName}",
+                  "${AppLocalizations.of(context)!.productNameHint}:  ${e!.productName}",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text("Product price:  ₹${e.price}"),
+                subtitle: Text("${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
                 leading: Image.network(
                   e.imageUrl!,
                   fit: BoxFit.contain,

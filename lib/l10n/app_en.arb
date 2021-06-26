@@ -45,5 +45,16 @@
   "totalPrice": "Total Price",
   "total": "Total",
   "orderNow": "Order now",
-  "totalShipping": "Total Shipping"
+  "totalShipping": "Total Shipping",
+  "edit": "Edit",
+  "updateproduct": "Update Product",
+  "pickfile": "Pick File",
+  "nodata": "No Data",
+  "addedincart": "Product already added in cart",
+  "favadded": "Favourite added",
+  "instock": "Mark in Stock",
+  "assold": "Mark as sold",
+  "paymod": "Payment mode: Cash on divelery",
+  "nofav": "No Favourites",
+  "gallery": "Gallery"
 }

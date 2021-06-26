@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -50,7 +51,7 @@ class _ProductScreenState extends State<ProductScreen> {
     if (await databaseServices!.cartIsSet(widget.productsData.id!)) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text("Product already added in cart"),
+          content: Text(AppLocalizations.of(context)!.addedincart),
         ),
       );
       return;
@@ -183,7 +184,8 @@ class _ProductScreenState extends State<ProductScreen> {
                             .whenComplete(
                               () => ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text("Favourite added"),
+                                  content: Text(
+                                      AppLocalizations.of(context)!.favadded),
                                 ),
                               ),
                             );
@@ -240,8 +242,8 @@ class _ProductScreenState extends State<ProductScreen> {
                   userData!.type == "Seller" &&
                           widget.productsData.seller == user!.uid
                       ? widget.productsData.sold == true
-                          ? "Mark in Stock"
-                          : "Mark as sold"
+                          ? AppLocalizations.of(context)!.instock
+                          : AppLocalizations.of(context)!.assold
                       : "Add to cart",
                   style: TextStyle(
                     color: shrineBrown900,

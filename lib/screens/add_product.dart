@@ -258,7 +258,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                                 .pop();
                                           },
                                           child: Text(
-                                            "Gallery",
+                                            AppLocalizations.of(context)!
+                                                .gallery,
                                             style: TextStyle(
                                                 color: shrineBrown900),
                                           ),
@@ -272,7 +273,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     startImagePicker();
                   },
                   child: Text(
-                    "Pick File".toUpperCase(),
+                    AppLocalizations.of(context)!.pickfile.toUpperCase(),
                     style: TextStyle(color: shrineBrown600, fontSize: 20),
                   ),
                 ),
