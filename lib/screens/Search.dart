@@ -43,7 +43,7 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
       );
     }
     if (data!.isEmpty) {
-      return Text(AppLocalizations.of(context)!.);
+      return Text(AppLocalizations.of(context)!.nodata);
     }
     final result = data!.where(
         (element) => element!.productName!.toLowerCase().contains(query));
@@ -63,7 +63,8 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text("${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
+                subtitle: Text(
+                    "${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
                 leading: Image.network(
                   e.imageUrl!,
                   fit: BoxFit.contain,
@@ -101,7 +102,8 @@ class EvierSearch extends SearchDelegate<ProductsData?> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                subtitle: Text("${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
+                subtitle: Text(
+                    "${AppLocalizations.of(context)!.priceHint}:  ₹${e.price}"),
                 leading: Image.network(
                   e.imageUrl!,
                   fit: BoxFit.contain,

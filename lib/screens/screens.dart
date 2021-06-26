@@ -6,7 +6,6 @@ export './bottom_navigation_bar_widget.dart';
 export './cart_screen.dart';
 export './category_screen.dart';
 export './favouritescreen.dart';
-export './home_screen.dart';
 export './home_page.dart';
 export './order_screen.dart';
 export './product_screen.dart';
