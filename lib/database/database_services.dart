@@ -186,7 +186,7 @@ class DatabaseServices with ChangeNotifier {
         .doc(userId)
         .collection('orders')
         .snapshots();
-    print(orderdb.isEmpty);
+
     return orderdb
         .map((snap) => snap.docs.map((e) => Orders.fromFirestore(e)).toList());
   }

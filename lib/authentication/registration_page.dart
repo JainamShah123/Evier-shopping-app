@@ -224,9 +224,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void register(BuildContext context) async {
     if (_key.currentState!.validate()) {
       _key.currentState!.save();
-      print(
-        mobileNumber! + name! + email! + gender! + password!,
-      );
+
       setState(() {
         isloading = true;
       });

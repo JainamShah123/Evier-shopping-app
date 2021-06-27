@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../database/database.dart';
 
 class EvierSearch extends SearchDelegate<ProductsData?> {
   List<ProductsData?>? data;
 
+  EvierSearch({required this.data});
+
   @override
   List<Widget> buildActions(BuildContext context) {
-    data = Provider.of<List<ProductsData?>?>(context);
     return [
       IconButton(
         onPressed: () {

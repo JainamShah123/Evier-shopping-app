@@ -117,7 +117,10 @@ class _BackdropState extends State<Backdrop> {
               try {
                 ProductsData? result = await showSearch<ProductsData?>(
                   context: context,
-                  delegate: EvierSearch(),
+                  delegate: EvierSearch(
+                    data: Provider.of<List<ProductsData?>?>(context,
+                        listen: false),
+                  ),
                 );
 
                 if (result != null)

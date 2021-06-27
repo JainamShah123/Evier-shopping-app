@@ -11,6 +11,7 @@ import '../database/cart.dart';
 class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var database = Provider.of<DatabaseServices?>(context);
     var cart = Provider.of<List<Cart?>?>(context);
     if (cart == null) {
       return Center(
@@ -118,7 +119,11 @@ class CartScreen extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (ctx) => OrderScreen(),
+                  builder: (ctx) => StreamProvider.value(
+                    value: database!.cart(),
+                    initialData: null,
+                    child: OrderScreen(),
+                  ),
                 ),
               );
             },
