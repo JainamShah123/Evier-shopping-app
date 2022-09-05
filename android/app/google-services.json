@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "290114088423",
+    "project_id": "evier-31f08",
+    "storage_bucket": "evier-31f08.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290114088423:android:0943280b443d9411126142",
+        "android_client_info": {
+          "package_name": "com.example.evier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290114088423-4iuk1s6lrbrr6ha7sbpf014jio57lq1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCvD-4uc02lShxktIxPUKebeYfsLHBRCbs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290114088423-4iuk1s6lrbrr6ha7sbpf014jio57lq1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
