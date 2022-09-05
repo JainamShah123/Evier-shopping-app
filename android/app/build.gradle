@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+<<<<<<< HEAD
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
@@ -38,11 +39,20 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+=======
+apply plugin: 'kotlin-android'
+apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+apply plugin: 'com.google.gms.google-services'
+
+android {
+    compileSdkVersion 29
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
+<<<<<<< HEAD
     defaultConfig {
         multiDexEnabled true
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
@@ -53,6 +63,20 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+=======
+    lintOptions {
+        disable 'InvalidPackage'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "com.example.evier"
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
     }
 
     buildTypes {
@@ -70,6 +94,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+<<<<<<< HEAD
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
+=======
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
     implementation 'com.google.firebase:firebase-analytics'
 }

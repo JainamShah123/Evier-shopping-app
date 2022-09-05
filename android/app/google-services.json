@@ -1,33 +1,55 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "290114088423",
     "project_id": "evier-31f08",
     "storage_bucket": "evier-31f08.appspot.com"
+=======
+    "project_number": "198875778892",
+    "project_id": "evier-shopping-system",
+    "storage_bucket": "evier-shopping-system.appspot.com"
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:290114088423:android:0943280b443d9411126142",
+=======
+        "mobilesdk_app_id": "1:198875778892:android:8b97bf73267f87dfc609e9",
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
         "android_client_info": {
           "package_name": "com.example.evier"
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "290114088423-4iuk1s6lrbrr6ha7sbpf014jio57lq1a.apps.googleusercontent.com",
+=======
+          "client_id": "198875778892-ej06iddoin9ag444trofucrfok1v7rc2.apps.googleusercontent.com",
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyCvD-4uc02lShxktIxPUKebeYfsLHBRCbs"
+=======
+          "current_key": "AIzaSyCkxw_WtA2SfxJRo4YIsMcgsbDM6aKxoL8"
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "290114088423-4iuk1s6lrbrr6ha7sbpf014jio57lq1a.apps.googleusercontent.com",
+=======
+              "client_id": "198875778892-ej06iddoin9ag444trofucrfok1v7rc2.apps.googleusercontent.com",
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
               "client_type": 3
             }
           ]

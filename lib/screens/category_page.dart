@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:flutter/foundation.dart';
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

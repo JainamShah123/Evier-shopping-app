@@ -5,6 +5,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+<<<<<<< HEAD
+=======
+import '../database/user_data.dart';
+>>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 import '../resources/routes.dart';
 import '../screens/recent_orders.dart';
 
