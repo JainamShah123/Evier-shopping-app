@@ -15,11 +15,7 @@ import 'package:provider/provider.dart';
 import '../colors.dart';
 import '../database/database_services.dart';
 
-<<<<<<< HEAD
 enum Options { gallery, camera }
-=======
-enum options { gallery, camera }
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 
 class AddProductScreen extends StatefulWidget {
   @override
@@ -28,11 +24,7 @@ class AddProductScreen extends StatefulWidget {
 
 class _AddProductScreenState extends State<AddProductScreen> {
   late DatabaseServices? databaseService;
-<<<<<<< HEAD
   late Options option;
-=======
-  late options option;
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
   FirebaseStorage storage = FirebaseStorage.instance;
   String? productPrice,
       productCategory,
@@ -69,22 +61,14 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void startImagePicker() async {
     switch (option) {
-<<<<<<< HEAD
       case Options.camera:
-=======
-      case options.camera:
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
         imagePicker = await picker.getImage(
           source: ImageSource.camera,
           imageQuality: 7,
         );
         break;
 
-<<<<<<< HEAD
       case Options.gallery:
-=======
-      case options.gallery:
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
         imagePicker = await picker.getImage(
           source: ImageSource.gallery,
           imageQuality: 7,
@@ -248,11 +232,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         Icon(FontAwesomeIcons.camera),
                                         TextButton(
                                           onPressed: () {
-<<<<<<< HEAD
                                             option = Options.camera;
-=======
-                                            option = options.camera;
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
                                             Navigator.of(context,
                                                     rootNavigator: true)
                                                 .pop();
@@ -272,11 +252,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                                         Icon(FontAwesomeIcons.fileImage),
                                         TextButton(
                                           onPressed: () {
-<<<<<<< HEAD
                                             option = Options.gallery;
-=======
-                                            option = options.gallery;
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
                                             Navigator.of(context,
                                                     rootNavigator: true)
                                                 .pop();

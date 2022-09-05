@@ -43,6 +43,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                   validator: (value) {
                     if (value!.isEmpty)
                       return AppLocalizations.of(context)!.accountNameError;
+                    return null;
                   },
                 ),
                 Padding(
@@ -59,6 +60,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     validator: (value) {
                       if (value!.isEmpty)
                         return AppLocalizations.of(context)!.emailHint;
+                      return null;
                     },
                   ),
                 ),
@@ -76,6 +78,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     validator: (value) {
                       if (value!.isEmpty)
                         return AppLocalizations.of(context)!.phoneNumberError;
+                      return null;
                     },
                   ),
                 ),
@@ -93,6 +96,7 @@ class _UserDetailEditState extends State<UserDetailEdit> {
                     validator: (value) {
                       if (value!.isEmpty)
                         return AppLocalizations.of(context)!.addressError;
+                      return null;
                     },
                   ),
                 ),

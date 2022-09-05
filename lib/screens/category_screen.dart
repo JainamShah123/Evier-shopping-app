@@ -4,10 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../screens/category_page.dart';
 import '../colors.dart';
-<<<<<<< HEAD
-=======
-import '../database/productsData.dart';
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 
 class CategoryScreen extends StatelessWidget {
   @override

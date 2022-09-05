@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../letter_spacing.dart';
@@ -18,11 +19,10 @@ IconThemeData _customIconTheme(IconThemeData original) {
 ThemeData _buildShrineTheme() {
   final base = ThemeData.light();
   return base.copyWith(
-    appBarTheme: const AppBarTheme(brightness: Brightness.light, elevation: 0),
+    appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light, elevation: 0),
     colorScheme: _shrineColorScheme,
-    accentColor: shrineBrown900,
     primaryColor: shrinePink100,
-    buttonColor: shrinePink100,
     scaffoldBackgroundColor: shrineBackgroundWhite,
     cardColor: shrineBackgroundWhite,
     errorColor: shrineErrorRed,
@@ -47,7 +47,6 @@ ThemeData _buildShrineTheme() {
       selectionColor: shrinePink100,
     ),
     primaryTextTheme: _buildShrineTextTheme(base.primaryTextTheme),
-    accentTextTheme: _buildShrineTextTheme(base.accentTextTheme),
     iconTheme: _customIconTheme(base.iconTheme),
   );
 }
@@ -96,9 +95,9 @@ TextTheme _buildShrineTextTheme(TextTheme base) {
 
 const ColorScheme _shrineColorScheme = ColorScheme(
   primary: shrinePink100,
-  primaryVariant: shrineBrown900,
+  primaryContainer: shrineBrown900,
   secondary: shrinePink50,
-  secondaryVariant: shrineBrown900,
+  secondaryContainer: shrineBrown900,
   surface: shrineSurfaceWhite,
   background: shrineBackgroundWhite,
   error: shrineErrorRed,

@@ -1,12 +1,5 @@
 import 'package:evier/database/seller_product_data.dart';
 import 'package:flutter/foundation.dart';
-<<<<<<< HEAD
-=======
-import 'package:evier/database/cart.dart';
-import 'package:evier/database/database_services.dart';
-import 'package:evier/database/favourites.dart';
-import 'package:evier/database/productsData.dart';
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -20,20 +13,9 @@ import 'package:backdrop/scaffold.dart';
 import 'package:evier/authentication/auth.dart';
 import 'package:evier/database/database.dart';
 import 'package:evier/screens/Search.dart';
-<<<<<<< HEAD
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'colors.dart';
-=======
-import 'package:evier/screens/product_screen.dart';
-import 'package:evier/screens/seller_product_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import 'colors.dart';
-import 'database/productsData.dart';
-
-import './database/database.dart';
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 
 class EvierBackDrop extends StatefulWidget {
   @override

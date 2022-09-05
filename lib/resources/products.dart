@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../colors.dart';
-<<<<<<< HEAD
-=======
-import '../database/database_services.dart';
->>>>>>> f7d45b19067c14f255d703a1e9d5b5dcc3321376
 import '../screens/product_screen.dart';
 
 class Products extends StatefulWidget {
