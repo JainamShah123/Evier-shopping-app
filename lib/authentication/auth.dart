@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:evier/database/database_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class Auth with ChangeNotifier {
@@ -15,6 +17,12 @@ class Auth with ChangeNotifier {
     required String name,
     required String phoneNumber,
   }) async {
+    print(jsonEncode({
+      "name": name,
+      "email": email,
+      "type": gender,
+      "phoneNumber": phoneNumber
+    }));
     await _auth
         .createUserWithEmailAndPassword(
           email: email,
